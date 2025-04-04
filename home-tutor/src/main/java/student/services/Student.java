@@ -1,60 +1,72 @@
 package student.services;
 
-public class Student {
-    private int stdId;
+import java.io.Serializable;
+
+public class Student implements Serializable {
+    private String stdId;
     private String name;
     private String userName;
     private String email;
-    private int phone;
+    private String phone;
     private String address;
     private String password;
+    private String course;
+    private String dob;
 
-    public Student(int phone, String address, String password) {
+    public Student(String stdId, String name, String userName, String email,
+                   String phone, String address, String password, String course, String dob) {
+        this.stdId = stdId;
         this.name = name;
         this.userName = userName;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.password = password;
-        this.stdId = stdId;
+        this.course = course;
+        this.dob = dob;
     }
 
-    public int getStdId() {
-        return stdId;
-    }
+    // Getters and Setters for all fields
+    public String getStdId() { return stdId; }
+    public void setStdId(String stdId) { this.stdId = stdId; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getUserName() {
-        return userName;
-    }
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public int getPhone() {
-        return phone;
-    }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public String getAddress() {
-        return address;
-    }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
+    public String getCourse() { return course; }
+    public void setCourse(String course) { this.course = course; }
+
+    public String getDob() { return dob; }
+    public void setDob(String dob) { this.dob = dob; }
+
+    @Override
     public String toString() {
-        return stdId + "," + name + "," + email; // CSV format
+        return String.join(",",
+                stdId, name, userName, email, phone, address, password, course, dob);
     }
 
     public static Student fromString(String line) {
         String[] data = line.split(",");
-        return new Student(Integer.parseInt(data[0]), data[1], data[2]);
+        if (data.length == 9) {
+            return new Student(
+                    data[0], data[1], data[2], data[3],
+                    data[4], data[5], data[6], data[7], data[8]);
+        }
+        return null;
     }
-
 }
-

@@ -1,2 +1,0 @@
-admin,admin123
-kushan,password123
