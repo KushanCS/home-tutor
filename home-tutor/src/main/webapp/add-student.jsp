@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Add Student</title>
@@ -69,12 +70,34 @@
                 <option value="Software Engineering">Software Engineering</option>
             </select>
         </div>
+
+        <div class="mb-3">
+            <label class="form-label">Contact Number</label>
+            <input type="text" class="form-control" name="contact" required>
+        </div>
+
         <div class="mb-3">
             <label class="form-label">Date of Birth</label>
             <input type="date" class="form-control" name="dob" required>
         </div>
+
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" name="address" required>
+        </div>
+
         <button type="submit" class="btn btn-primary">Add Student</button>
+
     </form>
+
+    <%-- Success Message --%>
+    <c:if test="${param.success eq 'true'}">
+        <div class="alert alert-success text-center" role="alert">
+            Student added successfully!
+        </div>
+    </c:if>
+
+
 </div>
 </body>
 </html>
