@@ -88,16 +88,14 @@
 
         <button type="submit" class="btn btn-primary">Add Student</button>
 
-    </form>
-
-    <%-- Success Message --%>
-    <c:if test="${param.success eq 'true'}">
-        <div class="alert alert-success text-center" role="alert">
-            Student added successfully!
+        <% String msg = (String) request.getAttribute("message"); %>
+        <% if (msg != null) { %>
+        <div class="alert alert-info text-center" role="alert">
+            <%= msg %>
         </div>
-    </c:if>
+        <% } %>
 
-
+    </form>
 </div>
 </body>
 </html>

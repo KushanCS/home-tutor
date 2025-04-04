@@ -1,49 +1,52 @@
 package student.model;
 
 import student.services.Student;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentFileUtil {
-
     private static final String FILE_NAME = "students.txt";
 
-    //Write Student Data to File
-    public static void saveStudent(Student student) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+    public static void saveStudent(Student student) throws IOException {
+        String filePath = getFilePath();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(student.toString());
             writer.newLine();
-            System.out.println("Student added successfully!");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
-    //Read All Student from File
-    public static List<Student> getAllStudents() {
+    public static List<Student> getAllStudents() throws IOException {
         List<Student> students = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+        String filePath = getFilePath();
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            return students;
+        }
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                students.add( Student.fromString(line));
+                Student student = Student.fromString(line);
+                if (student != null) {
+                    students.add(student);
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return students;
     }
 
-    //Search for a Student by ID
-    public static Student findStudentById(int StdId){
-        List<Student> students = getAllStudents();
-        for (Student s: students){
-            if (s.getStdId() == StdId){
-                return s;
+    public static Student getStudentByUsername(String username) throws IOException {
+        for (Student student : getAllStudents()) {
+            if (student.getUserName().equals(username)) {
+                return student;
             }
         }
-        return null; //Student not found
+        return null;
     }
 
+    private static String getFilePath() {
+        return new File(FILE_NAME).getAbsolutePath();
+    }
 }

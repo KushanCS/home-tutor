@@ -41,7 +41,7 @@
 
 <!-- Sidebar -->
 <div class="sidebar">
-    <h4 class="text-center">📚 Student Management</h4>
+    <h4 class="text-center">Student Management</h4>
     <hr>
     <a href="#">Dashboard</a>
     <a href="students.jsp">Students</a>
@@ -49,14 +49,14 @@
     <a href="courses.jsp">Courses</a>
     <a href="reports.jsp">Reports</a>
     <a href="settings.jsp">Settings</a>
-    <a href="user-account.jsp">Account</a>
-    <a href="logout.jsp" class="text-danger">Logout</a>
+    <a href="profile.jsp">Profile</a>
+    <a href="login.jsp" class="text-danger">Logout</a>
 </div>
 
 <!-- Main Content -->
 <div class="content">
     <nav class="navbar navbar-light bg-light shadow-sm p-3">
-        <span class="navbar-brand mb-0 h4">Welcome, <%= request.getAttribute("username") %>!</span>
+        <span class="navbar-brand mb-0 h4">Welcome, <%= session.getAttribute("username") %>!</span>
     </nav>
 
     <div class="container mt-4">

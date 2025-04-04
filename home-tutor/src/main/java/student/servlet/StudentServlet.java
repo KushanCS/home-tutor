@@ -29,6 +29,11 @@ public class StudentServlet extends HttpServlet {
         try(PrintWriter writer = new PrintWriter(new FileWriter(filePath,true))){
             writer.println(studentId + "," + fullName + "," + email + "," + course + ","
                     + contact + "," + dob + "," + address);
+            request.setAttribute("message","Success: Student data saved.");
+        } catch (Exception e) {
+            request.setAttribute("message", "Unsuccess: Failed to save student data.");
         }
+        //Forward to result jsp
+        request.getRequestDispatcher("add-student.jsp").forward(request, response);
     }
 }
