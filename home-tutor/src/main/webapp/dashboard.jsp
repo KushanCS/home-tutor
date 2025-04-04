@@ -49,6 +49,7 @@
     <a href="courses.jsp">Courses</a>
     <a href="reports.jsp">Reports</a>
     <a href="settings.jsp">Settings</a>
+    <a href="user-account.jsp">Account</a>
     <a href="logout.jsp" class="text-danger">Logout</a>
 </div>
 
