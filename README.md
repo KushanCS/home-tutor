@@ -1,2 +1,1 @@
-# home-tutor
-group project
+<!-- README.md -->
