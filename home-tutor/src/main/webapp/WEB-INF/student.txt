@@ -1,2 +1,3 @@
 
 STU1769,Kaviya,Kaviya,kaviya@gmail.com,Discord,Colombo 7,03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4,IT,2025-04-23
+STU9600,Kushan ,Kushan,abc@gmail.cok,0701234567,sliit,03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4,Computer Science,2025-04-01
