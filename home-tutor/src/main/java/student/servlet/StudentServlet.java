@@ -1,10 +1,10 @@
 package student.servlet;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class StudentServlet extends HttpServlet {
         String contact = request.getParameter("contact");
 
         //data store path
-        String filePath = getServletContext().getRealPath("/student.txt");
+        String filePath = getServletContext().getRealPath("/WEB-INF/student.txt");
 
         //store data in text
         try(PrintWriter writer = new PrintWriter(new FileWriter(filePath,true))){

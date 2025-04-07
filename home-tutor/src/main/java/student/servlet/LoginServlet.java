@@ -1,7 +1,7 @@
 package student.servlet;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
+import javax.servlet.*;
+import javax.servlet.http.*;
 import student.services.Student;
 import student.model.StudentFileUtil;
 import java.io.*;
@@ -36,7 +36,9 @@ public class LoginServlet extends HttpServlet {
         }
 
         try {
-            if (StudentFileUtil.getStudentByUsername(username) != null) {
+            String filePath = getServletContext().getRealPath("/WEB-INF/student.txt");
+
+            if (StudentFileUtil.getStudentByUsername(username, filePath) != null) {
                 request.setAttribute("error", "Username already exists!");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
                 return;
@@ -54,7 +56,7 @@ public class LoginServlet extends HttpServlet {
                     request.getParameter("dob")
             );
 
-            StudentFileUtil.saveStudent(student);
+            StudentFileUtil.saveStudent(student, filePath);
             request.setAttribute("message", "Registration successful! You can now log in.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
 
@@ -64,12 +66,14 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
+
     private void handleLogin(HttpServletRequest request, HttpServletResponse response,
                              String username, String password)
             throws ServletException, IOException {
 
         try {
-            Student student = StudentFileUtil.getStudentByUsername(username);
+            String filePath = getServletContext().getRealPath("/WEB-INF/student.txt");
+            Student student = StudentFileUtil.getStudentByUsername(username, filePath);
 
             // Debug output
             System.out.println("Entered password: " + password);
@@ -93,8 +97,10 @@ public class LoginServlet extends HttpServlet {
     }
 
     private String generateStudentId() {
-        return "STU" + System.currentTimeMillis();
+        int randomNum = 1000 + (int)(Math.random() * 9000); // 1000 to 9999
+        return "STU" + randomNum; // e.g., STU4837
     }
+
 
     private String hashPassword(String password) {
         try {

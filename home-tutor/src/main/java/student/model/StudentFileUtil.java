@@ -6,19 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentFileUtil {
-    private static final String FILE_NAME = "students.txt";
+    private static final String FILE_NAME = "/WEB-INF/student.txt";
 
-    public static void saveStudent(Student student) throws IOException {
-        String filePath = getFilePath();
+    public static void saveStudent(Student student, String filePath) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(student.toString());
             writer.newLine();
         }
     }
 
-    public static List<Student> getAllStudents() throws IOException {
+    public static List<Student> getAllStudents(String filePath) throws IOException {
         List<Student> students = new ArrayList<>();
-        String filePath = getFilePath();
         File file = new File(filePath);
 
         if (!file.exists()) {
@@ -37,14 +35,15 @@ public class StudentFileUtil {
         return students;
     }
 
-    public static Student getStudentByUsername(String username) throws IOException {
-        for (Student student : getAllStudents()) {
+    public static Student getStudentByUsername(String username, String filePath) throws IOException {
+        for (Student student : getAllStudents(filePath)) {
             if (student.getUserName().equals(username)) {
                 return student;
             }
         }
         return null;
     }
+
 
     private static String getFilePath() {
         return new File(FILE_NAME).getAbsolutePath();
