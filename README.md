@@ -1,2 +1,2 @@
 # home-tutor
-group project
+Tutor Management
