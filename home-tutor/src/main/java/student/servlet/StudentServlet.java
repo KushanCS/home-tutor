@@ -1,0 +1,39 @@
+package student.servlet;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class StudentServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        //Collect from data
+        String studentId = request.getParameter("studentId");
+        String fullName = request.getParameter("fullName");
+        String email = request.getParameter("email");
+        String course = request.getParameter("course");
+        String address = request.getParameter("address");
+        String dob = request.getParameter("dob");
+        String contact = request.getParameter("contact");
+
+        //data store path
+        String filePath = getServletContext().getRealPath("/WEB-INF/student.txt");
+
+        //store data in text
+        try(PrintWriter writer = new PrintWriter(new FileWriter(filePath,true))){
+            writer.println(studentId + "," + fullName + "," + email + "," + course + ","
+                    + contact + "," + dob + "," + address);
+            request.setAttribute("message","Success: Student data saved.");
+        } catch (Exception e) {
+            request.setAttribute("message", "Unsuccess: Failed to save student data.");
+        }
+        //Forward to result jsp
+        request.getRequestDispatcher("add-student.jsp").forward(request, response);
+    }
+}
