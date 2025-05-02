@@ -20,10 +20,10 @@
             padding: 2rem 3rem;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 700px;
+            max-width: 750px;
             width: 100%;
         }
-        .form-control {
+        .form-control, select.form-select {
             border-radius: 10px;
             padding: 0.75rem;
         }
@@ -42,16 +42,42 @@
     <form action="addTutor" method="post">
         <div class="row g-3">
             <div class="col-md-6">
+                <input type="text" name="username" class="form-control" placeholder="Username" required>
+            </div>
+            <div class="col-md-6">
                 <input type="text" name="name" class="form-control" placeholder="Full Name" required>
             </div>
             <div class="col-md-6">
-                <input type="text" name="subject" class="form-control" placeholder="Subject Expertise" required>
+                <input type="text" name="subject" class="form-control" placeholder="Course" required>
             </div>
             <div class="col-md-6">
                 <input type="email" name="email" class="form-control" placeholder="Email" required>
             </div>
             <div class="col-md-6">
                 <input type="text" name="contact" class="form-control" placeholder="Contact Number" required>
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="campusName" class="form-control" placeholder="Campus Name" required>
+            </div>
+            <div class="col-md-6">
+                <input type="text" name="degreeCourse" class="form-control" placeholder="Degree Course" required>
+            </div>
+            <div class="col-md-6">
+                <select name="degreeLevel" class="form-select" required>
+                    <option value="" disabled selected>Select Degree Level</option>
+                    <option value="BSc">BSc</option>
+                    <option value="MSc">MSc</option>
+                    <option value="PhD">PhD</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <input type="text" name="address" class="form-control" placeholder="Address" required>
+            </div>
+            <div class="col-md-6">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+            </div>
+            <div class="col-md-6">
+                <input type="password" name="confirmPassword" class="form-control" placeholder="Confirm Password" required>
             </div>
             <div class="col-12">
                 <textarea name="about" class="form-control" rows="3" placeholder="Short Bio/About You..."></textarea>
@@ -68,7 +94,7 @@
         </div>
     </form>
     <div class="text-center mt-3">
-        Already a user? <a href="login.jsp">Sign in</a>
+        Already have an account? <a href="login.jsp">Sign in</a>
     </div>
 </div>
 </body>
