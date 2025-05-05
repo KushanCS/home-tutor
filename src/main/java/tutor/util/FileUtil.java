@@ -18,7 +18,12 @@ public class FileUtil {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                tutors.add(Tutor.fromString(line));
+                Tutor tutor = Tutor.fromString(line);
+                if (tutor != null) {
+                    tutors.add(tutor);
+                } else {
+                    System.out.println("[WARN] Skipped malformed line: " + line);
+                }
             }
         }
         return tutors;

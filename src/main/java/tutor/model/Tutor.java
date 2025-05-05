@@ -50,22 +50,14 @@ public class Tutor {
     }
 
     public static Tutor fromString(String line) {
-        String[] parts = line.split(",", 12); // Exactly 12 parts
-        if (parts.length < 12) return null;   // Prevents IndexOutOfBounds
+        String[] parts = line.split(",", -1); // allow empty fields
+
+        if (parts.length < 12) return null; // avoid crashes
 
         return new Tutor(
-                parts[0],  // id
-                parts[1],  // username
-                parts[2],  // name
-                parts[3],  // subject
-                parts[4],  // email
-                parts[5],  // contact
-                parts[6],  // campus
-                parts[7],  // degree course
-                parts[8],  // degree level
-                parts[9],  // address
-                parts[10], // hashed password
-                parts[11]  // about
+                parts[0], parts[1], parts[2], parts[3],
+                parts[4], parts[5], parts[6], parts[7],
+                parts[8], parts[9], parts[10], parts[11]
         );
     }
 }
