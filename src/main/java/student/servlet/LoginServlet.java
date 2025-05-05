@@ -2,11 +2,14 @@ package student.servlet;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-import student.services.Student;
-import student.model.StudentFileUtil;
 import java.io.*;
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
+
+import student.services.Student;
+import tutor.model.Tutor;
+import student.model.StudentFileUtil;
+import tutor.util.FileUtil;
 
 public class LoginServlet extends HttpServlet {
 
@@ -66,30 +69,53 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-
     private void handleLogin(HttpServletRequest request, HttpServletResponse response,
                              String username, String password)
             throws ServletException, IOException {
 
+        String studentPath = getServletContext().getRealPath("/WEB-INF/student.txt");
+        String tutorPath = getServletContext().getRealPath("/WEB-INF/tutor.txt");
+
         try {
-            String filePath = getServletContext().getRealPath("/WEB-INF/student.txt");
-            Student student = StudentFileUtil.getStudentByUsername(username, filePath);
+            // Try student login
+            Student student = StudentFileUtil.getStudentByUsername(username, studentPath);
+            if (student != null) {
+                String hashedInput = hashPassword(password);
+                System.out.println("[DEBUG] Student Login → Hashed Entered: " + hashedInput);
+                System.out.println("[DEBUG] Student Stored → Password: " + student.getPassword());
 
-            // Debug output
-            System.out.println("Entered password: " + password);
-            System.out.println("Hashed entered password: " + hashPassword(password));
-            System.out.println("Stored password: " + (student != null ? student.getPassword() : "null"));
-
-            if (student != null && student.getPassword().equals(hashPassword(password))) {
-                HttpSession session = request.getSession();
-                session.setAttribute("username", username);
-                session.setAttribute("fullName", student.getName());
-                session.setAttribute("student", student);
-                response.sendRedirect("dashboard.jsp");
-            } else {
-                request.setAttribute("error", "Invalid username or password!");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                if (student.getPassword().equals(hashedInput)) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("role", "student");
+                    session.setAttribute("username", username);
+                    session.setAttribute("fullName", student.getName());
+                    session.setAttribute("student", student);
+                    response.sendRedirect("dashboard.jsp");
+                    return;
+                }
             }
+
+            // Try tutor login
+            Tutor tutor = FileUtil.getTutorByUsername(username, tutorPath);
+            if (tutor != null) {
+                String hashedInput = hashPassword(password);
+                System.out.println("[DEBUG] Tutor Login → Hashed Entered: " + hashedInput);
+                System.out.println("[DEBUG] Tutor Stored → Password: " + tutor.getPassword());
+
+                if (tutor.getPassword().equals(hashedInput)) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("role", "tutor");
+                    session.setAttribute("username", username);
+                    session.setAttribute("tutor", tutor);
+                    response.sendRedirect("tutorDashboard"); // must be mapped in web.xml
+                    return;
+                }
+            }
+
+            // If neither match
+            request.setAttribute("error", "Invalid username or password!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+
         } catch (IOException e) {
             request.setAttribute("error", "Login failed: " + e.getMessage());
             request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -97,10 +123,9 @@ public class LoginServlet extends HttpServlet {
     }
 
     private String generateStudentId() {
-        int randomNum = 1000 + (int)(Math.random() * 9000); // 1000 to 9999
-        return "STU" + randomNum; // e.g., STU4837
+        int randomNum = 1000 + (int)(Math.random() * 9000);
+        return "STU" + randomNum;
     }
-
 
     private String hashPassword(String password) {
         try {

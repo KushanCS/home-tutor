@@ -5,8 +5,7 @@
          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
-
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>Home Tutor Web Application</display-name>
 
   <!-- LoginServlet Configuration -->
   <servlet>
@@ -18,7 +17,7 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
-  <!-- DashboardServlet Configuration -->
+  <!-- DashboardServlet (Student Dashboard) -->
   <servlet>
     <servlet-name>DashboardServlet</servlet-name>
     <servlet-class>student.servlet.DashboardServlet</servlet-class>
@@ -28,7 +27,7 @@
     <url-pattern>/dashboard</url-pattern>
   </servlet-mapping>
 
-  <!-- StudentServlet Configuration -->
+  <!-- StudentServlet (Registration) -->
   <servlet>
     <servlet-name>StudentServlet</servlet-name>
     <servlet-class>student.servlet.StudentServlet</servlet-class>
@@ -38,9 +37,19 @@
     <url-pattern>/add</url-pattern>
   </servlet-mapping>
 
+  <!-- TutorDashboardServlet (for tutor login redirect) -->
+  <servlet>
+    <servlet-name>TutorDashboardServlet</servlet-name>
+    <servlet-class>tutor.servlet.TutorDashboardServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TutorDashboardServlet</servlet-name>
+    <url-pattern>/tutorDashboard</url-pattern>
+  </servlet-mapping>
+
+  <!-- Welcome file -->
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
 
 </web-app>
-
