@@ -19,7 +19,7 @@
             <span class="navbar-text text-white me-3">
                 Welcome, <strong><%= tutor.getName() %></strong>
             </span>
-            <a href="logout.jsp" class="btn btn-light btn-sm">Logout</a>
+            <a href="logout.jsp" class="btn btn-outline-light btn-sm ms-3">Logout</a>
         </div>
     </div>
 </nav>
