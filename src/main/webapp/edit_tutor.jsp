@@ -13,6 +13,7 @@
 <body class="container mt-5">
 <h2>Edit Tutor</h2>
 <form method="post" action="updateTutor">
+    <input type="hidden" name="username" value="${tutor.username}">
     <input type="hidden" name="id" value="<%= tutor.getId() %>">
     <div class="mb-3">
         <label>Name</label>

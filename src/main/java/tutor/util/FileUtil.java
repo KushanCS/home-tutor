@@ -6,11 +6,16 @@ import java.io.*;
 import java.util.*;
 
 public class FileUtil {
-    private static final String FILE_PATH = "tutors.txt";
+    public static void addTutor(Tutor tutor, String filePath) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(tutor.toString());
+            writer.newLine();
+        }
+    }
 
-    public static List<Tutor> readTutors() throws IOException {
+    public static List<Tutor> getAllTutors(String filePath) throws IOException {
         List<Tutor> tutors = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 tutors.add(Tutor.fromString(line));
@@ -19,43 +24,48 @@ public class FileUtil {
         return tutors;
     }
 
-    public static void addTutor(Tutor tutor) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
-            writer.write(tutor.toString());
-            writer.newLine();
+    public static Tutor getTutorByUsername(String username, String filePath) {
+        try {
+            List<Tutor> tutors = getAllTutors(filePath);
+            for (Tutor tutor : tutors) {
+                if (tutor.getUsername().equalsIgnoreCase(username)) {
+                    return tutor;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return null;
     }
+    public static void deleteTutor(String id, String filePath) throws IOException {
+        List<Tutor> tutors = getAllTutors(filePath);
+        List<Tutor> updatedTutors = new ArrayList<>();
 
-    public static void writeTutors(List<Tutor> tutors) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-            for (Tutor t : tutors) {
+        for (Tutor tutor : tutors) {
+            if (!tutor.getId().equals(id)) {
+                updatedTutors.add(tutor);
+            }
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
+            for (Tutor t : updatedTutors) {
                 writer.write(t.toString());
                 writer.newLine();
             }
         }
     }
 
-    public static void deleteTutor(String id) throws IOException {
-        List<Tutor> tutors = readTutors();
-        tutors.removeIf(t -> t.getId().equals(id));
-        writeTutors(tutors);
-    }
-
-    public static Tutor getTutorById(String id) throws IOException {
-        for (Tutor t : readTutors()) {
-            if (t.getId().equals(id)) return t;
-        }
-        return null;
-    }
-
-    public static void updateTutor(Tutor updatedTutor) throws IOException {
-        List<Tutor> tutors = readTutors();
-        for (int i = 0; i < tutors.size(); i++) {
-            if (tutors.get(i).getId().equals(updatedTutor.getId())) {
-                tutors.set(i, updatedTutor);
-                break;
+    public static void updateTutor(Tutor updatedTutor, String filePath) throws IOException {
+        List<Tutor> tutors = getAllTutors(filePath);
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
+            for (Tutor tutor : tutors) {
+                if (tutor.getId().equals(updatedTutor.getId())) {
+                    writer.write(updatedTutor.toString());
+                } else {
+                    writer.write(tutor.toString());
+                }
+                writer.newLine();
             }
         }
-        writeTutors(tutors);
     }
 }

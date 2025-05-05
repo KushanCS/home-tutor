@@ -15,15 +15,33 @@ public class AddTutorServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String id = UUID.randomUUID().toString();
+        String username = request.getParameter("username");
         String name = request.getParameter("name");
         String subject = request.getParameter("subject");
         String email = request.getParameter("email");
         String contact = request.getParameter("contact");
+        String campusName = request.getParameter("campusName");
+        String degreeCourse = request.getParameter("degreeCourse");
+        String degreeLevel = request.getParameter("degreeLevel");
+        String address = request.getParameter("address");
+        String password = request.getParameter("password");
         String about = request.getParameter("about");
 
-        Tutor tutor = new Tutor(id, name, subject, email, contact, about);
-        FileUtil.addTutor(tutor);
+        String filePath = getServletContext().getRealPath("/WEB-INF/tutors.txt");
 
-        response.sendRedirect("list_tutors.jsp");
+        // 🔁 Check if username already exists
+        if (FileUtil.getTutorByUsername(username, filePath) != null) {
+            request.setAttribute("error", "Username already exists!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
+
+        // ✅ Save new tutor
+        Tutor tutor = new Tutor(id, username, name, subject, email, contact, campusName, degreeCourse, degreeLevel, address, password, about);
+        FileUtil.addTutor(tutor, filePath);
+
+        // 🎯 Success message and redirect to login.jsp
+        response.sendRedirect("login.jsp?message=success");
+
     }
 }

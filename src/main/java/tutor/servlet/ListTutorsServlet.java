@@ -14,7 +14,9 @@ public class ListTutorsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Tutor> tutors = FileUtil.readTutors();
+        String filePath = getServletContext().getRealPath("/WEB-INF/tutors.txt");
+        List<Tutor> tutors = FileUtil.getAllTutors(filePath);
+
         request.setAttribute("tutors", tutors);
         request.getRequestDispatcher("list_tutors.jsp").forward(request, response);
     }

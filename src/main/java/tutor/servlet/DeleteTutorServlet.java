@@ -13,7 +13,10 @@ public class DeleteTutorServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String id = request.getParameter("id");
-        FileUtil.deleteTutor(id);
+        String filePath = getServletContext().getRealPath("/WEB-INF/tutors.txt");
+
+        FileUtil.deleteTutor(id, filePath);
+
         response.sendRedirect("listTutors");
     }
 }

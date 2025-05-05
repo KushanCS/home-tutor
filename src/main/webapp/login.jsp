@@ -118,6 +118,15 @@
                 <div class="alert alert-success"><%= message %></div>
                 <% } %>
 
+                <%
+                    String successMsg = request.getParameter("message");
+                    if ("success".equals(successMsg)) {
+                %>
+                <div class="alert alert-success">Registration successful! You can now log in.</div>
+                <%
+                    }
+                %>
+
                 <form action="login" method="post">
                     <input type="hidden" name="action" value="login">
                     <div class="mb-3">
