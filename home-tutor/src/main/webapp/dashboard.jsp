@@ -160,35 +160,27 @@
     </div>
 
     <div class="sidebar-menu">
-        <a href="#" class="active">
+        <a href="dashboard.jsp" class="active">
             <i class="fas fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
-        <a href="students.jsp">
+        <a href="students-table.jsp">
             <i class="fas fa-users"></i>
             <span>Students</span>
         </a>
-        <a href="tutors.jsp">
+        <a href="tutors-table.jsp">
             <i class="fas fa-chalkboard-teacher"></i>
             <span>Tutors</span>
         </a>
-        <a href="courses.jsp">
+        <a href="courses-table.jsp">
             <i class="fas fa-book"></i>
             <span>Courses</span>
-        </a>
-        <a href="reports.jsp">
-            <i class="fas fa-chart-bar"></i>
-            <span>Reports</span>
         </a>
         <a href="settings.jsp">
             <i class="fas fa-cog"></i>
             <span>Settings</span>
         </a>
-        <a href="profile.jsp">
-            <i class="fas fa-user"></i>
-            <span>Profile</span>
-        </a>
-        <a href="logout" class="text-danger">
+        <a href="logout.jsp" class="text-danger">
             <i class="fas fa-sign-out-alt"></i>
             <span>Logout</span>
         </a>
@@ -209,135 +201,6 @@
             </div>
         </div>
     </nav>
-
-    <div class="container-fluid">
-        <!-- Stats Cards -->
-        <div class="row mb-4">
-            <div class="col-md-3 mb-3">
-                <div class="card stat-card text-white bg-primary">
-                    <div class="card-body">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-text">
-                            <h6 class="text-uppercase">Total Students</h6>
-                            <div class="stat-number"><%= request.getAttribute("totalStudents") %></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 mb-3">
-                <div class="card stat-card text-white" style="background-color: #6f42c1;">
-                    <div class="card-body">
-                        <div class="stat-icon">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                        </div>
-                        <div class="stat-text">
-                            <h6 class="text-uppercase">Total Tutors</h6>
-                            <div class="stat-number"><%= request.getAttribute("totalTutors") %></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 mb-3">
-                <div class="card stat-card text-white" style="background-color: #20c997;">
-                    <div class="card-body">
-                        <div class="stat-icon">
-                            <i class="fas fa-book"></i>
-                        </div>
-                        <div class="stat-text">
-                            <h6 class="text-uppercase">Courses</h6>
-                            <div class="stat-number"><%= request.getAttribute("totalCourses") %></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 mb-3">
-                <div class="card stat-card text-white" style="background-color: #fd7e14;">
-                    <div class="card-body">
-                        <div class="stat-icon">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
-                        <div class="stat-text">
-                            <h6 class="text-uppercase">Active Classes</h6>
-                            <div class="stat-number">24</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Recent Activity Section -->
-        <div class="row">
-            <!-- Recent Students -->
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0"><i class="fas fa-user-graduate me-2"></i> Recent Students</h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive recent-table">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Course</th>
-                                    <th>Join Date</th>
-                                    <th>Status</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-
-                                </tr>
-
-                                <tr>
-                                    <td colspan="4" class="text-center">No recent students found</td>
-                                </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Tutors -->
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-header bg-white">
-                        <h5 class="mb-0"><i class="fas fa-chalkboard-teacher me-2"></i> Recent Tutors</h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive recent-table">
-                            <table class="table table-hover mb-0">
-                                <thead class="table-light">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Subject</th>
-                                    <th>Join Date</th>
-                                    <th>Status</th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Courses Section -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                        <h5 class="mb-0"><i class="fas fa-book me-2"></i> Popular Courses</h5>
-
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- Bootstrap JS -->

@@ -1,39 +1,84 @@
 package student.servlet;
 
+import student.model.StudentFileUtil;
+import student.services.Student;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.FileWriter;
+import javax.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 
+@WebServlet("/student")  // Maps to /student URL
 public class StudentServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //Collect from data
-        String studentId = request.getParameter("studentId");
-        String fullName = request.getParameter("fullName");
-        String email = request.getParameter("email");
-        String course = request.getParameter("course");
-        String address = request.getParameter("address");
-        String dob = request.getParameter("dob");
-        String contact = request.getParameter("contact");
+    // Handles GET requests (viewing data)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-        //data store path
-        String filePath = getServletContext().getRealPath("/WEB-INF/student.txt");
+        // Always read fresh list from file to stay in sync
+        String filePath = getServletContext().getRealPath("/WEB-INF/students.txt");
+        List<Student> students = StudentFileUtil.readStudents(filePath);
 
-        //store data in text
-        try(PrintWriter writer = new PrintWriter(new FileWriter(filePath,true))){
-            writer.println(studentId + "," + fullName + "," + email + "," + course + ","
-                    + contact + "," + dob + "," + address);
-            request.setAttribute("message","Success: Student data saved.");
-        } catch (Exception e) {
-            request.setAttribute("message", "Unsuccess: Failed to save student data.");
+        // Set students list as request attribute for JSP
+        request.setAttribute("students", students);
+
+        // Forward to JSP page for display
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
+    }
+
+    // Handles POST requests (modifying data)
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String action = request.getParameter("action");  // Get requested action
+        String filePath = getServletContext().getRealPath("/WEB-INF/students.txt");
+
+        // Read latest data from file
+        List<Student> students = StudentFileUtil.readStudents(filePath);
+
+        if ("add".equals(action)) {
+            // Create new student from request parameters
+            Student student = new Student();
+            student.setStdId(request.getParameter("stdId"));
+            student.setName(request.getParameter("name"));
+            student.setUserName(request.getParameter("userName"));
+            student.setEmail(request.getParameter("email"));
+            student.setPhone(request.getParameter("phone"));
+            student.setAddress(request.getParameter("address"));
+            student.setPassword(request.getParameter("password"));
+            student.setCourse(request.getParameter("course"));
+            student.setDob(request.getParameter("dob"));
+
+            students.add(student);  // Add to list
         }
-        //Forward to result jsp
-        request.getRequestDispatcher("add-student.jsp").forward(request, response);
+        else if ("delete".equals(action)) {
+            String stdId = request.getParameter("stdId");  // Get ID to delete
+            students.removeIf(s -> s.getStdId().equals(stdId));  // Remove student
+        }
+        else if ("update".equals(action)) {
+            String stdId = request.getParameter("stdId");  // Get ID to update
+            for (Student student : students) {
+                if (student.getStdId().equals(stdId)) {
+                    student.setName(request.getParameter("name"));
+                    student.setUserName(request.getParameter("userName"));
+                    student.setEmail(request.getParameter("email"));
+                    student.setPhone(request.getParameter("phone"));
+                    student.setAddress(request.getParameter("address"));
+                    student.setPassword(request.getParameter("password"));
+                    student.setCourse(request.getParameter("course"));
+                    student.setDob(request.getParameter("dob"));
+                    break;
+                }
+            }
+        }
+
+        // Save changes to file
+        StudentFileUtil.writeStudents(students, filePath);
+
+        // Redirect back to student page
+        response.sendRedirect("student");
     }
 }
