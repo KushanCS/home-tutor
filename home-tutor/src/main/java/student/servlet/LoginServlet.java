@@ -1,12 +1,13 @@
 package student.servlet;
 
+import student.model.StudentFileUtil;
+import student.services.Student;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import student.services.Student;
-import student.model.StudentFileUtil;
-import java.io.*;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class LoginServlet extends HttpServlet {
 
@@ -16,19 +17,21 @@ public class LoginServlet extends HttpServlet {
         String action = request.getParameter("action");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String filePath = getServletContext().getRealPath("/WEB-INF/students.txt");
 
         if ("register".equals(action)) {
-            handleRegistration(request, response, username, password);
+            handleRegistration(request, response, filePath);
         } else if ("login".equals(action)) {
-            handleLogin(request, response, username, password);
+            handleLogin(request, response, filePath);
         }
     }
 
-    private void handleRegistration(HttpServletRequest request, HttpServletResponse response,
-                                    String username, String password)
+    private void handleRegistration(HttpServletRequest request, HttpServletResponse response, String filePath)
             throws ServletException, IOException {
 
+        String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
+
         if (!password.equals(confirmPassword)) {
             request.setAttribute("error", "Passwords do not match!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -36,9 +39,8 @@ public class LoginServlet extends HttpServlet {
         }
 
         try {
-            String filePath = getServletContext().getRealPath("/WEB-INF/student.txt");
-
-            if (StudentFileUtil.getStudentByUsername(username, filePath) != null) {
+            Student existing = StudentFileUtil.getStudentByUsername(request.getParameter("username"), filePath);
+            if (existing != null) {
                 request.setAttribute("error", "Username already exists!");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
                 return;
@@ -47,7 +49,7 @@ public class LoginServlet extends HttpServlet {
             Student student = new Student(
                     generateStudentId(),
                     request.getParameter("fullName"),
-                    username,
+                    request.getParameter("username"),
                     request.getParameter("email"),
                     request.getParameter("contact"),
                     request.getParameter("address"),
@@ -56,51 +58,47 @@ public class LoginServlet extends HttpServlet {
                     request.getParameter("dob")
             );
 
-            StudentFileUtil.saveStudent(student, filePath);
-            request.setAttribute("message", "Registration successful! You can now log in.");
+            List<Student> students = StudentFileUtil.readStudents(filePath);
+            students.add(student);
+            StudentFileUtil.writeStudents(students, filePath);
+
+            request.setAttribute("message", "Registration successful! Please login.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             request.setAttribute("error", "Registration failed: " + e.getMessage());
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 
-
-    private void handleLogin(HttpServletRequest request, HttpServletResponse response,
-                             String username, String password)
+    private void handleLogin(HttpServletRequest request, HttpServletResponse response, String filePath)
             throws ServletException, IOException {
 
         try {
-            String filePath = getServletContext().getRealPath("/WEB-INF/student.txt");
-            Student student = StudentFileUtil.getStudentByUsername(username, filePath);
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
 
-            // Debug output
-            System.out.println("Entered password: " + password);
-            System.out.println("Hashed entered password: " + hashPassword(password));
-            System.out.println("Stored password: " + (student != null ? student.getPassword() : "null"));
+            Student student = StudentFileUtil.getStudentByUsername(username, filePath);
 
             if (student != null && student.getPassword().equals(hashPassword(password))) {
                 HttpSession session = request.getSession();
-                session.setAttribute("username", username);
-                session.setAttribute("fullName", student.getName());
+                session.setAttribute("username", student.getUserName());
+                session.setAttribute("email", student.getEmail());
                 session.setAttribute("student", student);
-                response.sendRedirect("dashboard.jsp");
+                response.sendRedirect("home-page.jsp");
             } else {
-                request.setAttribute("error", "Invalid username or password!");
+                request.setAttribute("error", "Invalid username or password");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             request.setAttribute("error", "Login failed: " + e.getMessage());
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
 
     private String generateStudentId() {
-        int randomNum = 1000 + (int)(Math.random() * 9000); // 1000 to 9999
-        return "STU" + randomNum; // e.g., STU4837
+        return "STU" + (1000 + (int)(Math.random() * 9000));
     }
-
 
     private String hashPassword(String password) {
         try {

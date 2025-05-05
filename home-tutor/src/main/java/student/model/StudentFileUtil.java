@@ -1,51 +1,56 @@
 package student.model;
 
 import student.services.Student;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentFileUtil {
-    private static final String FILE_NAME = "/WEB-INF/student.txt";
 
-    public static void saveStudent(Student student, String filePath) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            writer.write(student.toString());
-            writer.newLine();
-        }
-    }
-
-    public static List<Student> getAllStudents(String filePath) throws IOException {
+    public static List<Student> readStudents(String filePath) {
+        System.out.println("Reading from file: " + filePath); // Debug line
         List<Student> students = new ArrayList<>();
-        File file = new File(filePath);
-
-        if (!file.exists()) {
-            return students;
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                Student student = Student.fromString(line);
-                if (student != null) {
-                    students.add(student);
+                String[] parts = line.split(";");
+                if (parts.length == 9) {
+                    students.add(new Student(
+                            parts[0], parts[1], parts[2], parts[3],
+                            parts[4], parts[5], parts[6], parts[7], parts[8]
+                    ));
                 }
             }
+        } catch (IOException e) {
+            System.err.println("Error reading students: " + e.getMessage());
         }
         return students;
     }
 
-    public static Student getStudentByUsername(String username, String filePath) throws IOException {
-        for (Student student : getAllStudents(filePath)) {
-            if (student.getUserName().equals(username)) {
-                return student;
+
+    public static void writeStudents(List<Student> students, String filePath) {
+        System.out.println("Writing to file: " + filePath); // Debug line
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Student s : students) {
+                writer.write(String.join(";",
+                        s.getStdId(), s.getName(), s.getUserName(), s.getEmail(),
+                        s.getPhone(), s.getAddress(), s.getPassword(),
+                        s.getCourse(), s.getDob()
+                ));
+                writer.newLine();
             }
+        } catch (IOException e) {
+            System.err.println("Error writing students: " + e.getMessage());
         }
-        return null;
     }
 
 
-    private static String getFilePath() {
-        return new File(FILE_NAME).getAbsolutePath();
+    public static Student getStudentByUsername(String username, String filePath) {
+        List<Student> students = readStudents(filePath);
+        return students.stream()
+                .filter(s -> s.getUserName().equals(username))
+                .findFirst()
+                .orElse(null);
     }
 }
