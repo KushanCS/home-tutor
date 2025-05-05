@@ -108,7 +108,7 @@
             } else {
             %>
             <div>
-                <a href="profile.jsp" class="btn btn-primary">Profile</a>
+                <a href="student.jsp" class="btn btn-primary">Dashboard</a>
                 <a href="logout.jsp" class="btn btn-outline-primary">Log out</a>
             </div>
             <%} %>
