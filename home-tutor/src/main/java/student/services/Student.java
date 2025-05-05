@@ -2,7 +2,6 @@ package student.services;
 
 import java.io.Serializable;
 
-// Student class representing student entity with all attributes
 public class Student implements Serializable {
     private String stdId;
     private String name;
@@ -14,13 +13,11 @@ public class Student implements Serializable {
     private String course;
     private String dob;
 
+    public Student() {}
 
-    public Student() {
-    }
-
-    // Parameterized constructor - creates Student with all attributes
     public Student(String stdId, String name, String userName, String email,
-                   String phone, String address, String password, String course, String dob) {
+                   String phone, String address, String password,
+                   String course, String dob) {
         this.stdId = stdId;
         this.name = name;
         this.userName = userName;
@@ -32,9 +29,9 @@ public class Student implements Serializable {
         this.dob = dob;
     }
 
-    // Getter and Setter methods for all fields
     public String getStdId() { return stdId; }
     public void setStdId(String stdId) { this.stdId = stdId; }
+
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 

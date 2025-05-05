@@ -1,4 +1,4 @@
-package student.servlet;
+package student.controller;
 
 import student.model.StudentFileUtil;
 import student.services.Student;
