@@ -1,7 +1,7 @@
 package student.controller;
 
-import student.model.StudentFileUtil;
-import student.services.Student;
+import student.utils.StudentFileUtil;
+import student.model.Student;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

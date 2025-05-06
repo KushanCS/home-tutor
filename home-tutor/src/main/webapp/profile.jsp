@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="student.services.Student" %>
+<%@ page import="student.model.Student" %>
 <%
     Student student = (Student) session.getAttribute("student");
     if (student == null) {
