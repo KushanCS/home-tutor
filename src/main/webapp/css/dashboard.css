@@ -1,0 +1,47 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.sidebar {
+    min-height: 100vh;
+    background-color: #003366;
+    color: white;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 12px 20px;
+}
+
+.sidebar a:hover {
+    background-color: #0055aa;
+}
+
+.content {
+    padding: 30px;
+}
+
+.summary-card {
+    border-left: 4px solid #0d6efd;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-weight: 600;
+}
+
+.flatpickr-calendar {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.calendar-box {
+    padding: 15px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+}
