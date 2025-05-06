@@ -36,7 +36,7 @@
   will also need to set the passwords to something appropriate.
 -->
 <!--
-  <user username="admin" password="<must-be-changed>" roles="manager-gui"/>
+  <user username="admin.services.admin" password="<must-be-changed>" roles="manager-gui"/>
   <user username="robot" password="<must-be-changed>" roles="manager-script"/>
 -->
 <!--

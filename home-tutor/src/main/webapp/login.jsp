@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Portal - Login</title>
+    <title>Meta Tutor Portal - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -118,10 +118,12 @@
                 <div class="alert alert-success"><%= message %></div>
                 <% } %>
 
-                <form action="login" method="post">
+                <!-- Single Login Form -->
+                <form id="loginForm" action="LoginServlet" method="post">
                     <input type="hidden" name="action" value="login">
+
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username or Student ID</label>
+                        <label for="username" class="form-label">Username</label>
                         <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required>
                     </div>
                     <div class="mb-3">
@@ -140,14 +142,14 @@
                         </div>
                         <a href="#" class="text-decoration-none">Forgot password?</a>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mb-3">Log In</button>
-
-                    <div class="divider">or</div>
-
-                    <a href="register.jsp" class="btn btn-outline-primary w-100">
-                        Create New Account
-                    </a>
+                    <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
                 </form>
+
+                <div class="divider">or</div>
+
+                <div class="text-center mb-3">
+                    <a href="register.jsp" class="btn btn-outline-primary">Register as Student</a>
+                </div>
 
                 <div class="footer-links">
                     <a href="#">About</a>
