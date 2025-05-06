@@ -41,7 +41,24 @@ body {
 
 .calendar-box {
     padding: 15px;
-    background: #fff;
+    background-color: white;
     border-radius: 10px;
-    border: 1px solid #dee2e6;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 300px; /* controls calendar width */
+    margin-bottom: 20px;
 }
+
+/* Make flatpickr calendar popup fill container */
+.flatpickr-calendar {
+    width: 100% !important;
+    max-width: 300px !important;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+/* Optional: tighter padding inside calendar popup */
+.flatpickr-innerContainer {
+    padding: 10px;
+}
+

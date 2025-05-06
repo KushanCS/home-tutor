@@ -133,11 +133,9 @@
         <!-- Right Sidebar -->
         <div class="col-md-3 content">
             <!-- Calendar -->
-            <div class="card shadow-sm mb-4">
-                <div class="card-body calendar-box">
-                    <h5 class="card-title">Calendar</h5>
-                    <div id="calendar"></div>
-                </div>
+            <div class="calendar-box">
+                <h5 class="card-title">Calendar</h5>
+                <input type="text" id="calendar" class="form-control" />
             </div>
 
             <!-- Lessons -->
