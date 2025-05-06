@@ -13,6 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -82,15 +83,16 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <div class="col-md-2 sidebar d-flex flex-column">
+        <div class="col-md-2 sidebar">
             <h4 class="text-center my-4">Meta Tutor</h4>
-            <a href="tutorDashboard">Dashboard</a>
-            <a href="#">My Courses</a>
-            <a href="#">Students</a>
-            <a href="#">Messages</a>
-            <a href="edit_tutor.jsp">Settings</a>
-            <a href="logout.jsp">Logout</a>
+            <a href="tutorDashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="#"><i class="fas fa-book"></i> My Courses</a>
+            <a href="#"><i class="fas fa-users"></i> Students</a>
+            <a href="#"><i class="fas fa-envelope"></i> Messages</a>
+            <a href="edit_tutor.jsp"><i class="fas fa-cog"></i> Settings</a>
+            <a href="logout.jsp"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
+
 
         <!-- Main Dashboard Content -->
         <div class="col-md-7 content">
