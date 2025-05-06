@@ -17,6 +17,29 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        .calendar-card {
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.05);
+            background-color: white;
+        }
+        #calendar {
+            width: 100%;
+        }
+        .flatpickr-calendar {
+            width: 100% !important;
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            box-shadow: none;
+            border: none;
+        }
+    </style>
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -133,10 +156,11 @@
         <!-- Right Sidebar -->
         <div class="col-md-3 content">
             <!-- Calendar -->
-            <div class="calendar-box">
+            <div class="card calendar-card mb-4">
                 <h5 class="card-title">Calendar</h5>
-                <input type="text" id="calendar" class="form-control" />
+                <div id="calendar"></div>
             </div>
+
 
             <!-- Lessons -->
             <div class="card mb-4 shadow-sm">
@@ -233,7 +257,7 @@
     });
 </script>
 
-<!-- Flatpickr JS -->
+<!-- Flatpickr Script -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
     flatpickr("#calendar", {
