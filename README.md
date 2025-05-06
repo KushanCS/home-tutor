@@ -1,2 +1,0 @@
-# home-tutor
-group project
