@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="student.services.Student" %>
+<%@ page import="student.model.Student" %>
 <%
   Student student = (Student) session.getAttribute("student");
   if (student == null) {
@@ -51,7 +51,12 @@
               <label class="form-label">Address</label>
               <textarea class="form-control" name="address"><%= student.getAddress() %></textarea>
             </div>
-            <a href = "profile.jsp" button type="submit" class="btn btn-primary">Save Changes</a></button>
+
+
+              <button  type="submit" class="btn btn-primary">
+                Save Changes
+              </button>
+
             <a href="profile.jsp" class="btn btn-secondary">Cancel</a>
           </form>
         </div>

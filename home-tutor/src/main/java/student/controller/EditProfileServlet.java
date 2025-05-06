@@ -1,7 +1,7 @@
 package student.controller;
 
 import student.services.StudentService;
-import student.services.Student;
+import student.model.Student;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +10,6 @@ import java.io.IOException;
 
 @WebServlet("/editProfile")
 public class EditProfileServlet extends HttpServlet {
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -45,7 +44,7 @@ public class EditProfileServlet extends HttpServlet {
             boolean success = studentService.updateStudent(student);
 
             if (success) {
-                session.setAttribute("username", newUsername);
+                session.setAttribute("student", student);
                 response.sendRedirect("profile.jsp");
             } else {
                 request.setAttribute("error", "Profile update failed");

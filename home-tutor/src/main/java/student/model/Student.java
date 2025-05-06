@@ -1,4 +1,4 @@
-package student.services;
+package student.model;
 
 import java.io.Serializable;
 
