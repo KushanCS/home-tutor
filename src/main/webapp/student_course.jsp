@@ -1,3 +1,10 @@
+<%@ page import="student.model.Student" %><%
+    Student student = (Student) session.getAttribute("student");
+    if (student == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+%>
 <%@ include file="header.jsp" %>
 <h1>Manage Bookings</h1>
 
