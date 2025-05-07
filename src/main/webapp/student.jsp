@@ -204,11 +204,10 @@
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
                        id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="d-none d-sm-inline">Kushan</span>
+                        <span class="d-none d-sm-inline"><%= student.getUserName() %></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
                         <li><a class="dropdown-item" href="profile.jsp"><i class="bi bi-person me-2"></i>Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="logout.jsp"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
                     </ul>
@@ -226,7 +225,7 @@
             <div>
                 <h2 class="fw-bold mb-2">
                     <h2 class="fw-bold mb-2">Welcome back,
-                        <%= student.getName() %>
+                        <%= student.getUserName() %>
                     </h2>
                 </h2>
             </div>

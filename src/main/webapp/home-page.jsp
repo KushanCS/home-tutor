@@ -95,6 +95,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="course-home.jsp">Courses</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="student_course.jsp"><i class="bi bi-collection-play me-1"></i> My Courses</a>
+                </li>
             </ul>
             <%
                 String user = (String) session.getAttribute("username"); // Assuming username is stored in session
