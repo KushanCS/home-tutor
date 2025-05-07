@@ -1,0 +1,59 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"ce8974ec-f289-40c7-8eba-79abb7163a67\" name=\"Changes\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\"><![CDATA[{\r\n  \"associatedIndex\": 2\r\n}]]></component>\r\n  <component name=\"ProjectId\" id=\"2wjOC79ZXuCrgdrJY3A8VnOvBaz\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/kusha/Documents/home-tutor\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"settings.editor.selected.configurable\": \"com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"tomcat-9\" type=\"com.poratu.idea.plugins.tomcat\">\r\n      <predefined_log_file enabled=\"true\" id=\"Tomcat Localhost Log\" />\r\n      <predefined_log_file enabled=\"true\" id=\"Tomcat Access Log\" />\r\n      <predefined_log_file id=\"Tomcat Catalina Log\" />\r\n      <predefined_log_file id=\"Tomcat Manager Log\" />\r\n      <predefined_log_file id=\"Tomcat Host Manager Log\" />\r\n      <option name=\"catalinaBase\" value=\"C:\\Users\\kusha\\.SmartTomcat\\home-tutor\\home-tutor\" />\r\n      <option name=\"contextPath\" value=\"/home-tutor\" />\r\n      <option name=\"docBase\" value=\"$PROJECT_DIR$/src/main/webapp\" />\r\n      <option name=\"envOptions\">\r\n        <map />\r\n      </option>\r\n      <option name=\"extraClassPath\" value=\"\" />\r\n      <option name=\"tomcatInfo\">\r\n        <TomcatInfo>\r\n          <option name=\"name\" value=\"Apache Tomcat-9\" />\r\n          <option name=\"path\" value=\"$PROJECT_DIR$/../apache-tomcat-9.0.102/apache-tomcat-9.0.102\" />\r\n          <option name=\"version\" value=\"9.0.102.0\" />\r\n        </TomcatInfo>\r\n      </option>\r\n      <option name=\"vmOptions\" value=\"\" />\r\n      <module name=\"home-tutor\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.26053.27\" />\r\n        <option value=\"bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.26053.27\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"ce8974ec-f289-40c7-8eba-79abb7163a67\" name=\"Changes\" comment=\"\" />\r\n      <created>1746551385766</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1746551385766</updated>\r\n      <workItem from=\"1746551386938\" duration=\"50000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision f760a0a78edd70696a781d842d5b46a70f42ba3a)
++++ b/.idea/workspace.xml	(date 1746637296757)
+@@ -4,15 +4,20 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="ce8974ec-f289-40c7-8eba-79abb7163a67" name="Changes" comment="" />
++    <list default="true" id="ce8974ec-f289-40c7-8eba-79abb7163a67" name="Changes" comment="">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
+-  <component name="ProjectColorInfo"><![CDATA[{
+-  "associatedIndex": 2
+-}]]></component>
++  <component name="Git.Settings">
++    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="ProjectColorInfo">{
++  &quot;associatedIndex&quot;: 2
++}</component>
+   <component name="ProjectId" id="2wjOC79ZXuCrgdrJY3A8VnOvBaz" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+@@ -21,9 +26,15 @@
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
+     "RunOnceActivity.ShowReadmeOnStart": "true",
++    "RunOnceActivity.git.unshallow": "true",
++    "git-widget-placeholder": "main",
+     "ignore.virus.scanning.warn.message": "true",
+     "kotlin-language-version-configured": "true",
+     "last_opened_file_path": "C:/Users/kusha/Documents/home-tutor",
++    "node.js.detected.package.eslint": "true",
++    "node.js.detected.package.tslint": "true",
++    "node.js.selected.package.eslint": "(autodetect)",
++    "node.js.selected.package.tslint": "(autodetect)",
+     "nodejs_package_manager_path": "npm",
+     "settings.editor.selected.configurable": "com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable",
+     "vue.rearranger.settings.migration": "true"
+@@ -74,6 +85,7 @@
+       <option name="presentableId" value="Default" />
+       <updated>1746551385766</updated>
+       <workItem from="1746551386938" duration="50000" />
++      <workItem from="1746571835072" duration="366000" />
+     </task>
+     <servers />
+   </component>

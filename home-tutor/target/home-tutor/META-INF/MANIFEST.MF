@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: 3C Tech
+Build-Jdk: Amazon Corretto 21.0.7
+
