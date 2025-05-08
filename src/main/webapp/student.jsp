@@ -183,8 +183,8 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="#">
-            <i class="bi bi-mortarboard-fill me-2"></i>EduTutor
+        <a class="navbar-brand fw-bold" href="home-page.jsp">
+            <i class="bi bi-mortarboard-fill me-2"></i>MetaTutor
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
@@ -197,7 +197,7 @@
                     <a class="nav-link active" href="home-page.jsp"><i class="bi bi-house-door me-1"></i> Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="student_course.jsp"><i class="bi bi-collection-play me-1"></i> My Courses</a>
+                    <a class="nav-link" href="student-course.jsp"><i class="bi bi-collection-play me-1"></i> My Courses</a>
                 </li>
             </ul>
             <div class="d-flex align-items-center">
