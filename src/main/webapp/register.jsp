@@ -39,6 +39,7 @@
       border-radius: 10px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
       padding: 2rem;
+      background-color: white;
     }
 
     .btn-primary {
@@ -118,7 +119,7 @@
       <div class="register-card">
         <h3 class="text-center mb-4">Create Your Account</h3>
 
-        <form action="login" method="post" onsubmit="return validateForm()">
+        <form action="register" method="post" onsubmit="return validateForm()">
           <input type="hidden" name="action" value="register">
 
           <div class="row">
@@ -221,15 +222,10 @@
   function checkPasswordStrength() {
     const password = document.getElementById('password').value;
     const strengthBar = document.getElementById('passwordStrength');
-
-    // Reset strength bar
     strengthBar.className = 'progress-bar';
 
-    if (password.length === 0) {
-      return;
-    }
+    if (password.length === 0) return;
 
-    // Calculate strength
     let strength = 0;
     if (password.length >= 8) strength++;
     if (password.match(/[a-z]/)) strength++;
@@ -237,7 +233,6 @@
     if (password.match(/[0-9]/)) strength++;
     if (password.match(/[^a-zA-Z0-9]/)) strength++;
 
-    // Update strength bar
     if (strength <= 2) {
       strengthBar.classList.add('strength-weak');
     } else if (strength <= 4) {
@@ -252,7 +247,6 @@
     const confirmPassword = document.getElementById('confirmPassword').value;
     const terms = document.getElementById('terms').checked;
 
-    // Check password match
     if (password !== confirmPassword) {
       document.getElementById('passwordMatch').innerHTML = '<span class="text-danger">Passwords do not match</span>';
       document.getElementById('confirmPassword').focus();
@@ -261,28 +255,13 @@
       document.getElementById('passwordMatch').innerHTML = '<span class="text-success">Passwords match</span>';
     }
 
-    // Check terms agreement
     if (!terms) {
-      alert("Please agree to the terms and conditions");
+      alert("Please agree to the Terms and Conditions.");
       return false;
     }
 
     return true;
   }
-
-  // Live password match checking
-  document.getElementById('confirmPassword').addEventListener('input', function() {
-    const password = document.getElementById('password').value;
-    const confirmPassword = this.value;
-
-    if (confirmPassword.length === 0) {
-      document.getElementById('passwordMatch').textContent = '';
-    } else if (password === confirmPassword) {
-      document.getElementById('passwordMatch').innerHTML = '<span class="text-success">Passwords match</span>';
-    } else {
-      document.getElementById('passwordMatch').innerHTML = '<span class="text-danger">Passwords do not match</span>';
-    }
-  });
 </script>
 </body>
 </html>

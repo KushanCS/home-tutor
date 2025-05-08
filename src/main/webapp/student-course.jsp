@@ -1,14 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="student.model.Student" %>
-<%
-    Student student = (Student) session.getAttribute("student");
-    if (student == null) {
-        response.sendRedirect("login.jsp");
-        return;
-    }
-%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,6 +81,7 @@
     </style>
 </head>
 <body>
+<!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
     <div class="container">
         <a class="navbar-brand fw-bold" href="home-page.jsp" style="color: var(--primary-color);">
@@ -102,9 +94,6 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="course-home.jsp">Courses</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="student-course.jsp"><i class="bi bi-collection-play me-1"></i> My Courses</a>
                 </li>
             </ul>
             <%
@@ -126,56 +115,49 @@
         </div>
     </div>
 </nav>
-
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body text-center">
-                    <img src="https://ui-avatars.com/api/?name=<%= student.getName() %>&background=random&size=150"
-                         class="rounded-circle profile-img mb-3">
-                    <h3><%= student.getName() %></h3>
-                    <p class="text-muted"><%= student.getCourse() %></p>
-                    <a href="edit-profile.jsp" class="btn btn-primary">Edit Profile</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Profile Information</h4>
-                </div>
-                <div class="card-body">
-                    <table class="table">
-                        <tr>
-                            <th>Student ID</th>
-                            <td><%= student.getStdId() %></td>
-                        </tr>
-                        <tr>
-                            <th>Username</th>
-                            <td><%= student.getUserName() %></td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td><%= student.getEmail() %></td>
-                        </tr>
-                        <tr>
-                            <th>Phone</th>
-                            <td><%= student.getPhone() %></td>
-                        </tr>
-                        <tr>
-                            <th>Address</th>
-                            <td><%= student.getAddress() %></td>
-                        </tr>
-                        <tr>
-                            <th>Date of Birth</th>
-                            <td><%= student.getDob() %></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+<!-- Search bar -->
+<div class="container mt-4">
+    <div class="row justify-content-between align-items-center">
+        <div class="col-md-6">
+            <input type="text" id="courseSearch" class="form-control" placeholder="Search courses...">
         </div>
     </div>
 </div>
+
+<!-- Table -->
+<div class="container mt-4">
+    <table class="table table-bordered" id="studentCourseTable">
+        <thead class="table-light">
+        <tr>
+            <th>Course Name</th>
+            <th>Instructor</th>
+            <th>Progress</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Introduction to Java</td>
+            <td>Ms. Shashika</td>
+            <td>80%</td>
+            <td><a href="#" class="btn btn-sm btn-primary">Continue</a></td>
+        </tr>
+        <!-- More rows -->
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    document.getElementById('courseSearch').addEventListener('keyup', function () {
+        const input = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#studentCourseTable tbody tr');
+
+        rows.forEach(row => {
+            const rowText = row.textContent.toLowerCase();
+            row.style.display = rowText.includes(input) ? '' : 'none';
+        });
+    });
+</script>
+
 </body>
-</html>

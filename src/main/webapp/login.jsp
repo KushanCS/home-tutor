@@ -118,15 +118,6 @@
                 <div class="alert alert-success"><%= message %></div>
                 <% } %>
 
-                <%
-                    String successMsg = request.getParameter("message");
-                    if ("success".equals(successMsg)) {
-                %>
-                <div class="alert alert-success">Registration successful! You can now log in.</div>
-                <%
-                    }
-                %>
-
                 <form action="login" method="post">
                     <input type="hidden" name="action" value="login">
                     <div class="mb-3">
@@ -155,10 +146,6 @@
 
                     <a href="register.jsp" class="btn btn-outline-primary w-100">
                         Create New Account
-                    </a>
-
-                    <a href="add_tutor.jsp" class="btn btn-outline-success w-100 mt-2">
-                        Become a Teacher
                     </a>
                 </form>
 
