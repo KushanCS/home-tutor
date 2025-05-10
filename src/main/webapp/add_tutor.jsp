@@ -63,7 +63,7 @@
 <div class="container">
     <div class="form-container">
         <h3 class="text-center mb-4">Become a Tutor</h3>
-        <form action="RegisterTutorServlet" method="post">
+        <form action="RegisterTutorServlet" method="post" enctype="multipart/form-data">
             <div class="row g-3">
                 <div class="col-md-6"><input type="text" name="username" class="form-control" placeholder="Username" required></div>
                 <div class="col-md-6"><input type="text" name="name" class="form-control" placeholder="Full Name" required></div>
@@ -81,7 +81,12 @@
                         <option value="PhD">PhD</option>
                     </select>
                 </div>
-                <div class="col-12"><input type="text" name="address" class="form-control" placeholder="Address" required></div>
+                <div class="col-12"><input type="text" name="address" class="form-control" placeholder="Address" required>
+                </div>
+                <div class="col-12">
+                    <label for="profileImage" class="form-label">Upload Profile Image</label>
+                    <input type="file" name="profileImage" id="profileImage" class="form-control" accept="image/*">
+                </div>
                 <div class="col-md-6">
                     <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
                     <div class="progress mt-1"><div id="password-strength" class="progress-bar bg-danger" role="progressbar" style="width: 0%"></div></div>

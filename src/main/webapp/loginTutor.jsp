@@ -1,5 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="false" %>
+
+<%
+    String deleted = request.getParameter("deleted");
+    if ("true".equals(deleted)) {
+%>
+<div class="alert alert-warning text-center">Your profile has been deleted successfully.</div>
+<% } %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +18,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #f8f9fa;
+            --primary-color: #5624d0;
+            --secondary-color: #f7f9fa;
+            --accent-color: #a435f0;
         }
 
         body {
@@ -27,6 +36,12 @@
             font-weight: 700;
             color: var(--primary-color);
             margin-bottom: 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logo:hover {
+            color: var(--primary-color);
         }
 
         .tagline {
@@ -40,6 +55,7 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             padding: 2rem;
+            background-color: white;
         }
 
         .btn-primary {
@@ -47,6 +63,20 @@
             border-color: var(--primary-color);
             padding: 0.5rem;
             font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
         }
 
         .form-control {
@@ -94,7 +124,9 @@
         <!-- Left Side -->
         <div class="col-lg-6 d-none d-lg-block">
             <div class="text-center text-lg-start">
-                <div class="logo">Meta Tutor</div>
+                <a href="home-page.jsp" class="logo">
+                    <i class="fas fa-graduation-cap me-2"></i>MetaTutor
+                </a>
                 <div class="tagline">Your gateway to academic success</div>
                 <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
                      alt="Students learning" class="img-fluid rounded">
@@ -150,7 +182,7 @@
                             <input class="form-check-input" type="checkbox" id="rememberMe">
                             <label class="form-check-label" for="rememberMe">Remember me</label>
                         </div>
-                        <a href="#" class="text-decoration-none">Forgot password?</a>
+                        <a href="forgot_password.jsp" class="text-decoration-none">Forgot password?</a>
                     </div>
                     <button type="submit" class="btn btn-primary w-100 mb-3">Log In</button>
 

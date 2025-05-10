@@ -36,21 +36,29 @@ public class TutorFileUtil {
     public static TutorBST getTutorBST() throws IOException {
         if (tutorBST == null) {
             tutorBST = new TutorBST();
-            for (Tutor t : getAllTutors()) tutorBST.insert(t);
+            for (Tutor t : getAllTutors()) {
+                tutorBST.insert(t);
+            }
         }
         return tutorBST;
     }
 
-    public static boolean usernameExists(String username) throws IOException {
+    public static void reloadBST() throws IOException {
+        tutorBST = new TutorBST();
         for (Tutor t : getAllTutors()) {
-            if (t.getUsername().equalsIgnoreCase(username)) return true;
+            tutorBST.insert(t);
         }
-        return false;
+    }
+
+    public static boolean usernameExists(String username) throws IOException {
+        return getTutorBST().search(username) != null;
     }
 
     public static String generateUniqueTutorId() throws IOException {
         Set<String> ids = new HashSet<>();
-        for (Tutor t : getAllTutors()) ids.add(t.getTutorId());
+        for (Tutor t : getAllTutors()) {
+            ids.add(t.getTutorId());
+        }
 
         String id;
         do {
@@ -58,5 +66,54 @@ public class TutorFileUtil {
         } while (ids.contains(id));
 
         return id;
+    }
+
+    public static void saveAllTutors(List<Tutor> tutors) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false))) {
+            for (Tutor t : tutors) {
+                writer.write(t.toString());
+                writer.newLine();
+            }
+        }
+    }
+
+    public static boolean updateTutorPasswordByEmail(String email, String newHashedPassword) throws IOException {
+        List<Tutor> tutors = getAllTutors();
+        boolean updated = false;
+
+        for (Tutor t : tutors) {
+            if (t.getEmail().equalsIgnoreCase(email)) {
+                t.setPassword(newHashedPassword);
+                updated = true;
+                break;
+            }
+        }
+
+        if (updated) {
+            saveAllTutors(tutors);
+            reloadBST();
+        }
+
+        return updated;
+    }
+
+    public static boolean updateTutorProfileImage(String tutorId, String fileName) throws IOException {
+        List<Tutor> tutors = getAllTutors();
+        boolean updated = false;
+
+        for (Tutor t : tutors) {
+            if (t.getTutorId().equalsIgnoreCase(tutorId)) {
+                t.setProfileImage(fileName);
+                updated = true;
+                break;
+            }
+        }
+
+        if (updated) {
+            saveAllTutors(tutors);
+            reloadBST();
+        }
+
+        return updated;
     }
 }

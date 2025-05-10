@@ -4,13 +4,18 @@ import tutor.model.Tutor;
 import tutor.util.TutorFileUtil;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.io.IOException;
+import java.io.*;
 import java.security.MessageDigest;
 
 @WebServlet("/RegisterTutorServlet")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, // 1MB
+        maxFileSize = 1024 * 1024 * 5, // 5MB
+        maxRequestSize = 1024 * 1024 * 10) // 10MB
 public class RegisterTutorServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         if (TutorFileUtil.usernameExists(username)) {
@@ -30,10 +35,22 @@ public class RegisterTutorServlet extends HttpServlet {
         String password = hashPassword(request.getParameter("password"));
         String about = request.getParameter("about");
 
-        Tutor tutor = new Tutor(tutorId, username, fullName, subject, email, contact, campusName,
-                degreeCourse, degreeLevel, address, password, about);
-        TutorFileUtil.saveTutor(tutor);
+        // Handle image upload
+        Part filePart = request.getPart("profileImage");
+        String fileName = null;
+        if (filePart != null && filePart.getSize() > 0) {
+            String uploadPath = getServletContext().getRealPath("/") + "image";
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) uploadDir.mkdirs();
 
+            fileName = tutorId + "_" + System.currentTimeMillis() + ".jpg";
+            filePart.write(uploadPath + File.separator + fileName);
+        }
+
+        Tutor tutor = new Tutor(tutorId, username, fullName, subject, email, contact, campusName,
+                degreeCourse, degreeLevel, address, password, about, fileName);
+
+        TutorFileUtil.saveTutor(tutor);
         response.sendRedirect("loginTutor.jsp?success=true");
     }
 
