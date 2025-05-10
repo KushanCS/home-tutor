@@ -1,6 +1,6 @@
 package student.services;
 
-import student.model.Student;
+import student.model.Course;
 import student.utils.StudentFileUtil;
 import java.util.List;
 
@@ -13,15 +13,15 @@ public class StudentService {
     }
 
     // Add a student
-    public void addStudent(Student student) {
-        List<Student> students = StudentFileUtil.readStudents(filePath);
+    public void addStudent(Course student) {
+        List<Course> students = StudentFileUtil.readStudents(filePath);
         students.add(student);
         StudentFileUtil.writeStudents(students, filePath);
     }
 
     // Get a student by username
-    public Student getStudentByUsername(String username) {
-        List<Student> students = StudentFileUtil.readStudents(filePath);
+    public Course getStudentByUsername(String username) {
+        List<Course> students = StudentFileUtil.readStudents(filePath);
         return students.stream()
                 .filter(s -> s.getUserName().equals(username))
                 .findFirst()
@@ -29,9 +29,9 @@ public class StudentService {
     }
 
     // Update a student's details
-    public boolean updateStudent(Student updatedStudent) {
-        List<Student> students = StudentFileUtil.readStudents(filePath);
-        for (Student student : students) {
+    public boolean updateStudent(Course updatedStudent) {
+        List<Course> students = StudentFileUtil.readStudents(filePath);
+        for (Course student : students) {
             if (student.getStdId().equals(updatedStudent.getStdId())) {
                 student.setName(updatedStudent.getName());
                 student.setUserName(updatedStudent.getUserName());
@@ -50,7 +50,7 @@ public class StudentService {
 
     // Delete a student by stdId
     public void deleteStudent(String stdId) {
-        List<Student> students = StudentFileUtil.readStudents(filePath);
+        List<Course> students = StudentFileUtil.readStudents(filePath);
         boolean removed = students.removeIf(s -> s.getStdId().equals(stdId));
         if (!removed) {
             System.out.println("No student found with ID: " + stdId);

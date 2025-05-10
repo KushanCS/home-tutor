@@ -1,6 +1,6 @@
 package student.utils;
 
-import student.model.Student;
+import student.model.Course;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +8,14 @@ import java.util.List;
 public class StudentFileUtil {
 
     // Read the students from the file
-    public static List<Student> readStudents(String filePath) {
-        List<Student> students = new ArrayList<>();
+    public static List<Course> readStudents(String filePath) {
+        List<Course> students = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");
                 if (parts.length == 9) {
-                    students.add(new Student(parts[0], parts[1], parts[2], parts[3], parts[4],
+                    students.add(new Course(parts[0], parts[1], parts[2], parts[3], parts[4],
                             parts[5], parts[6], parts[7], parts[8]));
                 } else {
                     System.err.println("Invalid data format in line: " + line);
@@ -28,9 +28,9 @@ public class StudentFileUtil {
     }
 
     // Write the updated list of students back to the file
-    public static void writeStudents(List<Student> students, String filePath) {
+    public static void writeStudents(List<Course> students, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Student s : students) {
+            for (Course s : students) {
                 writer.write(String.join(";",
                         s.getStdId(), s.getName(), s.getUserName(), s.getEmail(),
                         s.getPhone(), s.getAddress(), s.getPassword(),
@@ -43,8 +43,8 @@ public class StudentFileUtil {
     }
 
     // Find a student by username
-    public static Student getStudentByUsername(String username, String filePath) {
-        List<Student> students = readStudents(filePath);
+    public static Course getStudentByUsername(String username, String filePath) {
+        List<Course> students = readStudents(filePath);
         return students.stream()
                 .filter(s -> s.getUserName().equals(username))
                 .findFirst()

@@ -1,7 +1,7 @@
 package student.controller;
 
 import student.services.StudentService;
-import student.model.Student;
+import student.model.Course;
 import student.utils.StudentFileUtil;
 
 import javax.servlet.ServletException;
@@ -23,7 +23,7 @@ public class StudentServlet extends HttpServlet {
         StudentService studentService = new StudentService(filePath);
 
         // Read all students
-        List<Student> students = StudentFileUtil.readStudents(filePath);
+        List<Course> students = StudentFileUtil.readStudents(filePath);
         request.setAttribute("students", students);
 
         // Forward to JSP for display
@@ -39,7 +39,7 @@ public class StudentServlet extends HttpServlet {
 
         if ("add".equals(action)) {
             // Build new student object
-            Student student = new Student();
+            Course student = new Course();
             student.setStdId(request.getParameter("stdId"));
             student.setName(request.getParameter("name"));
             student.setUserName(request.getParameter("userName"));
@@ -59,7 +59,7 @@ public class StudentServlet extends HttpServlet {
 
         } else if ("update".equals(action)) {
             // Build updated student object
-            Student updated = new Student();
+            Course updated = new Course();
             updated.setStdId(request.getParameter("stdId"));
             updated.setName(request.getParameter("name"));
             updated.setUserName(request.getParameter("userName"));

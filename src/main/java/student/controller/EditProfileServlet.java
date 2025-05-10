@@ -1,7 +1,7 @@
 package student.controller;
 
 import student.services.StudentService;
-import student.model.Student;
+import student.model.Course;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +27,7 @@ public class EditProfileServlet extends HttpServlet {
         String dob = request.getParameter("dob");
 
         StudentService studentService = new StudentService(filePath);
-        Student student = studentService.getStudentByUsername(currentUsername);
+        Course student = studentService.getStudentByUsername(currentUsername);
 
         if (student != null) {
             student.setUserName(newUsername);

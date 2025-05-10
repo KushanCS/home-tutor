@@ -1,7 +1,7 @@
 package student.controller;
 
 import student.utils.StudentFileUtil;
-import student.model.Student;
+import student.model.Course;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -26,14 +26,14 @@ public class RegisterServlet extends HttpServlet {
         }
 
         try {
-            Student existing = StudentFileUtil.getStudentByUsername(request.getParameter("username"), filePath);
+            Course existing = StudentFileUtil.getStudentByUsername(request.getParameter("username"), filePath);
             if (existing != null) {
                 request.setAttribute("error", "Username already exists!");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
                 return;
             }
 
-            Student student = new Student(
+            Course student = new Course(
                     generateStudentId(),
                     request.getParameter("fullName"),
                     request.getParameter("username"),
@@ -45,7 +45,7 @@ public class RegisterServlet extends HttpServlet {
                     request.getParameter("dob")
             );
 
-            List<Student> students = StudentFileUtil.readStudents(filePath);
+            List<Course> students = StudentFileUtil.readStudents(filePath);
             students.add(student);
             StudentFileUtil.writeStudents(students, filePath);
 
