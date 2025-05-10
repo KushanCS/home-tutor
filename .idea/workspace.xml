@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f70200c-9adc-4d10-926f-877b10879907" name="Changes" comment="">
+<<<<<<< HEAD
       <change afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/course/controller/AddCourseServlet.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/course/model/Course.java" afterDir="false" />
@@ -19,6 +20,8 @@
       <change afterPath="$PROJECT_DIR$/src/main/webapp/enroll.jsp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/webapp/payment-history.jsp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/webapp/paynow.jsp" afterDir="false" />
+=======
+>>>>>>> 7a993c67a31a5f1d793dc008289abfa012eaff15
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/catalina.policy" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/catalina.properties" beforeDir="false" />
@@ -30,6 +33,7 @@
       <change beforePath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/tomcat-users.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/tomcat-users.xsd" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/web.xml" beforeDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/src/main/java/student/controller/EditProfileServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/student/controller/EditProfileServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/student/controller/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/student/controller/LoginServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/student/controller/RegisterServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/student/controller/RegisterServlet.java" afterDir="false" />
@@ -41,11 +45,17 @@
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/course-home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/course-home.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit-profile.jsp" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/students.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/students.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/course-home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/course-home.jsp" afterDir="false" />
+>>>>>>> 7a993c67a31a5f1d793dc008289abfa012eaff15
       <change beforePath="$PROJECT_DIR$/src/main/webapp/header.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/home-page.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home-page.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/profile.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/student.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/student_course.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student-course.jsp" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/target/classes/student/controller/EditProfileServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/student/controller/EditProfileServlet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/student/controller/LoginServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/student/controller/LoginServlet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/student/controller/RegisterServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/student/controller/RegisterServlet.class" afterDir="false" />
@@ -53,6 +63,8 @@
       <change beforePath="$PROJECT_DIR$/target/classes/student/model/Student.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/student/services/StudentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/student/services/StudentService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/student/utils/StudentFileUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/student/utils/StudentFileUtil.class" afterDir="false" />
+=======
+>>>>>>> 7a993c67a31a5f1d793dc008289abfa012eaff15
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +92,11 @@
     &quot;state&quot;: &quot;OPEN&quot;,
     &quot;assignee&quot;: &quot;KushanCS&quot;
   }
+<<<<<<< HEAD
 }</component>
+=======
+}]]></component>
+>>>>>>> 7a993c67a31a5f1d793dc008289abfa012eaff15
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/KushanCS/home-tutor.git&quot;,
@@ -106,7 +122,10 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+<<<<<<< HEAD
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+=======
+>>>>>>> 7a993c67a31a5f1d793dc008289abfa012eaff15
     "Smart Tomcat.Unnamed.executor": "Run",
     "Smart Tomcat.tomcat-9.executor": "Run",
     "git-widget-placeholder": "branch-kushan",
@@ -163,9 +182,13 @@
       <option name="presentableId" value="Default" />
       <updated>1746551385766</updated>
       <workItem from="1746551386938" duration="50000" />
+<<<<<<< HEAD
       <workItem from="1746640240367" duration="11825000" />
       <workItem from="1746762761999" duration="168000" />
       <workItem from="1746762941753" duration="21865000" />
+=======
+      <workItem from="1746640240367" duration="7152000" />
+>>>>>>> 7a993c67a31a5f1d793dc008289abfa012eaff15
     </task>
     <servers />
   </component>
