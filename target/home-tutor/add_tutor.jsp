@@ -63,7 +63,7 @@
 <div class="container">
     <div class="form-container">
         <h3 class="text-center mb-4">Become a Tutor</h3>
-        <form action="addTutor" method="post">
+        <form action="RegisterTutorServlet" method="post">
             <div class="row g-3">
                 <div class="col-md-6"><input type="text" name="username" class="form-control" placeholder="Username" required></div>
                 <div class="col-md-6"><input type="text" name="name" class="form-control" placeholder="Full Name" required></div>
@@ -98,7 +98,7 @@
                 <div class="col-12"><button type="submit" class="btn btn-primary w-100">Register as Tutor</button></div>
             </div>
         </form>
-        <div class="text-center mt-3">Already have an account? <a href="login.jsp">Sign in</a></div>
+        <div class="text-center mt-3">Already have an account? <a href="loginTutor.jsp">Sign in</a></div>
     </div>
 </div>
 

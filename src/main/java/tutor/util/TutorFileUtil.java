@@ -1,23 +1,26 @@
 package tutor.util;
 
+import tutor.bst.TutorBST;
 import tutor.model.Tutor;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class TutorFileUtil {
-    public static void saveTutor(Tutor tutor, String filePath) throws IOException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+    private static final String FILE_PATH = "src/main/webapp/WEB-INF/tutors.txt";
+    private static TutorBST tutorBST;
+
+    public static void saveTutor(Tutor tutor) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             writer.write(tutor.toString());
             writer.newLine();
         }
+        getTutorBST().insert(tutor);
     }
 
-    public static List<Tutor> getAllTutors(String filePath) throws IOException {
+    public static List<Tutor> getAllTutors() throws IOException {
         List<Tutor> tutors = new ArrayList<>();
-        File file = new File(filePath);
-
+        File file = new File(FILE_PATH);
         if (!file.exists()) return tutors;
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -27,16 +30,33 @@ public class TutorFileUtil {
                 if (tutor != null) tutors.add(tutor);
             }
         }
-
         return tutors;
     }
 
-    public static Tutor getTutorByUsername(String username, String filePath) throws IOException {
-        for (Tutor tutor : getAllTutors(filePath)) {
-            if (tutor.getUsername().equals(username)) {
-                return tutor;
-            }
+    public static TutorBST getTutorBST() throws IOException {
+        if (tutorBST == null) {
+            tutorBST = new TutorBST();
+            for (Tutor t : getAllTutors()) tutorBST.insert(t);
         }
-        return null;
+        return tutorBST;
+    }
+
+    public static boolean usernameExists(String username) throws IOException {
+        for (Tutor t : getAllTutors()) {
+            if (t.getUsername().equalsIgnoreCase(username)) return true;
+        }
+        return false;
+    }
+
+    public static String generateUniqueTutorId() throws IOException {
+        Set<String> ids = new HashSet<>();
+        for (Tutor t : getAllTutors()) ids.add(t.getTutorId());
+
+        String id;
+        do {
+            id = "TUT" + (int)(Math.random() * 100000);
+        } while (ids.contains(id));
+
+        return id;
     }
 }

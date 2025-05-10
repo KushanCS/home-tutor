@@ -7,38 +7,47 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.security.MessageDigest;
 
 @WebServlet("/RegisterTutorServlet")
 public class RegisterTutorServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        // Retrieve form data
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
-        String fullName = request.getParameter("fullName");
-        String course = request.getParameter("course");
+        if (TutorFileUtil.usernameExists(username)) {
+            response.sendRedirect("loginTutor.jsp?error=exists");
+            return;
+        }
+
+        String tutorId = TutorFileUtil.generateUniqueTutorId();
+        String fullName = request.getParameter("name");
+        String subject = request.getParameter("subject");
         String email = request.getParameter("email");
-        String contactNumber = request.getParameter("contactNumber");
+        String contact = request.getParameter("contact");
         String campusName = request.getParameter("campusName");
         String degreeCourse = request.getParameter("degreeCourse");
         String degreeLevel = request.getParameter("degreeLevel");
         String address = request.getParameter("address");
-        String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
+        String password = hashPassword(request.getParameter("password"));
         String about = request.getParameter("about");
 
-        // Simple password check
-        if (!password.equals(confirmPassword)) {
-            request.setAttribute("error", "Passwords do not match.");
-            request.getRequestDispatcher("add_tutor.jsp").forward(request, response);
-            return;
+        Tutor tutor = new Tutor(tutorId, username, fullName, subject, email, contact, campusName,
+                degreeCourse, degreeLevel, address, password, about);
+        TutorFileUtil.saveTutor(tutor);
+
+        response.sendRedirect("loginTutor.jsp?success=true");
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            StringBuilder hex = new StringBuilder();
+            for (byte b : hash) {
+                hex.append(String.format("%02x", b));
+            }
+            return hex.toString();
+        } catch (Exception e) {
+            return password;
         }
-
-        // Save tutor to file
-        Tutor tutor = new Tutor(username, fullName, course, email, contactNumber,
-                campusName, degreeCourse, degreeLevel, address, password, about);
-
-        String filePath = getServletContext().getRealPath("/WEB-INF/tutors.txt");
-        TutorFileUtil.saveTutor(tutor, filePath);
-
-        response.sendRedirect("login.jsp?registered=true");
     }
 }
