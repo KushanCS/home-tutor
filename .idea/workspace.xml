@@ -10,34 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f70200c-9adc-4d10-926f-877b10879907" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/tutor/servlet/DeleteTutorServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tutor/servlet/ForgotPasswordServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tutor/servlet/ResetPasswordServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tutor/servlet/UpdateTutorServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/tutor/servlet/VerifyOTPServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/edit_tutor.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/forgot_password.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/profileTutor.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/reset_password.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/verify_otp.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tutor/model/Tutor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tutor/model/Tutor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tutor/servlet/RegisterTutorServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tutor/servlet/RegisterTutorServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tutor/util/TutorFileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tutor/util/TutorFileUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tutors.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tutors.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/add_tutor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/add_tutor.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/loginTutor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/loginTutor.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/tutor_dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/tutor_dashboard.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tutor/model/Tutor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tutor/model/Tutor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tutor/servlet/RegisterTutorServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tutor/servlet/RegisterTutorServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/tutor/util/TutorFileUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tutor/util/TutorFileUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/model/Tutor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/model/Tutor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/servlet/RegisterTutorServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/servlet/RegisterTutorServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/util/TutorFileUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/util/TutorFileUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/home-tutor/WEB-INF/tutors.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/home-tutor/WEB-INF/tutors.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/home-tutor/add_tutor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/home-tutor/add_tutor.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/home-tutor/loginTutor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/home-tutor/loginTutor.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/home-tutor/tutor_dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/home-tutor/tutor_dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit_tutor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit_tutor.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +227,7 @@
       <workItem from="1746767667307" duration="2007000" />
       <workItem from="1746770202299" duration="6276000" />
       <workItem from="1746781839695" duration="6476000" />
-      <workItem from="1746852922919" duration="17889000" />
+      <workItem from="1746852922919" duration="22233000" />
     </task>
     <servers />
   </component>

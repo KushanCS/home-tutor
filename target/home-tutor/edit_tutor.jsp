@@ -226,12 +226,24 @@
                 <div class="profile-card">
                     <div class="profile-header">
                         <div class="d-flex align-items-center">
-                            <div class="profile-avatar text-center mb-3">
-                                <% if (tutor.getProfileImage() != null && !tutor.getProfileImage().isEmpty()) { %>
-                                <img src="image/<%= tutor.getProfileImage() %>" alt="Profile Image" class="rounded-circle" width="120" height="120">
-                                <% } else { %>
-                                <i class="fas fa-user-tie fa-5x text-secondary"></i>
-                                <% } %>
+                            <div class="position-relative me-4">
+                                <div class="profile-avatar-edit">
+                                    <% if (tutor.getProfileImage() != null && !tutor.getProfileImage().isEmpty()) { %>
+                                    <img src="image/<%= tutor.getProfileImage() %>" id="profileImagePreview"
+                                         class="rounded-circle shadow" width="120" height="120"
+                                         style="object-fit: cover; border: 3px solid white;">
+                                    <% } else { %>
+                                    <div id="profileImagePreview" class="rounded-circle d-flex align-items-center justify-content-center"
+                                         style="width:120px; height:120px; background-color: #e9ecef; border: 3px solid white;">
+                                        <i class="fas fa-user-tie fa-3x text-secondary"></i>
+                                    </div>
+                                    <% } %>
+                                    <label for="profileImage" class="profile-upload-btn">
+                                        <i class="fas fa-camera"></i>
+                                        <input type="file" id="profileImage" name="profileImage"
+                                               accept="image/*" style="display: none;">
+                                    </label>
+                                </div>
                             </div>
                             <div class="profile-info">
                                 <h3 class="profile-name"><%= tutor.getName() %></h3>
@@ -243,8 +255,21 @@
                         </a>
                     </div>
 
-                    <form action="UpdateTutorServlet" method="post" id="profileForm" novalidate>
-                        <input type="hidden" name="tutorId" value="<%= tutor.getTutorId() %>"/>
+                    <form action="UpdateTutorServlet" method="post" enctype="multipart/form-data" id="profileForm">
+                    <input type="hidden" name="tutorId" value="<%= tutor.getTutorId() %>"/>
+
+                    <div class="mb-4">
+                        <h4 class="section-title">
+                            <i class="fas fa-image me-2"></i>Profile Picture
+                        </h4>
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>Recommended size: 500x500 pixels (1:1 ratio)
+                        </div>
+                        <div class="mb-3">
+                            <label for="profileImage" class="form-label">Upload new profile picture</label>
+                            <input type="file" class="form-control" id="profileImage" name="profileImage" accept="image/*">
+                        </div>
+                    </div>
 
                         <!-- Personal Information Section -->
                         <div class="mb-5">
