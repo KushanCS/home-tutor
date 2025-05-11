@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="student.model.Student" %>
+<%@ page import="student.model.Course" %>
 <%
-  Student student = (Student) session.getAttribute("student");
+  Course student = (Course) session.getAttribute("student");
   if (student == null) {
     response.sendRedirect("login.jsp");
     return;

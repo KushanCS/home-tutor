@@ -1,7 +1,7 @@
 package student.controller;
 
 import student.utils.StudentFileUtil;
-import student.model.Student;
+import student.model.Course;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
         String filePath = getServletContext().getRealPath("/WEB-INF/students.txt");
 
         try {
-            Student student = StudentFileUtil.getStudentByUsername(username, filePath);
+            Course student = StudentFileUtil.getStudentByUsername(username, filePath);
 
             if (student != null && student.getPassword().equals(hashPassword(password))) {
                 HttpSession session = request.getSession();
