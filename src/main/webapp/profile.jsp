@@ -1,8 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<<<<<<< HEAD
 <%@ page import="student.model.Student" %>
 <%@ page import="java.net.URLEncoder" %>
+=======
+<%@ page import="student.model.Course" %>
+>>>>>>> 6c48812fc751e9e73b7f6b4bae90494331be218a
 <%
-    Student student = (Student) session.getAttribute("student");
+    Course student = (Course) session.getAttribute("student");
     if (student == null) {
         response.sendRedirect("login.jsp");
         return;

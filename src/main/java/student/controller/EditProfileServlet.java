@@ -1,7 +1,12 @@
 package student.controller;
 
+<<<<<<< HEAD
 import student.utils.StudentFileUtil;
 import student.model.Student;
+=======
+import student.services.StudentService;
+import student.model.Course;
+>>>>>>> 6c48812fc751e9e73b7f6b4bae90494331be218a
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -48,10 +53,15 @@ public class EditProfileServlet extends HttpServlet {
                 .filter(s -> s.getUserName().equalsIgnoreCase(originalUsername))
                 .findFirst().orElse(null);
 
+<<<<<<< HEAD
         if (current == null) {
             response.sendRedirect("login.jsp");
             return;
         }
+=======
+        StudentService studentService = new StudentService(filePath);
+        Course student = studentService.getStudentByUsername(currentUsername);
+>>>>>>> 6c48812fc751e9e73b7f6b4bae90494331be218a
 
         // 3) If username changed, ensure no clash
         String newUsername = request.getParameter("username").trim();

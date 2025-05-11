@@ -1,7 +1,7 @@
 package student.controller;
 
 import student.utils.StudentFileUtil;
-import student.model.Student;
+import student.model.Course;
 
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
@@ -43,15 +43,20 @@ public class RegisterServlet extends HttpServlet {
         }
 
         try {
+<<<<<<< HEAD
 
             String requestUsername = request.getParameter("username");
             Student existing = StudentFileUtil.getStudentByUsername(requestUsername, filePath);
+=======
+            Course existing = StudentFileUtil.getStudentByUsername(request.getParameter("username"), filePath);
+>>>>>>> 6c48812fc751e9e73b7f6b4bae90494331be218a
             if (existing != null) {
                 request.setAttribute("error", "Username already exists!");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
                 return;
             }
 
+<<<<<<< HEAD
             //Handle the upload
             Part filePart = request.getPart("profilePic");
             String submittedName = filePart.getSubmittedFileName();
@@ -69,6 +74,9 @@ public class RegisterServlet extends HttpServlet {
             String relativePath = UPLOAD_DIR + "/" + uniqueName;
 
             Student student = new Student(
+=======
+            Course student = new Course(
+>>>>>>> 6c48812fc751e9e73b7f6b4bae90494331be218a
                     generateStudentId(),
                     request.getParameter("fullName"),
                     request.getParameter("username"),
@@ -81,7 +89,7 @@ public class RegisterServlet extends HttpServlet {
                     relativePath
             );
 
-            List<Student> students = StudentFileUtil.readStudents(filePath);
+            List<Course> students = StudentFileUtil.readStudents(filePath);
             students.add(student);
             StudentFileUtil.writeStudents(students, filePath);
 

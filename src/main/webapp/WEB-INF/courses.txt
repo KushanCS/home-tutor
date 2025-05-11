@@ -1,12 +1,22 @@
 maths,kushan,1000.0,2,q
+<<<<<<< HEAD
 maths,dinuwa,1200.0,2,qmghj
 maths33,dinuwa,1000.0,2,qmghj
 bio,dinuwa,1000.0,2,qmghj
 bio,dinuwauu,200.0,2,qmghj
+=======
+maths,dinuwa,1000.0,2,qmghj
+maths33,dinuwa,1000.0,2,qmghj
+bio,dinuwa,1000.0,2,qmghj
+bio,dinuwauu,1000.0,2,qmghj
+>>>>>>> 6c48812fc751e9e73b7f6b4bae90494331be218a
 bio,dinuwauu,1000.0,2,qmghj
 bio,dinuwauu,1000.0,2,qmghj
 bio,dinuwauu,1000.0,2,qmghj
 bio45,dinuwauu,1000.0,2,qmghj
 bio45,dinuwauu,1000.0,2,qmghj
 bio45,dinuwauu,1000.0,2,fsf
+<<<<<<< HEAD
 bio45,dinuwauu,1000.0,2,122
+=======
+>>>>>>> 6c48812fc751e9e73b7f6b4bae90494331be218a

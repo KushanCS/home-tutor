@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 STU6175;admin;ashan;abc@gmail.cok;0701234567;sliit;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;Computer Science;2025-05-21;uploads/1746889236655_ashan.jpg
 STU3865;null;null;null;null;null;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;null;null;uploads/1746890554377_kcs.png
 STU5610;admin;kcs2;abc@gmail.cok;0701234567;sliit;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;null;null;uploads/student_1746890649123_kcs2.jpg
 STU4661;null;null;null;null;null;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;null;null;uploads/student_1746939844451_ashantr.jpg
 STU1170;null;null;null;null;null;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;null;null;uploads/student_1746940692921_ashantrtr.png
 STU6477;admin;ashan1;abc@gmail.cok;0701234567;sliit;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;Computer Science;2025-05-21;uploads/1746942548457_ashan1.jpg
+=======
+STU4204;admin;1admin;abc@gmail.cok;0701234567;sliit;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;null;null
+STU8474;admin kcs;ReshikaxKushan;abc@gmail.cok;0701234567;sliit;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;null;null
+STU8865;ashan tt;ashi2;abc@gmail.cok;0701234567;sliit;03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4;null;null
+
+>>>>>>> 6c48812fc751e9e73b7f6b4bae90494331be218a
