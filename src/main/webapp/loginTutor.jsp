@@ -40,10 +40,6 @@
             display: inline-block;
         }
 
-        .logo:hover {
-            color: var(--primary-color);
-        }
-
         .tagline {
             font-size: 1.2rem;
             color: #555;
@@ -148,6 +144,8 @@
                 <div class="alert alert-success text-center">Registration successful! You can now log in.</div>
                 <% } else if ("exists".equals(error)) { %>
                 <div class="alert alert-danger text-center">Username already exists!</div>
+                <% } else if ("emailexists".equals(error)) { %>
+                <div class="alert alert-danger text-center">Email already registered!</div>
                 <% } else if ("invalid".equals(error)) { %>
                 <div class="alert alert-danger text-center">Invalid username or password.</div>
                 <% } %>

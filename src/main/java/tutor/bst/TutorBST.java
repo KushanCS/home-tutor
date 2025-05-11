@@ -4,6 +4,7 @@ import tutor.model.Tutor;
 
 public class TutorBST {
     private TutorNode root;
+    private static TutorBST instance;
 
     public void insert(Tutor tutor) {
         root = insertRec(root, tutor);
@@ -42,4 +43,27 @@ public class TutorBST {
         Tutor left = searchRecursive(node.left, input);
         return (left != null) ? left : searchRecursive(node.right, input);
     }
+    public Tutor searchByEmail(String email) {
+        return searchByEmailRecursive(root, email);
+    }
+
+    private Tutor searchByEmailRecursive(TutorNode node, String email) {
+        if (node == null) return null;
+        if (node.data.getEmail().equalsIgnoreCase(email)) {
+            return node.data;
+        }
+
+        Tutor leftResult = searchByEmailRecursive(node.left, email);
+        if (leftResult != null) return leftResult;
+
+        return searchByEmailRecursive(node.right, email);
+    }
+
+    public static TutorBST getInstance() {
+        if (instance == null) {
+            instance = new TutorBST();
+        }
+        return instance;
+    }
+
 }

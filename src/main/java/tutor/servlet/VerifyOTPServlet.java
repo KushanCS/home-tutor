@@ -1,32 +1,32 @@
 package tutor.servlet;
 
-import tutor.model.Tutor;
 import tutor.util.TutorFileUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 @WebServlet("/VerifyOTPServlet")
 public class VerifyOTPServlet extends HttpServlet {
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Integer otp = (Integer) session.getAttribute("otp");
+        String email = (String) session.getAttribute("otpEmail");
 
-        String enteredOtp = request.getParameter("otp");
+        String inputOtp = request.getParameter("otp");
         String newPassword = request.getParameter("newPassword");
         String confirmPassword = request.getParameter("confirmPassword");
 
-        HttpSession session = request.getSession();
-        String storedOtp = (String) session.getAttribute("otp");
-        String email = (String) session.getAttribute("email");
+        if (otp == null || email == null) {
+            request.setAttribute("error", "Session expired. Start again.");
+            request.getRequestDispatcher("forgot_password.jsp").forward(request, response);
+            return;
+        }
 
-        if (storedOtp == null || email == null || !storedOtp.equals(enteredOtp)) {
-            request.setAttribute("error", "Invalid OTP or session expired.");
+        if (!inputOtp.equals(String.valueOf(otp))) {
+            request.setAttribute("error", "Invalid OTP.");
             request.getRequestDispatcher("verify_otp.jsp").forward(request, response);
             return;
         }
@@ -37,31 +37,13 @@ public class VerifyOTPServlet extends HttpServlet {
             return;
         }
 
-        boolean updated = TutorFileUtil.updateTutorPasswordByEmail(email, hashPassword(newPassword));
-
+        boolean updated = TutorFileUtil.updatePasswordByEmail(email, newPassword);
         if (updated) {
-            session.removeAttribute("otp");
-            session.removeAttribute("email");
+            session.invalidate(); // Clear OTP and email
             response.sendRedirect("loginTutor.jsp?success=reset");
         } else {
-            request.setAttribute("error", "Failed to update password.");
+            request.setAttribute("error", "Failed to reset password.");
             request.getRequestDispatcher("verify_otp.jsp").forward(request, response);
-        }
-    }
-
-    private String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hashBytes = digest.digest(password.getBytes());
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hashBytes) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new RuntimeException("Error hashing password", e);
         }
     }
 }

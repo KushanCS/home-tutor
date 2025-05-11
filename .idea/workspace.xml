@@ -10,8 +10,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0f70200c-9adc-4d10-926f-877b10879907" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/home-tutor.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit_tutor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/edit_tutor.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tutor/bst/TutorBST.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tutor/bst/TutorBST.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tutor/servlet/ForgotPasswordServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tutor/servlet/ForgotPasswordServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tutor/servlet/RegisterTutorServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tutor/servlet/RegisterTutorServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tutor/servlet/ResetPasswordServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tutor/servlet/VerifyOTPServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tutor/servlet/VerifyOTPServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tutor/util/TutorFileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tutor/util/TutorFileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/forgot_password.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/forgot_password.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/loginTutor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/loginTutor.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/profileTutor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/profileTutor.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/reset_password.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/verify_otp.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/verify_otp.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tutor/bst/TutorBST.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tutor/bst/TutorBST.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tutor/servlet/ForgotPasswordServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tutor/servlet/ResetPasswordServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tutor/servlet/VerifyOTPServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tutor/util/TutorFileUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tutor/util/TutorFileUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/bst/TutorBST.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/bst/TutorBST.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/servlet/ForgotPasswordServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/servlet/ResetPasswordServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/servlet/VerifyOTPServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/util/TutorFileUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/home-tutor/WEB-INF/classes/tutor/util/TutorFileUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/home-tutor/forgot_password.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/home-tutor/forgot_password.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/home-tutor/image/image.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/home-tutor/profileTutor.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/home-tutor/profileTutor.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/home-tutor/reset_password.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/home-tutor/verify_otp.jsp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,25 +86,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Smart Tomcat.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;Smart Tomcat.tomcat-9.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Tomcat 9.0.102.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;branch-Kavisha&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Kavisha/Documents/GitHub/home-tutor&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Smart Tomcat.Unnamed.executor": "Run",
+    "Smart Tomcat.tomcat-9.executor": "Run",
+    "Tomcat Server.Tomcat 9.0.102.executor": "Run",
+    "git-widget-placeholder": "branch-Kavisha",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Kavisha/Documents/GitHub/home-tutor",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Kavisha\Documents\GitHub\home-tutor\src\main\webapp" />
@@ -181,9 +208,6 @@
       <option name="catalinaBase" value="C:\Users\kusha\.SmartTomcat\home-tutor\home-tutor" />
       <option name="contextPath" value="/home-tutor" />
       <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
-      <option name="envOptions">
-        <map />
-      </option>
       <option name="extraClassPath" value="" />
       <option name="tomcatInfo">
         <TomcatInfo>
@@ -199,6 +223,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Smart Tomcat.Unnamed" />
       <item itemvalue="Tomcat Server.Tomcat 9.0.102" />
     </list>
   </component>
@@ -228,6 +253,9 @@
       <workItem from="1746770202299" duration="6276000" />
       <workItem from="1746781839695" duration="6476000" />
       <workItem from="1746852922919" duration="22233000" />
+      <workItem from="1746878009516" duration="175000" />
+      <workItem from="1746878201378" duration="9646000" />
+      <workItem from="1746951898929" duration="4289000" />
     </task>
     <servers />
   </component>

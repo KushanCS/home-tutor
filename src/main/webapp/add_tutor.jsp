@@ -70,7 +70,7 @@
                 <div class="col-md-6"><input type="text" name="subject" class="form-control" placeholder="Course" required></div>
                 <div class="col-md-6"><input type="email" name="email" class="form-control" placeholder="Email" required></div>
                 <div class="col-md-6"><input type="text" name="contact" class="form-control" placeholder="Contact Number" required></div>
-                <div class="col-md-6"><input type="text" name="campusName" class="form-control" placeholder="Campus Name" required></div>
+                <div class="col-md-6"><input type="text" name="campusName" class="form-control" placeholder="University Name" required></div>
                 <div class="col-md-6"><input type="text" name="degreeCourse" class="form-control" placeholder="Degree Course" required></div>
                 <div class="col-md-6">
                     <select name="degreeLevel" class="form-select" required>

@@ -23,10 +23,16 @@ public class RegisterTutorServlet extends HttpServlet {
             return;
         }
 
+
+        String email = request.getParameter("email");
+        if (TutorFileUtil.emailExists(email)) {
+            response.sendRedirect("loginTutor.jsp?error=emailexists");
+            return;
+        }
+
         String tutorId = TutorFileUtil.generateUniqueTutorId();
         String fullName = request.getParameter("name");
         String subject = request.getParameter("subject");
-        String email = request.getParameter("email");
         String contact = request.getParameter("contact");
         String campusName = request.getParameter("campusName");
         String degreeCourse = request.getParameter("degreeCourse");

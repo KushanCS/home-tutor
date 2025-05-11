@@ -45,18 +45,34 @@
             position: relative;
         }
 
+        .profile-avatar-container {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin-right: 25px;
+        }
+
         .profile-avatar {
-            width: 100px;
-            height: 100px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            background-color: white;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .avatar-placeholder {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary-color);
-            font-size: 2.5rem;
-            margin-right: 20px;
+            font-size: 3rem;
             border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .profile-name {
@@ -68,6 +84,11 @@
         .profile-subject {
             font-size: 1.1rem;
             opacity: 0.9;
+            background-color: rgba(255,255,255,0.15);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 5px;
         }
 
         .profile-body {
@@ -84,11 +105,19 @@
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+            font-size: 1.2em;
         }
 
         .info-row {
             display: flex;
             margin-bottom: 15px;
+            align-items: flex-start;
         }
 
         .info-label {
@@ -100,6 +129,7 @@
 
         .info-value {
             flex-grow: 1;
+            color: #333;
         }
 
         .navbar {
@@ -112,14 +142,40 @@
             color: var(--primary-color) !important;
         }
 
-        .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
+        .btn-primary {
+            background-color: #6c63ff;
+            border-color: #6c63ff;
         }
 
-        .btn-outline-primary:hover {
-            background-color: var(--primary-color);
+        .btn-primary:hover {
+            background-color: #5a52d6;
+            border-color: #5a52d6;
+        }
+
+        footer {
+            background-color: #2d3436;
             color: white;
+            padding: 3rem 0;
+        }
+
+        .footer-link {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .footer-hr {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .badge-subject {
+            background-color: var(--accent-color);
+            font-size: 0.85em;
+            font-weight: 500;
         }
 
         @media (max-width: 768px) {
@@ -128,8 +184,8 @@
                 flex-direction: column;
             }
 
-            .profile-avatar {
-                margin: 0 auto 15px auto;
+            .profile-avatar-container {
+                margin: 0 auto 20px auto;
             }
 
             .info-row {
@@ -140,11 +196,17 @@
                 width: 100%;
                 margin-bottom: 5px;
             }
-        .rounded-circle {
-            object-fit: cover;
-            border: 3px solid #0d6efd;
         }
-    }
+
+        /* Animation for profile photo */
+        .profile-avatar-container:hover .profile-avatar {
+            transform: scale(1.03);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-avatar, .avatar-placeholder {
+            transition: transform 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -179,16 +241,18 @@
     <div class="profile-container">
         <!-- Profile Header -->
         <div class="profile-header d-flex align-items-center">
-            <div class="profile-avatar text-center mb-3">
+            <div class="profile-avatar-container">
                 <% if (tutor.getProfileImage() != null && !tutor.getProfileImage().isEmpty()) { %>
-                <img src="image/<%= tutor.getProfileImage() %>" alt="Profile Picture" class="rounded-circle" width="120" height="120">
+                <img src="image/<%= tutor.getProfileImage() %>" alt="Profile Picture" class="profile-avatar">
                 <% } else { %>
-                <i class="fas fa-user-tie fa-5x text-secondary"></i>
+                <div class="avatar-placeholder">
+                    <i class="fas fa-user-tie"></i>
+                </div>
                 <% } %>
             </div>
             <div>
                 <h1 class="profile-name"><%= tutor.getName() %></h1>
-                <div class="profile-subject"><%= tutor.getSubject() %> Tutor</div>
+                <div class="profile-subject"><i class="fas fa-chalkboard-teacher me-1"></i><%= tutor.getSubject() %> Tutor</div>
             </div>
         </div>
 
@@ -197,7 +261,7 @@
             <!-- Personal Information Section -->
             <div class="profile-section">
                 <h3 class="section-title">
-                    <i class="fas fa-user-circle me-2"></i>Personal Information
+                    <i class="fas fa-user-circle"></i>Personal Information
                 </h3>
                 <div class="info-row">
                     <div class="info-label">Email</div>
@@ -216,11 +280,13 @@
             <!-- Academic Information Section -->
             <div class="profile-section">
                 <h3 class="section-title">
-                    <i class="fas fa-graduation-cap me-2"></i>Academic Information
+                    <i class="fas fa-graduation-cap"></i>Academic Information
                 </h3>
                 <div class="info-row">
                     <div class="info-label">Teaching Subject</div>
-                    <div class="info-value"><%= tutor.getSubject() %></div>
+                    <div class="info-value">
+                        <%= tutor.getSubject() %>
+                    </div>
                 </div>
                 <div class="info-row">
                     <div class="info-label">University/Campus</div>
@@ -239,24 +305,80 @@
             <!-- About Section -->
             <div class="profile-section">
                 <h3 class="section-title">
-                    <i class="fas fa-info-circle me-2"></i>About Me
+                    <i class="fas fa-info-circle"></i>About Me
                 </h3>
                 <div class="info-row">
                     <div class="info-value">
-                        <%= tutor.getAbout() != null && !tutor.getAbout().isEmpty() ? tutor.getAbout() : "No description provided" %>
+                        <% if (tutor.getAbout() != null && !tutor.getAbout().isEmpty()) { %>
+                        <%= tutor.getAbout() %>
+                        <% } else { %>
+                        <div class="text-muted font-italic">No description provided</div>
+                        <% } %>
                     </div>
                 </div>
             </div>
 
             <!-- Action Buttons -->
             <div class="d-flex justify-content-end mt-4 pt-3 border-top">
-                <a href="edit_tutor.jsp" class="btn btn-primary">
+                <a href="edit_tutor.jsp" class="btn btn-primary px-4">
                     <i class="fas fa-edit me-1"></i> Edit Profile
                 </a>
             </div>
         </div>
     </div>
 </div>
+
+<footer class="mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <h5 class="mb-3"><i class="fas fa-graduation-cap me-2"></i>MetaTutor</h5>
+                <p>Connecting students with expert tutors for personalized learning experiences.</p>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-4">
+                <h5 class="mb-3">Navigation</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#" class="footer-link">Home</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Find Tutors</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Courses</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4 mb-4">
+                <h5 class="mb-3">Support</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#" class="footer-link">Help Center</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Contact Us</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-4 mb-4">
+                <h5 class="mb-3">Stay Connected</h5>
+                <div class="mb-3">
+                    <a href="#" class="footer-link me-3"><i class="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#" class="footer-link me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="footer-link me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="footer-link"><i class="fab fa-linkedin-in fa-lg"></i></a>
+                </div>
+                <small>Subscribe to our newsletter for updates</small>
+                <div class="input-group mt-2">
+                    <input type="email" class="form-control form-control-sm" placeholder="Your email">
+                    <button class="btn btn-primary btn-sm" type="button">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4 footer-hr">
+        <div class="row">
+            <div class="col-md-6 mb-3 mb-md-0">
+                <p class="small mb-0">&copy; 2023 MetaTutor. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <a href="#" class="footer-link small me-3">Terms of Service</a>
+                <a href="#" class="footer-link small me-3">Privacy Policy</a>
+                <a href="#" class="footer-link small">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
