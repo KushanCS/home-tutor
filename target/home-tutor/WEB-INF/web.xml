@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+         http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+  <display-name>Home Tutor Web Application</display-name>
+
+  <!-- Student Login -->
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>student.controller.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
+  <!-- Student Registration -->
+  <servlet>
+    <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>student.controller.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterServlet</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+
+  <!-- Student Dashboard -->
+  <servlet>
+    <servlet-name>DashboardServlet</servlet-name>
+    <servlet-class>student.controller.DashboardServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DashboardServlet</servlet-name>
+    <url-pattern>/dashboard</url-pattern>
+  </servlet-mapping>
+
+  <!-- Student Management -->
+  <servlet>
+    <servlet-name>StudentServlet</servlet-name>
+    <servlet-class>student.controller.StudentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudentServlet</servlet-name>
+    <url-pattern>/add</url-pattern>
+  </servlet-mapping>
+
+  <!-- Default Welcome Page -->
+  <welcome-file-list>
+    <welcome-file>home-page.jsp</welcome-file>
+  </welcome-file-list>
+
+</web-app>
