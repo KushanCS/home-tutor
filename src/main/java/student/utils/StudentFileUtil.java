@@ -14,9 +14,9 @@ public class StudentFileUtil {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");
-                if (parts.length == 9) {
+                if (parts.length == 10) {
                     students.add(new Student(parts[0], parts[1], parts[2], parts[3], parts[4],
-                            parts[5], parts[6], parts[7], parts[8]));
+                            parts[5], parts[6], parts[7], parts[8], parts[9]));
                 } else {
                     System.err.println("Invalid data format in line: " + line);
                 }
@@ -34,7 +34,7 @@ public class StudentFileUtil {
                 writer.write(String.join(";",
                         s.getStdId(), s.getName(), s.getUserName(), s.getEmail(),
                         s.getPhone(), s.getAddress(), s.getPassword(),
-                        s.getCourse(), s.getDob()));
+                        s.getCourse(), s.getDob(), s.getProfilePicPath()));
                 writer.newLine();
             }
         } catch (IOException e) {

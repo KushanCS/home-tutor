@@ -4,20 +4,37 @@ import student.utils.StudentFileUtil;
 import student.model.Student;
 
 import javax.servlet.*;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024,     // 1MB
+        maxFileSize       = 5 * 1024 * 1024, // 5MB
+        maxRequestSize    = 6 * 1024 * 1024  // 6MB
+)
 public class RegisterServlet extends HttpServlet {
+
+    private static final String UPLOAD_DIR = "uploads";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
+
+        // Resource Path configs
         String filePath = getServletContext().getRealPath("/WEB-INF/students.txt");
+        String appPath = request.getServletContext().getRealPath("");
+        File uploadDir = new File(appPath, UPLOAD_DIR);
+        if (!uploadDir.exists()) uploadDir.mkdirs();
 
         if (!password.equals(confirmPassword)) {
             request.setAttribute("error", "Passwords do not match!");
@@ -26,12 +43,30 @@ public class RegisterServlet extends HttpServlet {
         }
 
         try {
-            Student existing = StudentFileUtil.getStudentByUsername(request.getParameter("username"), filePath);
+
+            String requestUsername = request.getParameter("username");
+            Student existing = StudentFileUtil.getStudentByUsername(requestUsername, filePath);
             if (existing != null) {
                 request.setAttribute("error", "Username already exists!");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
                 return;
             }
+
+            //Handle the upload
+            Part filePart = request.getPart("profilePic");
+            String submittedName = filePart.getSubmittedFileName();
+            String ext = submittedName.substring(submittedName.lastIndexOf('.'));
+            String uniqueName = "student_" + System.currentTimeMillis() + "_" + requestUsername + ext;
+            File file = new File(uploadDir, uniqueName);
+
+            try (InputStream in = filePart.getInputStream();
+                 FileOutputStream out = new FileOutputStream(file)) {
+                byte[] buf = new byte[1024];
+                int len;
+                while ((len = in.read(buf)) > 0) out.write(buf, 0, len);
+            }
+
+            String relativePath = UPLOAD_DIR + "/" + uniqueName;
 
             Student student = new Student(
                     generateStudentId(),
@@ -42,7 +77,8 @@ public class RegisterServlet extends HttpServlet {
                     request.getParameter("address"),
                     hashPassword(password),
                     request.getParameter("course"),
-                    request.getParameter("dob")
+                    request.getParameter("dob"),
+                    relativePath
             );
 
             List<Student> students = StudentFileUtil.readStudents(filePath);
