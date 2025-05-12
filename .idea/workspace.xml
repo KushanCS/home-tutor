@@ -4,34 +4,80 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0f70200c-9adc-4d10-926f-877b10879907" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/catalina.policy" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/catalina.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/context.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/jaspic-providers.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/jaspic-providers.xsd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/logging.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/server.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/tomcat-users.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/tomcat-users.xsd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.smarttomcat/home-tutor/conf/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/student/controller/DashboardServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/student/controller/EditProfileServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/student/controller/LoginServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/student/controller/RegisterServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/student/controller/StudentServlet.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/student/model/Student.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/student/services/StudentService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/student/utils/StudentFileUtil.class" afterDir="false" />
+    <list default="true" id="551d4013-a8c4-4628-a99f-93cd895f9462" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/home-tutor.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/course/controller/AddCourseServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/course/controller/CourseServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/course/controller/EnrollCourseServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/course/controller/MyCoursesServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/course/controller/RemoveCourseServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/course/model/Course.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/course/model/CourseNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/course/model/CourseStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/course/model/CourseTree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/course/services/CourseService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/course/utils/CourseFileUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/course/utils/StudentCourseUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/courses.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/enrollments.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/studentCourses.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/add-course.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/bank-payment.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/card-details.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/components/navbar.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/confirm.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/editProfile.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/enroll.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/payment-history.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/paynow.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/student-course.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/1746888799815_ashan.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/1746888872900_ashantr.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/1746888941540_kcs.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/1746890554377_kcs.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/1746942548457_ashan1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/1747028754703_ashan.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/course_banner.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/student_1746890649123_kcs2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/student_1746939844451_ashantr.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/student_1746940692921_ashantrtr.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/uploads/student_1747062269865_dewmini.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/course/controller/AddCourseServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/course/controller/CourseServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/course/controller/EnrollCourseServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/course/controller/MyCoursesServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/course/controller/RemoveCourseServlet.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/course/model/Course.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/course/model/CourseNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/course/model/CourseStatus.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/course/model/CourseTree.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/course/services/CourseService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/course/utils/CourseFileUtil.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/course/utils/StudentCourseUtil.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/student/controller/DashboardServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/student/controller/DashboardServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/student/controller/EditProfileServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/student/controller/EditProfileServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/student/controller/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/student/controller/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/student/controller/RegisterServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/student/controller/RegisterServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/student/model/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/student/model/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/student/utils/StudentFileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/student/utils/StudentFileUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/students.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/students.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/course-home.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/course-home.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/edit-profile.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/header.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/home-page.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/home-page.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/profile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/profile.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/student.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/student.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/student_course.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/student/controller/DashboardServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/student/controller/DashboardServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/student/controller/EditProfileServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/student/controller/EditProfileServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/student/controller/LoginServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/student/controller/LoginServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/student/controller/RegisterServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/student/controller/RegisterServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/student/model/Student.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/student/model/Student.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/student/utils/StudentFileUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/student/utils/StudentFileUtil.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,9 +107,9 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
+  "associatedIndex": 7
 }]]></component>
-  <component name="ProjectId" id="2wmDi4uPR3s5TeauWhU6yfqvl3d" />
+  <component name="ProjectId" id="2x0Q0ZV20CFPiYTNJ9X0TK5K60Z" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -72,10 +118,11 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "Smart Tomcat.9.executor": "Run",
+    "Smart Tomcat.Unnamed.executor": "Run",
     "git-widget-placeholder": "branch-kushan",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/kusha/Desktop/OOP/home-tutor",
+    "last_opened_file_path": "C:/Users/kusha/Desktop/OOP/home-tutor/home-tutor",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -86,7 +133,7 @@
   }
 }]]></component>
   <component name="RunManager">
-    <configuration name="9" type="com.poratu.idea.plugins.tomcat">
+    <configuration name="Unnamed" type="com.poratu.idea.plugins.tomcat" nameIsGenerated="true">
       <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
       <predefined_log_file enabled="true" id="Tomcat Access Log" />
       <predefined_log_file id="Tomcat Catalina Log" />
@@ -124,12 +171,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0f70200c-9adc-4d10-926f-877b10879907" name="Changes" comment="" />
-      <created>1746637979606</created>
+      <changelist id="551d4013-a8c4-4628-a99f-93cd895f9462" name="Changes" comment="" />
+      <created>1747072289060</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1746637979606</updated>
-      <workItem from="1746637980896" duration="954000" />
+      <updated>1747072289060</updated>
+      <workItem from="1747072290350" duration="403000" />
     </task>
     <servers />
   </component>

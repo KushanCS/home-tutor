@@ -1,9 +1,34 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="course.model.Course" %>
+<%@ page import="course.utils.CourseFileUtil" %>
+<%
+    String courseFilePath = application.getRealPath("/WEB-INF/courses.txt");
+    List<Course> courses = CourseFileUtil.readCoursesFromFile(courseFilePath);
+    String user = (String) session.getAttribute("username");
+
+    // Filter courses based on search query
+    String query = request.getParameter("search");
+    if (query != null && !query.trim().isEmpty()) {
+        query = query.toLowerCase();
+        Iterator<Course> iterator = courses.iterator();
+        while (iterator.hasNext()) {
+            Course course = iterator.next();
+            if (!course.getName().toLowerCase().contains(query) &&
+                    !course.getDescription().toLowerCase().contains(query) &&
+                    !course.getTutor().toLowerCase().contains(query)) {
+                iterator.remove();
+            }
+        }
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MetaTutor - Online Learning Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -56,12 +81,8 @@
         }
 
         .course-img {
-            height: 160px;
+            height: 180px;
             object-fit: cover;
-        }
-
-        .rating {
-            color: #f4c150;
         }
 
         footer {
@@ -81,8 +102,9 @@
     </style>
 </head>
 <body>
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
     <div class="container">
         <a class="navbar-brand fw-bold" href="home-page.jsp" style="color: var(--primary-color);">
             <i class="fas fa-graduation-cap me-2"></i>MetaTutor
@@ -96,25 +118,29 @@
                     <a class="nav-link" href="course-home.jsp">Courses</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="student_course.jsp"><i class="bi bi-collection-play me-1"></i> My Courses</a>
+                    <a class="nav-link" href="MyCoursesServlet">My Courses</a>
                 </li>
             </ul>
-            <%
-                String user = (String) session.getAttribute("username"); // Assuming username is stored in session
-                if (user == null) {
-            %>
+            <% if (user == null) { %>
             <div class="d-flex">
                 <a href="login.jsp" class="btn btn-outline-primary me-2">Log in</a>
                 <a href="register.jsp" class="btn btn-primary">Sign up</a>
             </div>
-            <%
-            } else {
-            %>
-            <div>
-                <a href="student.jsp" class="btn btn-primary">Dashboard</a>
-                <a href="logout.jsp" class="btn btn-outline-primary">Log out</a>
+            <% } else { %>
+            <div class="d-flex align-items-center">
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                       id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="d-none d-sm-inline"><%= user %></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <li><a class="dropdown-item" href="profile.jsp"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="logout.jsp"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
             </div>
-            <%} %>
+            <% } %>
         </div>
     </div>
 </nav>
@@ -126,10 +152,11 @@
             <div class="col-lg-6">
                 <h1 class="display-4 fw-bold mb-4">Learn on your schedule</h1>
                 <p class="lead mb-4">Study any topic, anytime. Choose from thousands of expert-led courses now.</p>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control form-control-lg" placeholder="What do you want to learn?">
-                    <button class="btn btn-primary" type="button">Search</button>
-                </div>
+                <form method="get" action="home-page.jsp" class="input-group mb-3">
+                    <input type="text" name="search" value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>"
+                           class="form-control form-control-lg" placeholder="Search for courses...">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
             </div>
             <div class="col-lg-6 d-none d-lg-block">
                 <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
@@ -138,119 +165,49 @@
         </div>
     </div>
 </section>
-
-<!-- Popular Courses Section -->
+<!-- Courses Section -->
 <section id="courses" class="py-5">
     <div class="container">
-        <h2 class="fw-bold mb-5">Popular Courses</h2>
+        <h2 class="fw-bold mb-5">Available Courses</h2>
         <div class="row">
-            <!-- Course 1 -->
+            <% if (courses != null && !courses.isEmpty()) {
+                for (Course course : courses) {
+            %>
             <div class="col-md-4">
-                <div class="card course-card">
-                    <img src="https://img-c.udemycdn.com/course/240x135/1565838_e54e_16.jpg" class="card-img-top course-img" alt="Web Development">
-                    <div class="card-body">
-                        <h5 class="card-title">The Complete Web Development Bootcamp</h5>
-                        <p class="text-muted">Dr. Angela Yu</p>
-                        <div class="rating mb-2">
-                            <span>4.7</span>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span class="text-muted">(120,345)</span>
-                        </div>
-                        <h5 class="text-primary">$12.99</h5>
+                <div class="card course-card h-100">
+                    <!-- Icon instead of image -->
+                    <div>
+                        <img src="uploads/course_banner.png" class="card-img-top" alt="Course Image">
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-center"><%= course.getName() %></h5>
+                        <p class="text-muted mb-1"><strong>Instructor:</strong> <%= course.getTutor() %></p>
+                        <p class="card-text small mb-2"><%= course.getDescription() %></p>
+                        <p class="mt-auto">
+                            <strong>Price:</strong> $<%= course.getPrice() %><br>
+                            <strong>Duration:</strong> <%= course.getDuration() %>
+                        </p>
+                        <a href="enroll.jsp?name=<%= course.getName() %>" class="btn btn-outline-primary mt-2 w-100">Enroll</a>
                     </div>
                 </div>
             </div>
-
-            <!-- Course 2 -->
-            <div class="col-md-4">
-                <div class="card course-card">
-                    <img src="https://img-c.udemycdn.com/course/240x135/1362070_b9a1_2.jpg" class="card-img-top course-img" alt="Python Programming">
-                    <div class="card-body">
-                        <h5 class="card-title">Python for Beginners - Learn Programming</h5>
-                        <p class="text-muted">Jose Portilla</p>
-                        <div class="rating mb-2">
-                            <span>4.6</span>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span class="text-muted">(98,765)</span>
-                        </div>
-                        <h5 class="text-primary">$11.99</h5>
-                    </div>
-                </div>
+            <% }} else { %>
+            <div class="col-12">
+                <div class="alert alert-info text-center">No courses found for your search.</div>
             </div>
-
-            <!-- Course 3 -->
-            <div class="col-md-4">
-                <div class="card course-card">
-                    <img src="https://img-c.udemycdn.com/course/240x135/625204_436a_3.jpg" class="card-img-top course-img" alt="Digital Marketing">
-                    <div class="card-body">
-                        <h5 class="card-title">The Complete Digital Marketing Course</h5>
-                        <p class="text-muted">Rob Percival</p>
-                        <div class="rating mb-2">
-                            <span>4.5</span>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span class="text-muted">(87,654)</span>
-                        </div>
-                        <h5 class="text-primary">$10.99</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center mt-4">
-            <a href="#" class="btn btn-outline-primary">View All Courses</a>
+            <% } %>
         </div>
     </div>
 </section>
 
-<!-- About Section -->
-<section id="about" class="py-5 bg-light">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-                     alt="About MetaTutor" class="img-fluid rounded">
-            </div>
-            <div class="col-lg-6">
-                <h2 class="fw-bold mb-4">About MetaTutor</h2>
-                <p>MetaTutor is an online learning platform where anyone can discover and take courses across a wide range of subjects. Our mission is to make quality education accessible to everyone, everywhere.</p>
-                <p>Whether you want to learn new skills, advance your career, or pursue a passion, LearnHub has courses taught by expert instructors to help you achieve your goals.</p>
-                <div class="mt-4">
-                    <a href="#" class="btn btn-primary me-2">Learn More</a>
-                    <a href="#" class="btn btn-outline-primary">Our Instructors</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Call to Action -->
-<section class="py-5" style="background-color: var(--primary-color); color: white;">
-    <div class="container text-center">
-        <h2 class="fw-bold mb-3">Start Learning Today</h2>
-        <p class="lead mb-4">Join over 10 million learners worldwide</p>
-        <a href="signup.html" class="btn btn-light btn-lg px-4">Get Started</a>
-    </div>
-</section>
 
 <!-- Footer -->
 <footer>
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4">
-                <h5 class="mb-3">LearnHub</h5>
-                <p>LearnHub is a leading online learning platform, offering the best courses from expert instructors.</p>
+                <h5 class="mb-3">MetaTutor</h5>
+                <p>MetaTutor is a leading online learning platform, offering expert-led courses to help you grow your skills.</p>
             </div>
             <div class="col-md-2 mb-4">
                 <h5 class="mb-3">Company</h5>
@@ -279,7 +236,7 @@
         <hr class="my-4" style="border-color: #3e4143;">
         <div class="row">
             <div class="col-md-6">
-                <p class="small">&copy; 2023 LearnHub. All rights reserved.</p>
+                <p class="small">&copy; 2025 MetaTutor. All rights reserved.</p>
             </div>
             <div class="col-md-6 text-md-end">
                 <a href="#" class="footer-link small me-3">Terms</a>

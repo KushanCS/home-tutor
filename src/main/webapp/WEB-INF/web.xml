@@ -48,8 +48,28 @@
     <url-pattern>/add</url-pattern>
   </servlet-mapping>
 
+  <!-- LoginServlet Configuration -->
+  <servlet>
+    <servlet-name>AddCourseServlet</servlet-name>
+    <servlet-class>course.controller.AddCourseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddCourseServlet</servlet-name>
+    <url-pattern>/add-course</url-pattern>
+  </servlet-mapping>
+
+
+  <servlet>
+    <servlet-name>MyCoursesServlet</servlet-name>
+    <servlet-class>course.controller.MyCoursesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyCoursesServlet</servlet-name>
+    <url-pattern>/MyCoursesServlet</url-pattern>
+  </servlet-mapping>
+
   <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
+    <welcome-file>home-page.jsp</welcome-file>
   </welcome-file-list>
 
 </web-app>

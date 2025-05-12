@@ -1,16 +1,18 @@
+// Updated LoginServlet.java
 package student.controller;
 
 import student.utils.StudentFileUtil;
 import student.model.Student;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
 
+@WebServlet("/loginStudent")
 public class LoginServlet extends HttpServlet {
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -26,14 +28,12 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("username", student.getUserName());
                 session.setAttribute("email", student.getEmail());
                 session.setAttribute("student", student);
-                response.sendRedirect("student.jsp");
+                response.sendRedirect("home-page.jsp");
             } else {
-                request.setAttribute("error", "Invalid username or password");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                response.sendRedirect("login.jsp?error=invalid");
             }
         } catch (Exception e) {
-            request.setAttribute("error", "Login failed: " + e.getMessage());
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.sendRedirect("login.jsp?error=exception");
         }
     }
 

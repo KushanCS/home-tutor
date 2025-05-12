@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="student.model.Student" %>
+<%@ page import="java.net.URLEncoder" %>
 <%
     Student student = (Student) session.getAttribute("student");
     if (student == null) {
@@ -104,7 +105,7 @@
                     <a class="nav-link" href="course-home.jsp">Courses</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="student_course.jsp"><i class="bi bi-collection-play me-1"></i> My Courses</a>
+                    <a class="nav-link" href="student-course.jsp"><i class="bi bi-collection-play me-1"></i> My Courses</a>
                 </li>
             </ul>
             <%
@@ -119,7 +120,6 @@
             } else {
             %>
             <div>
-                <a href="student.jsp" class="btn btn-primary">Dashboard</a>
                 <a href="logout.jsp" class="btn btn-outline-primary">Log out</a>
             </div>
             <%} %>
@@ -132,11 +132,23 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body text-center">
-                    <img src="https://ui-avatars.com/api/?name=<%= student.getName() %>&background=random&size=150"
-                         class="rounded-circle profile-img mb-3">
+                    <%
+                        // pick profile pic if set, otherwise fall back to a ui-avatars.com URL
+                        String pic;
+                        if (student.getProfilePicPath() != null && !student.getProfilePicPath().isEmpty()) {
+                            pic = student.getProfilePicPath();
+                        } else {
+                            // URL-encode the name so spaces, etc. don’t break the URL
+                            String nameEncoded = URLEncoder.encode(student.getName(), "UTF-8");
+                            pic = "https://ui-avatars.com/api/?name=" + nameEncoded + "&background=random&size=150";
+                        }
+                    %>
+                    <img src="<%= pic %>"
+                         class="rounded-circle profile-img mb-3 w-50 h-50"
+                         alt="Profile picture of <%= student.getName() %>"/>
                     <h3><%= student.getName() %></h3>
                     <p class="text-muted"><%= student.getCourse() %></p>
-                    <a href="edit-profile.jsp" class="btn btn-primary">Edit Profile</a>
+                    <a href="editProfile.jsp" class="btn btn-primary">Edit Profile</a>
                 </div>
             </div>
         </div>
