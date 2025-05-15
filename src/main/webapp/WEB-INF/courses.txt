@@ -1,0 +1,12 @@
+maths,kushan,1000.0,2,q
+maths,dinuwa,1200.0,2,qmghj
+maths33,dinuwa,1000.0,2,qmghj
+bio,dinuwa,1000.0,2,qmghj
+bio,dinuwauu,200.0,2,qmghj
+bio,dinuwauu,1000.0,2,qmghj
+bio,dinuwauu,1000.0,2,qmghj
+bio,dinuwauu,1000.0,2,qmghj
+bio45,dinuwauu,1000.0,2,qmghj
+bio45,dinuwauu,1000.0,2,qmghj
+bio45,dinuwauu,1000.0,2,fsf
+bio45,dinuwauu,1000.0,2,122
