@@ -1,20 +1,24 @@
+// Updated DashboardServlet.java
 package student.controller;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import student.model.Student;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.*;
 import java.io.IOException;
 
 public class DashboardServlet extends HttpServlet {
-
-    String name = "Kushan";
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute("username", name);
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("student") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        Student student = (Student) session.getAttribute("student");
+        request.setAttribute("username", student.getName());
         request.getRequestDispatcher("dashboard.jsp").forward(request, response);
     }
 }
