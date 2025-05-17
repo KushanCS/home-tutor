@@ -13,6 +13,7 @@ import java.security.MessageDigest;
 @WebServlet("/LoginTutorServlet")
 public class LoginTutorServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        TutorFileUtil.setFilePath(getServletContext().getRealPath("/WEB-INF/tutors.txt"));
         String input = request.getParameter("username");
         String password = request.getParameter("password");
         String hashedPassword = hashPassword(password);
@@ -23,6 +24,8 @@ public class LoginTutorServlet extends HttpServlet {
         if (found != null && found.getPassword().equals(hashedPassword)) {
             HttpSession session = request.getSession();
             session.setAttribute("tutor", found);
+            session.setAttribute("tutorId", found.getTutorId());
+            session.setAttribute("role", "tutor");
             response.sendRedirect("tutor_dashboard.jsp");
         } else {
             response.sendRedirect("loginTutor.jsp?error=invalid");

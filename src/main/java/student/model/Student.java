@@ -12,12 +12,13 @@ public class Student implements Serializable {
     private String password;
     private String course;
     private String dob;
+    private String profilePicPath;
 
     public Student() {}
 
     public Student(String stdId, String name, String userName, String email,
                    String phone, String address, String password,
-                   String course, String dob) {
+                   String course, String dob, String profilePicPath) {
         this.stdId = stdId;
         this.name = name;
         this.userName = userName;
@@ -27,6 +28,7 @@ public class Student implements Serializable {
         this.password = password;
         this.course = course;
         this.dob = dob;
+        this.profilePicPath = profilePicPath;
     }
 
     public String getStdId() { return stdId; }
@@ -55,4 +57,7 @@ public class Student implements Serializable {
 
     public String getDob() { return dob; }
     public void setDob(String dob) { this.dob = dob; }
+
+    public String getProfilePicPath() { return profilePicPath; }
+    public void setProfilePicPath(String profilePicPath) { this.profilePicPath = profilePicPath; }
 }

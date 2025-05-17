@@ -1,9 +1,21 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.List, course.model.CourseStatus" %>
+<%
+    String username = (String) session.getAttribute("username");
+    if (username == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+    List<CourseStatus> courses = (List<CourseStatus>) request.getAttribute("courses");
+    String search = request.getParameter("search");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MetaTutor - Online Learning Platform</title>
+    <title>My Courses - MetaTutor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -15,6 +27,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-color);
         }
 
         .navbar {
@@ -37,11 +50,7 @@
 
         .btn-outline-primary:hover {
             background-color: var(--primary-color);
-        }
-
-        .hero-section {
-            background-color: var(--secondary-color);
-            padding: 80px 0;
+            color: white;
         }
 
         .course-card {
@@ -55,21 +64,6 @@
             transform: translateY(-5px);
         }
 
-        .course-img {
-            height: 160px;
-            object-fit: cover;
-        }
-
-        .rating {
-            color: #f4c150;
-        }
-
-        footer {
-            background-color: #1c1d1f;
-            color: white;
-            padding: 40px 0;
-        }
-
         .footer-link {
             color: #cec0fc;
             text-decoration: none;
@@ -77,6 +71,15 @@
 
         .footer-link:hover {
             color: white;
+        }
+
+        .badge-paid {
+            background-color: #28a745;
+        }
+
+        .badge-unpaid {
+            background-color: #ffc107;
+            color: #212529;
         }
     </style>
 </head>
@@ -95,69 +98,128 @@
                 <li class="nav-item">
                     <a class="nav-link" href="course-home.jsp">Courses</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="MyCoursesServlet"><i class="fas fa-book-open me-1"></i> My Courses</a>
+                </li>
             </ul>
-            <%
-                String user = (String) session.getAttribute("username"); // Assuming username is stored in session
-                if (user == null) {
-            %>
-            <div class="d-flex">
-                <a href="login.jsp" class="btn btn-outline-primary me-2">Log in</a>
-                <a href="register.jsp" class="btn btn-primary">Sign up</a>
-            </div>
-            <%
-            } else {
-            %>
             <div>
-                <a href="student.jsp" class="btn btn-primary">Dashboard</a>
+                <a href="student.jsp" class="btn btn-primary me-2">Dashboard</a>
                 <a href="logout.jsp" class="btn btn-outline-primary">Log out</a>
             </div>
-            <%} %>
         </div>
     </div>
 </nav>
-<!-- Search bar -->
-<div class="container mt-4">
-    <div class="row justify-content-between align-items-center">
-        <div class="col-md-6">
-            <input type="text" id="courseSearch" class="form-control" placeholder="Search courses...">
+
+<!-- Main Content -->
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold" style="color: var(--primary-color);">
+            <i class="fas fa-book-open me-2"></i>My Enrolled Courses
+        </h2>
+        <a href="course-home.jsp" class="btn btn-outline-primary">
+            <i class="fas fa-plus me-1"></i>Find More Courses
+        </a>
+    </div>
+
+    <!-- Search Form -->
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control"
+                   placeholder="Search by tutor subject..."
+                   value="<%= search != null ? search : "" %>">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search me-1"></i>Search
+            </button>
+        </div>
+    </form>
+
+    <% if (courses == null || courses.isEmpty()) { %>
+    <div class="card course-card">
+        <div class="card-body text-center py-5">
+            <i class="fas fa-book-open fa-4x mb-3" style="color: var(--primary-color);"></i>
+            <h4 class="mb-3">You haven't enrolled in any courses yet</h4>
+            <p class="text-muted mb-4">Browse our courses and start learning today!</p>
+            <a href="course-home.jsp" class="btn btn-primary px-4">
+                <i class="fas fa-search me-1"></i>Explore Courses
+            </a>
         </div>
     </div>
+    <% } else { %>
+    <div class="row">
+        <% for (CourseStatus cs : courses) {
+            if (search == null || cs.getTutorSubject().toLowerCase().contains(search.toLowerCase())) {
+        %>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card course-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><%= cs.getCourseName() %></h5>
+                    <p class="text-muted mb-2">
+                        <i class="fas fa-chalkboard-teacher me-1"></i><%= cs.getTutorSubject() %>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="fw-bold text-primary">$<%= cs.getPrice() %></span>
+                        <span class="text-muted"><i class="fas fa-clock me-1"></i><%= cs.getDuration() %> week(s)</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge <%= cs.isPaid() ? "bg-success" : "bg-warning text-dark" %>">
+                            <%= cs.isPaid() ? "Paid" : "Unpaid" %>
+                        </span>
+                        <div>
+                            <form action="RemoveEnrollmentServlet" method="post" class="d-inline">
+                                <input type="hidden" name="courseId" value="<%= cs.getCourseId() %>">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-trash-alt me-1"></i>Remove
+                                </button>
+                            </form>
+                            <% if (!cs.isPaid()) { %>
+                            <form action="MarkAsPaidServlet" method="post" class="d-inline">
+                                <input type="hidden" name="courseId" value="<%= cs.getCourseId() %>">
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-check-circle me-1"></i>Mark Paid
+                                </button>
+                            </form>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }} %>
+    </div>
+    <% } %>
 </div>
 
-<!-- Table -->
-<div class="container mt-4">
-    <table class="table table-bordered" id="studentCourseTable">
-        <thead class="table-light">
-        <tr>
-            <th>Course Name</th>
-            <th>Instructor</th>
-            <th>Progress</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Introduction to Java</td>
-            <td>Ms. Shashika</td>
-            <td>80%</td>
-            <td><a href="#" class="btn btn-sm btn-primary">Continue</a></td>
-        </tr>
-        <!-- More rows -->
-        </tbody>
-    </table>
-</div>
+<!-- Footer -->
+<footer class="bg-dark text-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="mb-3">MetaTutor</h5>
+                <p>Your online learning platform for quality education across various subjects.</p>
+            </div>
+            <div class="col-md-3">
+                <h5 class="mb-3">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="course-home.jsp" class="footer-link">Courses</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">About Us</a></li>
+                    <li class="mb-2"><a href="#" class="footer-link">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5 class="mb-3">Connect</h5>
+                <a href="#" class="footer-link me-2"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="footer-link me-2"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="footer-link me-2"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="footer-link"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        <hr class="my-4 bg-secondary">
+        <div class="text-center">
+            <p class="small mb-0">&copy; 2023 MetaTutor. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
 
-
-<script>
-    document.getElementById('courseSearch').addEventListener('keyup', function () {
-        const input = this.value.toLowerCase();
-        const rows = document.querySelectorAll('#studentCourseTable tbody tr');
-
-        rows.forEach(row => {
-            const rowText = row.textContent.toLowerCase();
-            row.style.display = rowText.includes(input) ? '' : 'none';
-        });
-    });
-</script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+</html>

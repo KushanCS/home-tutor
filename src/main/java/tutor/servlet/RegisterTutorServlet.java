@@ -17,6 +17,7 @@ import java.security.MessageDigest;
 public class RegisterTutorServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        TutorFileUtil.setFilePath(getServletContext().getRealPath("/WEB-INF/tutors.txt"));
         String username = request.getParameter("username");
         if (TutorFileUtil.usernameExists(username)) {
             response.sendRedirect("loginTutor.jsp?error=exists");

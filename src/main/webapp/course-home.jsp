@@ -1,114 +1,58 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.*, course.model.Course, course.utils.CourseFileUtil" %>
+
+<%
+    String filePath = application.getRealPath("/WEB-INF/courses.txt");
+    List<Course> courses = CourseFileUtil.getAllCourses(filePath);
+
+    String search = request.getParameter("search");
+    String role = (String) session.getAttribute("role");
+    String user = (String) session.getAttribute("username");
+
+    // Filter courses based on tutor subject
+    if (search != null && !search.trim().isEmpty()) {
+        search = search.toLowerCase();
+        Iterator<Course> iterator = courses.iterator();
+        while (iterator.hasNext()) {
+            Course course = iterator.next();
+            if (course.getTutorSubject() == null || !course.getTutorSubject().toLowerCase().contains(search)) {
+                iterator.remove();
+            }
+        }
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MetaTutor - All Courses</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Courses - MetaTutor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #6c63ff;
-            --secondary-color: #4d44db;
-            --accent-color: #ff6584;
-            --light-bg: #f8f9fa;
-            --dark-text: #2d3748;
+            --primary-color: #5624d0;
+            --secondary-color: #f7f9fa;
+            --accent-color: #a435f0;
         }
 
         body {
-            background-color: var(--light-bg);
-            color: var(--dark-text);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--secondary-color);
         }
 
         .navbar {
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .nav-link {
             font-weight: 500;
         }
 
-        .nav-link:hover {
-            color: var(--primary-color) !important;
-        }
-
-        .banner {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 2.5rem;
-            border-radius: 12px;
-            margin-top: 2rem;
-            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .banner::after {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-        }
-
-        .welcome-box {
-            border-left: 5px solid var(--primary-color);
-            background-color: #fff;
-            padding: 2rem;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            border-radius: 8px;
-            margin-top: 2rem;
-        }
-
-        .course-card {
-            transition: all 0.3s ease;
-            border: none;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            margin-bottom: 1.5rem;
-        }
-
-        .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-        }
-
-        .course-card img {
-            height: 160px;
-            object-fit: cover;
-        }
-
-        .progress {
-            height: 8px;
-            border-radius: 4px;
-        }
-
-        .progress-bar {
-            background-color: var(--primary-color);
-        }
-
-        .badge-primary {
-            background-color: var(--primary-color);
-        }
-
         .btn-primary {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
         }
 
         .btn-outline-primary {
@@ -118,59 +62,54 @@
 
         .btn-outline-primary:hover {
             background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .stats-card {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .stats-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .stats-card i {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .stats-card h3 {
-            font-weight: 700;
-            color: var(--dark-text);
-        }
-
-        .stats-card p {
-            color: #6c757d;
-            margin-bottom: 0;
-        }
-
-        .upcoming-session {
-            background: white;
-            border-left: 4px solid var(--accent-color);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        footer {
-            background-color: #2d3748;
             color: white;
-            padding: 2rem 0;
-            margin-top: 3rem;
+        }
+
+        .course-card {
+            transition: transform 0.3s;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            height: 100%;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .course-img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .page-header {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .search-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .tutor-info {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .tutor-subject {
+            color: var(--accent-color);
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
-
-<!-- Navbar -->
+<!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
     <div class="container">
         <a class="navbar-brand fw-bold" href="home-page.jsp" style="color: var(--primary-color);">
@@ -182,92 +121,107 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="student-course.jsp"><i class="bi bi-collection-play me-1"></i> My Courses</a>
+                    <a class="nav-link active" href="course-home.jsp">Courses</a>
                 </li>
+
+                <% if (user != null && "student".equals(role)) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="MyCoursesServlet"><i class="fas fa-book me-1"></i> My Courses</a>
+                </li>
+                <% } %>
+
+                <% if (user == null) { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="become_tutor.jsp">Become a Tutor</a>
+                </li>
+                <% } %>
             </ul>
-            <%
-                String user = (String) session.getAttribute("username");
-                if (user == null) {
-            %>
+            <% if (user == null) { %>
             <div class="d-flex">
-                <a href="login.jsp" class="btn btn-outline-primary me-2">Log in</a>
+                <a href="loginOptions.jsp" class="btn btn-outline-primary me-2">Log in</a>
                 <a href="register.jsp" class="btn btn-primary">Sign up</a>
             </div>
-            <%
-            } else {
-            %>
+            <% } else { %>
             <div>
-                <a href="student.jsp" class="btn btn-primary me-2">Dashboard</a>
-                <a href="logout.jsp" class="btn btn-outline-primary">Log out</a>
+                <% if ("student".equals(role)) { %>
+                <a href="student.jsp" class="btn btn-primary">Dashboard</a>
+                <% } else if ("tutor".equals(role)) { %>
+                <a href="tutor_dashboard.jsp" class="btn btn-primary">Dashboard</a>
+                <% } %>
+                <a href="logout.jsp" class="btn btn-outline-primary ms-2">Log out</a>
             </div>
             <% } %>
         </div>
     </div>
 </nav>
 
-<!-- Search Bar -->
-<div class="container mt-4">
-    <div class="row justify-content-between align-items-center">
-        <div class="col-md-6">
-            <input type="text" id="courseSearch" class="form-control" placeholder="Search courses...">
-        </div>
+<!-- Main Content -->
+<div class="container py-5">
+    <h2 class="page-header"><i class="fas fa-book-open me-2"></i>Available Courses</h2>
+
+    <!-- Search Section -->
+    <div class="search-container">
+        <form method="get" class="row g-3 align-items-center">
+            <div class="col-md-9">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <input type="text" name="search" class="form-control form-control-lg"
+                           placeholder="Search by subject..." value="<%= search != null ? search : "" %>">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </form>
     </div>
+
+    <!-- Courses Grid -->
+    <% if (courses == null || courses.isEmpty()) { %>
+    <div class="alert alert-info text-center py-4">
+        <i class="fas fa-info-circle fa-2x mb-3"></i>
+        <h4>No courses found</h4>
+        <p class="mb-0">We couldn't find any courses matching your search.</p>
+    </div>
+    <% } else { %>
+    <div class="row">
+        <% for (Course course : courses) { %>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card course-card h-100">
+                <img src="images/<%= course.getImage() %>" class="card-img-top course-img" alt="Course Image">
+                <div class="card-body">
+                    <h5 class="card-title"><%= course.getName() %></h5>
+                    <p class="card-text text-muted"><%= course.getDescription() %></p>
+                    <div class="tutor-info">
+                        <i class="fas fa-user-tie me-1"></i><%= course.getTutorName() %>
+                        <span class="tutor-subject">(<%= course.getTutorSubject() %>)</span>
+                    </div>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item"><strong><i class="fas fa-chart-line me-2"></i>Level:</strong> <%= course.getLevel() %></li>
+                        <li class="list-group-item"><strong><i class="fas fa-dollar-sign me-2"></i>Price:</strong> $<%= course.getPrice() %></li>
+                        <li class="list-group-item"><strong><i class="fas fa-clock me-2"></i>Duration:</strong> <%= course.getDuration() %> weeks</li>
+                    </ul>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <% if ("student".equals(role)) { %>
+                    <form action="EnrollServlet" method="post">
+                        <input type="hidden" name="courseId" value="<%= course.getCourseId() %>">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-plus-circle me-1"></i> Enroll Now
+                        </button>
+                    </form>
+                    <% } else if (user == null) { %>
+                    <a href="loginOptions.jsp" class="btn btn-primary w-100">
+                        <i class="fas fa-sign-in-alt me-1"></i> Login to Enroll
+                    </a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+    <% } %>
 </div>
 
-<!-- Courses Section -->
-<div class="container mt-4">
-    <div class="row" id="courseList">
-        <!-- Example Course Card -->
-        <div class="col-md-4 mb-4 course-item">
-            <div class="card course-card">
-                <img src="https://via.placeholder.com/400x160" class="card-img-top course-img" alt="Java">
-                <div class="card-body">
-                    <h5 class="card-title">Introduction to Java</h5>
-                    <p class="card-text">Learn the basics of Java programming with hands-on examples.</p>
-                    <a href="#" class="btn btn-primary">Enroll</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4 course-item">
-            <div class="card course-card">
-                <img src="https://via.placeholder.com/400x160" class="card-img-top course-img" alt="Web Dev">
-                <div class="card-body">
-                    <h5 class="card-title">Full Stack Web Development</h5>
-                    <p class="card-text">Become a full-stack web developer with HTML, CSS, JS & more.</p>
-                    <a href="#" class="btn btn-primary">Enroll</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4 course-item">
-            <div class="card course-card">
-                <img src="https://via.placeholder.com/400x160" class="card-img-top course-img" alt="Networking">
-                <div class="card-body">
-                    <h5 class="card-title">Computer Networks</h5>
-                    <p class="card-text">Understand how data travels over the internet and networks.</p>
-                    <a href="#" class="btn btn-primary">Enroll</a>
-                </div>
-            </div>
-        </div>
-        <!-- Add more cards as needed -->
-    </div>
-</div>
-
-<!-- Search Script -->
-<script>
-    const searchInput = document.getElementById('courseSearch');
-    searchInput.addEventListener('keyup', function () {
-        const filter = searchInput.value.toLowerCase();
-        const courses = document.querySelectorAll('.course-item');
-        courses.forEach(course => {
-            const text = course.textContent.toLowerCase();
-            course.style.display = text.includes(filter) ? 'block' : 'none';
-        });
-    });
-</script>
-
-<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>
-

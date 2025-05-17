@@ -5,9 +5,10 @@
          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
 
-  <display-name>Home Tutor Web Application</display-name>
 
-  <!-- Student Login -->
+  <display-name>Archetype Created Web Application</display-name>
+
+  <!-- LoginServlet Configuration -->
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>student.controller.LoginServlet</servlet-class>
@@ -17,7 +18,7 @@
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
 
-  <!-- Student Registration -->
+  <!-- RegisterServlet Configuration -->
   <servlet>
     <servlet-name>RegisterServlet</servlet-name>
     <servlet-class>student.controller.RegisterServlet</servlet-class>
@@ -27,7 +28,7 @@
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
 
-  <!-- Student Dashboard -->
+  <!-- DashboardServlet Configuration -->
   <servlet>
     <servlet-name>DashboardServlet</servlet-name>
     <servlet-class>student.controller.DashboardServlet</servlet-class>
@@ -37,7 +38,7 @@
     <url-pattern>/dashboard</url-pattern>
   </servlet-mapping>
 
-  <!-- Student Management -->
+  <!-- StudentServlet Configuration -->
   <servlet>
     <servlet-name>StudentServlet</servlet-name>
     <servlet-class>student.controller.StudentServlet</servlet-class>
@@ -47,9 +48,20 @@
     <url-pattern>/add</url-pattern>
   </servlet-mapping>
 
-  <!-- Default Welcome Page -->
+  <!-- LoginServlet Configuration -->
+  <servlet>
+    <servlet-name>AddCourseServlet</servlet-name>
+    <servlet-class>course.controller.AddCourseServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddCourseServlet</servlet-name>
+    <url-pattern>/add-course</url-pattern>
+  </servlet-mapping>
+
+
   <welcome-file-list>
     <welcome-file>home-page.jsp</welcome-file>
   </welcome-file-list>
 
 </web-app>
+

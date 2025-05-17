@@ -240,7 +240,7 @@
             <% String user = (String) session.getAttribute("username"); %>
             <% if (user == null) { %>
             <div class="d-flex">
-                <a href="login.jsp" class="btn btn-outline-primary me-2">Log in</a>
+                <a href="loginOptions.jsp" class="btn btn-outline-primary me-2">Log in</a>
                 <a href="register.jsp" class="btn btn-primary">Sign up</a>
             </div>
             <% } else { %>

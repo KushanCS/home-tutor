@@ -142,7 +142,7 @@
             </div>
             <div class="pt-2">
                 <a href="tutor_dashboard.jsp" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                <a href="#"><i class="fas fa-book"></i> My Courses</a>
+                <li><a href="view_courses.jsp"><i class="fas fa-book"></i> My Courses</a></li>
                 <a href="#"><i class="fas fa-users"></i> Students</a>
                 <a href="#"><i class="fas fa-envelope"></i> Messages</a>
                 <a href="profileTutor.jsp"><i class="fas fa-user"></i> Profile</a>
