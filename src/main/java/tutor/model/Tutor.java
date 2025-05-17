@@ -33,6 +33,9 @@ public class Tutor {
         this.about = about;
         this.profileImage = profileImage;
     }
+    public Tutor() {
+
+    }
 
     // Getters
     public String getTutorId() { return tutorId; }

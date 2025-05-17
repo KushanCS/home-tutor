@@ -67,7 +67,7 @@
             <div class="row g-3">
                 <div class="col-md-6"><input type="text" name="username" class="form-control" placeholder="Username" required></div>
                 <div class="col-md-6"><input type="text" name="name" class="form-control" placeholder="Full Name" required></div>
-                <div class="col-md-6"><input type="text" name="subject" class="form-control" placeholder="Course" required></div>
+                <div class="col-md-6"><input type="text" name="subject" class="form-control" placeholder="Subject" required></div>
                 <div class="col-md-6"><input type="email" name="email" class="form-control" placeholder="Email" required></div>
                 <div class="col-md-6"><input type="text" name="contact" class="form-control" placeholder="Contact Number" required></div>
                 <div class="col-md-6"><input type="text" name="campusName" class="form-control" placeholder="University Name" required></div>

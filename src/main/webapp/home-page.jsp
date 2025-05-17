@@ -91,30 +91,41 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+            <%
+                String user = (String) session.getAttribute("username");
+                String role = (String) session.getAttribute("role");
+            %>
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="course-home.jsp">Courses</a>
                 </li>
+
+                <% if (user != null && "student".equals(role)) { %>
+                <!-- Show My Courses only when student is logged in -->
                 <li class="nav-item">
-                    <a class="nav-link" href="student-course.jsp"><i class="bi bi-collection-play me-1"></i> My Courses</a>
+                    <a class="nav-link" href="MyCoursesServlet"><i class="bi bi-collection-play me-1"></i> My Courses</a>
                 </li>
+                <% } %>
+
+                <% if (user == null) { %>
+                <!-- Show Become a Tutor only when not logged in -->
                 <li class="nav-item">
                     <a class="nav-link" href="become_tutor.jsp">Become a Tutor</a>
                 </li>
+                <% } %>
             </ul>
             <%
-                String user = (String) session.getAttribute("username"); // Assuming username is stored in session
                 if (user == null) {
             %>
             <div class="d-flex">
-                <a href="login.jsp" class="btn btn-outline-primary me-2">Log in</a>
+                <a href="loginOptions.jsp" class="btn btn-outline-primary me-2">Log in</a>
                 <a href="register.jsp" class="btn btn-primary">Sign up</a>
             </div>
             <%
             } else {
             %>
             <div>
-                <a href="student.jsp" class="btn btn-primary">Dashboard</a>
+                <a href="profile.jsp" class="btn btn-primary">Profile</a>
                 <a href="logout.jsp" class="btn btn-outline-primary">Log out</a>
             </div>
             <%} %>
@@ -212,7 +223,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <a href="#" class="btn btn-outline-primary">View All Courses</a>
+            <a href="course-home.jsp" class="btn btn-outline-primary">View All Courses</a>
         </div>
     </div>
 </section>
@@ -243,7 +254,7 @@
     <div class="container text-center">
         <h2 class="fw-bold mb-3">Start Learning Today</h2>
         <p class="lead mb-4">Join over 10 million learners worldwide</p>
-        <a href="signup.html" class="btn btn-light btn-lg px-4">Get Started</a>
+        <a href="login.jsp" class="btn btn-light btn-lg px-4">Get Started</a>
     </div>
 </section>
 

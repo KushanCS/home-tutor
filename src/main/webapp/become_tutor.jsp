@@ -55,35 +55,95 @@
             transform: translateY(-2px);
         }
 
+        /* Enhanced Button Styles */
         .btn-primary {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* Smoother easing */
+            position: relative;
+            overflow: hidden;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 8px; /* Slightly rounded corners */
+            box-shadow: 0 2px 5px rgba(86, 36, 208, 0.2);
         }
 
+        /* Hero section button specific styles */
+        .hero-section .btn-primary {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 12px; /* More rounded for prominence */
+        }
+
+        /* Hover state - subtle but clear */
         .btn-primary:hover {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-        }
-
-        .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-outline-primary:hover {
             background-color: var(--primary-color);
-            border-color: var(--primary-color);
+            opacity: 0.92; /* Very slight transparency */
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(86, 36, 208, 0.3);
         }
 
-        /* Hero Section with Glass Morphism */
-        .hero-section {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 100px 0;
-            border-radius: 20px;
-            margin: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
+        /* Active/click state */
+        .btn-primary:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(86, 36, 208, 0.3);
+        }
+
+        /* Focus state for accessibility */
+        .btn-primary:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(86, 36, 208, 0.4);
+        }
+
+        /* Ripple effect for better feedback */
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .btn-primary:focus:not(:active)::after {
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+
+        /* Button text transition */
+        .btn-primary span {
+            position: relative;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+
+        .btn-primary:hover span {
+            transform: translateX(3px);
+        }
+
+        /* Arrow icon transition */
+        .btn-primary i {
+            transition: transform 0.2s ease;
+        }
+
+        .btn-primary:hover i {
+            transform: translateX(5px);
         }
 
         .section {
@@ -213,6 +273,17 @@
             background: rgba(164, 53, 240, 0.2);
             border-radius: 50%;
         }
+        .btn-primary {
+            padding: 0.5rem 1rem; /* Match course-home size */
+        }
+
+        .hero-section .btn-primary {
+            padding: 0.75rem 1.5rem; /* Slightly larger for hero */
+        }
+
+        .btn-outline-primary {
+            padding: 0.5rem 1rem;
+        }
     </style>
 </head>
 <body>
@@ -240,7 +311,7 @@
             <% String user = (String) session.getAttribute("username"); %>
             <% if (user == null) { %>
             <div class="d-flex">
-                <a href="login.jsp" class="btn btn-outline-primary me-2">Log in</a>
+                <a href="loginOptions.jsp" class="btn btn-outline-primary me-2">Log in</a>
                 <a href="register.jsp" class="btn btn-primary">Sign up</a>
             </div>
             <% } else { %>
@@ -262,7 +333,9 @@
                     <h1 class="display-4 fw-bold mb-3">Work on your terms</h1>
                     <h2 class="fw-bold mb-3">Become an online tutor</h2>
                     <p class="lead mb-4">Flexible, fulfilling and fits perfectly into your schedule</p>
-                    <a href="add_tutor.jsp" class="btn btn-primary btn-lg">APPLY NOW <i class="fas fa-arrow-right ms-2"></i></a>
+                    <a href="add_tutor.jsp" class="btn btn-primary btn-lg">
+                        <span>APPLY NOW</span> <i class="fas fa-arrow-right ms-2"></i>
+                    </a>
                 </div>
                 <div class="col-lg-6 text-center">
                     <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"

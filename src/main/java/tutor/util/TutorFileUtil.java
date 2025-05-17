@@ -8,11 +8,22 @@ import java.security.MessageDigest;
 import java.util.*;
 
 public class TutorFileUtil {
-    private static final String FILE_PATH = "src/main/webapp/WEB-INF/tutors.txt";
+    private static String FILE_PATH; // ✅ Set dynamically from JSP or servlet
     private static TutorBST tutorBST;
 
-    // Save a new tutor and insert into BST
+    // Call this at the start of each servlet/JSP
+    public static void setFilePath(String path) {
+        FILE_PATH = path;
+    }
+
+    private static void checkPath() {
+        if (FILE_PATH == null) {
+            throw new IllegalStateException("Tutor file path not set. Use setFilePath() first.");
+        }
+    }
+
     public static void saveTutor(Tutor tutor) throws IOException {
+        checkPath();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             writer.write(tutor.toString());
             writer.newLine();
@@ -20,8 +31,8 @@ public class TutorFileUtil {
         getTutorBST().insert(tutor);
     }
 
-    // Read all tutors from the file
     public static List<Tutor> getAllTutors() throws IOException {
+        checkPath();
         List<Tutor> tutors = new ArrayList<>();
         File file = new File(FILE_PATH);
         if (!file.exists()) return tutors;
@@ -36,8 +47,8 @@ public class TutorFileUtil {
         return tutors;
     }
 
-    // Get the BST of tutors (lazy loaded)
     public static TutorBST getTutorBST() throws IOException {
+        checkPath();
         if (tutorBST == null) {
             tutorBST = new TutorBST();
             for (Tutor t : getAllTutors()) {
@@ -47,21 +58,29 @@ public class TutorFileUtil {
         return tutorBST;
     }
 
-    // Force reload of BST
     public static void reloadBST() throws IOException {
+        checkPath();
         tutorBST = new TutorBST();
         for (Tutor t : getAllTutors()) {
             tutorBST.insert(t);
         }
     }
 
-    // Check if username exists
     public static boolean usernameExists(String username) throws IOException {
         return getTutorBST().search(username) != null;
     }
 
-    // Generate unique tutor ID
+    public static boolean emailExists(String email) throws IOException {
+        for (Tutor tutor : getAllTutors()) {
+            if (tutor.getEmail().equalsIgnoreCase(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static String generateUniqueTutorId() throws IOException {
+        checkPath();
         Set<String> ids = new HashSet<>();
         for (Tutor t : getAllTutors()) {
             ids.add(t.getTutorId());
@@ -75,8 +94,8 @@ public class TutorFileUtil {
         return id;
     }
 
-    // Save all tutors (used in update/reset flows)
     public static void saveAllTutors(List<Tutor> tutors) throws IOException {
+        checkPath();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false))) {
             for (Tutor t : tutors) {
                 writer.write(t.toString());
@@ -86,14 +105,14 @@ public class TutorFileUtil {
     }
 
     public static boolean updatePasswordByEmail(String email, String newPassword) throws IOException {
+        checkPath();
         List<Tutor> tutors = getAllTutors();
         boolean updated = false;
 
-        String hashedPassword = hashPassword(newPassword); // ADD THIS
-
+        String hashedPassword = hashPassword(newPassword);
         for (Tutor t : tutors) {
             if (t.getEmail().equalsIgnoreCase(email)) {
-                t.setPassword(hashedPassword);  // USE HASHED
+                t.setPassword(hashedPassword);
                 updated = true;
                 break;
             }
@@ -107,7 +126,6 @@ public class TutorFileUtil {
         return updated;
     }
 
-    // Add this hashing method inside TutorFileUtil.java
     public static String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -122,23 +140,12 @@ public class TutorFileUtil {
         }
     }
 
-
-    // Used to fetch tutor by email using BST or list
     public static Tutor searchTutorByEmail(String email) throws IOException {
         return getTutorBST().searchByEmail(email);
     }
 
-    public static Tutor getTutorByEmail(String email) throws IOException {
-        for (Tutor tutor : getAllTutors()) {
-            if (tutor.getEmail().equalsIgnoreCase(email)) {
-                return tutor;
-            }
-        }
-        return null;
-    }
-
-    // Optional: update profile image
     public static boolean updateTutorProfileImage(String tutorId, String fileName) throws IOException {
+        checkPath();
         List<Tutor> tutors = getAllTutors();
         boolean updated = false;
 
@@ -157,14 +164,4 @@ public class TutorFileUtil {
 
         return updated;
     }
-
-    public static boolean emailExists(String email) throws IOException {
-        for (Tutor tutor : getAllTutors()) {
-            if (tutor.getEmail().equalsIgnoreCase(email)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }

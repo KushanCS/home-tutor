@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     :root {
-      --primary-color: #3498db;
-      --secondary-color: #f8f9fa;
+      --primary-color: #5624d0;
+      --secondary-color: #f7f9fa;
     }
 
     body {
@@ -97,7 +97,7 @@
   <div class="row justify-content-center">
     <div class="col-lg-8">
       <div class="text-center mb-5">
-        <div class="logo">Meta Tutor</div>
+        <a href="home-page.jsp" class="logo text-decoration-none text-var">Meta Tutor</a>
         <div class="tagline">Start your learning journey today</div>
       </div>
 
@@ -119,7 +119,7 @@
       <div class="register-card">
         <h3 class="text-center mb-4">Create Your Account</h3>
 
-        <form action="register" method="post" onsubmit="return validateForm()">
+        <form action="register" method="post"  enctype="multipart/form-data" onsubmit="return validateForm()">
           <input type="hidden" name="action" value="register">
 
           <div class="row">
@@ -191,6 +191,12 @@
             </div>
           </div>
 
+          <div class="mb-4">
+            <label for="profilePic" class="form-label">Profile Picture</label>
+            <input class="form-control" type="file" id="profilePic" name="profilePic" accept="image/*" required onchange="previewImage(event)">
+            <img id="preview" src="#" alt="Preview" class="mt-3" style="max-height:150px; display:none;"/>
+          </div>
+
           <div class="form-check mb-4">
             <input class="form-check-input" type="checkbox" id="terms" required>
             <label class="form-check-label" for="terms">
@@ -242,7 +248,17 @@
     }
   }
 
-  function validateForm() {
+  function previewImage(e) {
+    const reader = new FileReader();
+    reader.onload = function () {
+      const img = document.getElementById('preview');
+      img.src = reader.result;
+      img.style.display = 'block';
+    };
+    reader.readAsDataURL(e.target.filename[0]);
+  }
+
+    function validateForm() {
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
     const terms = document.getElementById('terms').checked;
