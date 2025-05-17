@@ -20,7 +20,7 @@ import java.util.List;
         maxRequestSize    = 6 * 1024 * 1024  // 6MB
 )
 public class EditProfileServlet extends HttpServlet {
-    private static final String UPLOAD_DIR = "image";
+    private static final String UPLOAD_DIR = "uploads";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

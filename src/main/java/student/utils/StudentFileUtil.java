@@ -28,7 +28,7 @@ public class StudentFileUtil {
     }
 
     // Write the updated list of students back to the file
-    public static boolean writeStudents(List<Student> students, String filePath) {
+    public static void writeStudents(List<Student> students, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Student s : students) {
                 writer.write(String.join(";",
@@ -40,7 +40,6 @@ public class StudentFileUtil {
         } catch (IOException e) {
             System.err.println("Error writing students: " + e.getMessage());
         }
-        return false;
     }
 
     // Find a student by username

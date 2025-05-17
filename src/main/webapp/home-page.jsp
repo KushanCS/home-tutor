@@ -140,90 +140,11 @@
             <div class="col-lg-6">
                 <h1 class="display-4 fw-bold mb-4">Learn on your schedule</h1>
                 <p class="lead mb-4">Study any topic, anytime. Choose from thousands of expert-led courses now.</p>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control form-control-lg" placeholder="What do you want to learn?">
-                    <button class="btn btn-primary" type="button">Search</button>
-                </div>
             </div>
             <div class="col-lg-6 d-none d-lg-block">
                 <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
                      alt="Learning together" class="img-fluid rounded">
             </div>
-        </div>
-    </div>
-</section>
-
-<!-- Popular Courses Section -->
-<section id="courses" class="py-5">
-    <div class="container">
-        <h2 class="fw-bold mb-5">Popular Courses</h2>
-        <div class="row">
-            <!-- Course 1 -->
-            <div class="col-md-4">
-                <div class="card course-card">
-                    <img src="https://img-c.udemycdn.com/course/240x135/1565838_e54e_16.jpg" class="card-img-top course-img" alt="Web Development">
-                    <div class="card-body">
-                        <h5 class="card-title">The Complete Web Development Bootcamp</h5>
-                        <p class="text-muted">Dr. Angela Yu</p>
-                        <div class="rating mb-2">
-                            <span>4.7</span>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span class="text-muted">(120,345)</span>
-                        </div>
-                        <h5 class="text-primary">$12.99</h5>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Course 2 -->
-            <div class="col-md-4">
-                <div class="card course-card">
-                    <img src="https://img-c.udemycdn.com/course/240x135/1362070_b9a1_2.jpg" class="card-img-top course-img" alt="Python Programming">
-                    <div class="card-body">
-                        <h5 class="card-title">Python for Beginners - Learn Programming</h5>
-                        <p class="text-muted">Jose Portilla</p>
-                        <div class="rating mb-2">
-                            <span>4.6</span>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span class="text-muted">(98,765)</span>
-                        </div>
-                        <h5 class="text-primary">$11.99</h5>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Course 3 -->
-            <div class="col-md-4">
-                <div class="card course-card">
-                    <img src="https://img-c.udemycdn.com/course/240x135/625204_436a_3.jpg" class="card-img-top course-img" alt="Digital Marketing">
-                    <div class="card-body">
-                        <h5 class="card-title">The Complete Digital Marketing Course</h5>
-                        <p class="text-muted">Rob Percival</p>
-                        <div class="rating mb-2">
-                            <span>4.5</span>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span class="text-muted">(87,654)</span>
-                        </div>
-                        <h5 class="text-primary">$10.99</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center mt-4">
-            <a href="course-home.jsp" class="btn btn-outline-primary">View All Courses</a>
         </div>
     </div>
 </section>
@@ -242,7 +163,6 @@
                 <p>Whether you want to learn new skills, advance your career, or pursue a passion, LearnHub has courses taught by expert instructors to help you achieve your goals.</p>
                 <div class="mt-4">
                     <a href="#" class="btn btn-primary me-2">Learn More</a>
-                    <a href="#" class="btn btn-outline-primary">Our Instructors</a>
                 </div>
             </div>
         </div>
@@ -254,7 +174,7 @@
     <div class="container text-center">
         <h2 class="fw-bold mb-3">Start Learning Today</h2>
         <p class="lead mb-4">Join over 10 million learners worldwide</p>
-        <a href="login.jsp" class="btn btn-light btn-lg px-4">Get Started</a>
+        <a href="course-home.jsp" class="btn btn-light btn-lg px-4">Get Started</a>
     </div>
 </section>
 

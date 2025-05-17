@@ -97,7 +97,7 @@
   <div class="row justify-content-center">
     <div class="col-lg-8">
       <div class="text-center mb-5">
-        <a href="home-page.jsp" class="logo text-decoration-none text-var">Meta Tutor</a>
+        <div class="logo">Meta Tutor</div>
         <div class="tagline">Start your learning journey today</div>
       </div>
 

@@ -18,40 +18,22 @@ public class LoginServlet extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        HttpSession session = request.getSession();
+        String filePath = getServletContext().getRealPath("/WEB-INF/students.txt");
 
-// First check for admin login
-        if ("dinijaya633".equals(username) && "123456789".equals(password)) {
-            session.setAttribute("userType", "admin");
-            session.setAttribute("username", username);
-            session.setAttribute("fullName", "Administrator");
-            response.sendRedirect(request.getContextPath() + "/adminDashboard.jsp");
-            return;
-        }
-
-// Then check for student login
         try {
-            String filePath = getServletContext().getRealPath("/WEB-INF/students.txt");
             Student student = StudentFileUtil.getStudentByUsername(username, filePath);
 
             if (student != null && student.getPassword().equals(hashPassword(password))) {
-                session.setAttribute("userType", "student");
+                HttpSession session = request.getSession();
                 session.setAttribute("username", student.getUserName());
-                session.setAttribute("fullName", student.getName());
-                session.setAttribute("email", student.getEmail()); // ✅ Added
-                session.setAttribute("role", "student");            // ✅ Added
+                session.setAttribute("email", student.getEmail());
                 session.setAttribute("student", student);
-                response.sendRedirect("home-page.jsp");             // ✅ Changed from /student.jsp
-                return;
+                response.sendRedirect("home-page.jsp");
+            } else {
+                response.sendRedirect("login.jsp?error=invalid");
             }
-
-            // If neither admin nor student login succeeded
-            request.setAttribute("error", "Invalid username or password");
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-
         } catch (Exception e) {
-            request.setAttribute("error", "Login failed: " + e.getMessage());
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
+            response.sendRedirect("login.jsp?error=exception");
         }
     }
 

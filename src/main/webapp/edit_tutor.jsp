@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #5624d0;
+            --primary-color: #6c63ff;
             --secondary-color: #f8f9fa;
             --accent-color: #4d44db;
             --danger-color: #ff4d6d;
@@ -193,7 +193,7 @@
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="tutor_dashboard.jsp">
+        <a class="navbar-brand" href="home-page.jsp">
             <i class="fas fa-graduation-cap me-2"></i>MetaTutor
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

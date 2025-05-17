@@ -21,7 +21,7 @@ import java.util.List;
 )
 public class RegisterServlet extends HttpServlet {
 
-    private static final String UPLOAD_DIR = "image";
+    private static final String UPLOAD_DIR = "uploads";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

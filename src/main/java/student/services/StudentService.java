@@ -3,7 +3,6 @@ package student.services;
 import student.model.Student;
 import student.utils.StudentFileUtil;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class StudentService {
 
@@ -14,14 +13,10 @@ public class StudentService {
     }
 
     // Add a student
-    public boolean addStudent(Student student) {
-        try {
-            List<Student> students = getAllStudents();
-            students.add(student);
-            return StudentFileUtil.writeStudents(students, filePath);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to add student", e);
-        }
+    public void addStudent(Student student) {
+        List<Student> students = StudentFileUtil.readStudents(filePath);
+        students.add(student);
+        StudentFileUtil.writeStudents(students, filePath);
     }
 
     // Get a student by username
@@ -54,52 +49,12 @@ public class StudentService {
     }
 
     // Delete a student by stdId
-    public boolean deleteStudent(String stdId) {
-        try {
-            List<Student> students = getAllStudents();
-            boolean removed = students.removeIf(s -> stdId.equals(s.getStdId()));
-            if (removed) {
-                return StudentFileUtil.writeStudents(students, filePath);
-            }
-            return false;
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to delete student", e);
+    public void deleteStudent(String stdId) {
+        List<Student> students = StudentFileUtil.readStudents(filePath);
+        boolean removed = students.removeIf(s -> s.getStdId().equals(stdId));
+        if (!removed) {
+            System.out.println("No student found with ID: " + stdId);
         }
-    }
-
-    public List<Student> getAllStudents() {
-        try {
-            return StudentFileUtil.readStudents(filePath);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to load students", e);
-        }
-    }
-
-    public Student getStudentById(String id) {
-        if (id == null || id.trim().isEmpty()) {
-            return null;
-        }
-        return getAllStudents().stream()
-                .filter(s -> id.equals(s.getStdId()))
-                .findFirst()
-                .orElse(null);
-    }
-
-    public List<Student> searchStudents(String searchTerm) {
-        List<Student> students = getAllStudents();
-
-        if (searchTerm == null || searchTerm.trim().isEmpty()) {
-            return students;
-        }
-
-        String lowerSearchTerm = searchTerm.toLowerCase();
-        return students.stream()
-                .filter(s ->
-                        (s.getStdId() != null && s.getStdId().toLowerCase().contains(lowerSearchTerm)) ||
-                                (s.getName() != null && s.getName().toLowerCase().contains(lowerSearchTerm)) ||
-                                (s.getUserName() != null && s.getUserName().toLowerCase().contains(lowerSearchTerm)) ||
-                                (s.getEmail() != null && s.getEmail().toLowerCase().contains(lowerSearchTerm)) ||
-                                (s.getCourse() != null && s.getCourse().toLowerCase().contains(lowerSearchTerm)))
-                .collect(Collectors.toList());
+        StudentFileUtil.writeStudents(students, filePath);
     }
 }

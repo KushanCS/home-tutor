@@ -273,17 +273,6 @@
             background: rgba(164, 53, 240, 0.2);
             border-radius: 50%;
         }
-        .btn-primary {
-            padding: 0.5rem 1rem; /* Match course-home size */
-        }
-
-        .hero-section .btn-primary {
-            padding: 0.75rem 1.5rem; /* Slightly larger for hero */
-        }
-
-        .btn-outline-primary {
-            padding: 0.5rem 1rem;
-        }
     </style>
 </head>
 <body>
