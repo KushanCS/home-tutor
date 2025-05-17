@@ -1,4 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="false" %>
+
+<%
+    String deleted = request.getParameter("deleted");
+    if ("true".equals(deleted)) {
+%>
+<div class="alert alert-warning text-center">Your profile has been deleted successfully.</div>
+<% } %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +18,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #f8f9fa;
+            --primary-color: #5624d0;
+            --secondary-color: #f7f9fa;
+            --accent-color: #a435f0;
         }
 
         body {
@@ -26,6 +36,8 @@
             font-weight: 700;
             color: var(--primary-color);
             margin-bottom: 1rem;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .tagline {
@@ -39,6 +51,7 @@
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             padding: 2rem;
+            background-color: white;
         }
 
         .btn-primary {
@@ -46,6 +59,21 @@
             border-color: var(--primary-color);
             padding: 0.5rem;
             font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
         }
 
         .form-control {
@@ -97,7 +125,9 @@
         <!-- Left Side - Branding -->
         <div class="col-lg-6 d-none d-lg-block">
             <div class="text-center text-lg-start">
-                <div class="logo">Meta Tutor</div>
+                <a href="home-page.jsp" class="logo">
+                    <i class="fas fa-graduation-cap me-2"></i>Meta Tutor
+                </a>
                 <div class="tagline">Your gateway to academic success</div>
                 <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
                      alt="Students learning" class="img-fluid rounded">
@@ -109,13 +139,30 @@
             <div class="login-card">
                 <h3 class="text-center mb-4">Welcome Back!</h3>
 
-                <% String error = (String) request.getAttribute("error"); %>
-                <% if (error != null) { %>
-                <div class="alert alert-danger"><%= error %></div>
+                <!-- Query Param Based Alerts -->
+                <%
+                    String success = request.getParameter("success");
+                    String error = request.getParameter("error");
+                    if ("true".equals(success)) {
+                %>
+                <div class="alert alert-success text-center">Registration successful! You can now log in.</div>
+                <% } else if ("exists".equals(error)) { %>
+                <div class="alert alert-danger text-center">Username already exists!</div>
+                <% } else if ("emailexists".equals(error)) { %>
+                <div class="alert alert-danger text-center">Email already registered!</div>
+                <% } else if ("invalid".equals(error)) { %>
+                <div class="alert alert-danger text-center">Invalid username or password.</div>
                 <% } %>
-                <% String message = (String) request.getAttribute("message"); %>
-                <% if (message != null) { %>
-                <div class="alert alert-success"><%= message %></div>
+
+                <!-- Request Scope Alerts (Forwarded) -->
+                <%
+                    String attrError = (String) request.getAttribute("error");
+                    String attrMessage = (String) request.getAttribute("message");
+                    if (attrError != null) {
+                %>
+                <div class="alert alert-danger"><%= attrError %></div>
+                <% } else if (attrMessage != null) { %>
+                <div class="alert alert-success"><%= attrMessage %></div>
                 <% } %>
 
                 <form action="login" method="post">
