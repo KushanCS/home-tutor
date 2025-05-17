@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*, course.model.Course, course.utils.CourseFileUtil" %>
-<%@ page import="rating.util.RatingFileUtil" %>
-<%@ page import="rating.model.Rating" %>
 
 <%
     String courseId = request.getParameter("courseId");
@@ -19,11 +17,6 @@
     String user = (String) session.getAttribute("username");
     int userRating = 0;
     double averageRating = 0;
-    if (enrolledCourse != null) {
-        String ratingPath = application.getRealPath("/WEB-INF/ratings.txt");
-        averageRating = RatingFileUtil.getAverageRating(enrolledCourse.getCourseId(), ratingPath);
-        userRating = user != null ? RatingFileUtil.getUserRating(user, enrolledCourse.getCourseId(), ratingPath) : 0;
-    }
 %>
 
 <!DOCTYPE html>

@@ -1,7 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.*, course.model.Course, course.utils.CourseFileUtil" %>
-<%@ page import="rating.util.RatingFileUtil" %>
-<%@ page import="rating.model.Rating" %>
 
 <%
     String filePath = application.getRealPath("/WEB-INF/courses.txt");
@@ -199,11 +197,6 @@
     </div>
     <% } else { %>
     <div class="row">
-        <% for (Course course : courses) {
-            String path = application.getRealPath("/WEB-INF/ratings.txt");
-            double averageRating = RatingFileUtil.getAverageRating(course.getCourseId(), path);
-            int userRating = user != null ? RatingFileUtil.getUserRating(user, course.getCourseId(), path) : 0;
-        %>
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card course-card h-100">
                 <img src="image/<%= course.getImage() %>" alt="Course Image" class="img-fluid" style="height: 200px; width: 100%; object-fit: cover;">
@@ -214,12 +207,6 @@
                         <i class="fas fa-user-tie me-1"></i><%= course.getTutorName() %>
                         <span class="tutor-subject">(<%= course.getTutorSubject() %>)</span>
                     </div>
-                    <div class="rating-stars mb-2">
-                        <% for (int i = 1; i <= 5; i++) { %>
-                        <i class="fa<%= i <= averageRating ? "s" : i-0.5 <= averageRating ? "s fa-star-half-alt" : "r" %> fa-star text-warning"></i>
-                        <% } %>
-                        <small class="text-muted">(<%= String.format("%.1f", averageRating) %>)</small>
-                    </div>
                     <ul class="list-group list-group-flush mb-3">
                         <li class="list-group-item"><strong><i class="fas fa-chart-line me-2"></i>Level:</strong> <%= course.getLevel() %></li>
                         <li class="list-group-item"><strong><i class="fas fa-dollar-sign me-2"></i>Price:</strong> $<%= course.getPrice() %></li>
@@ -227,17 +214,14 @@
                     </ul>
                 </div>
                 <div class="card-footer bg-white border-top-0">
-                    <% if (user != null && userRating > 0) { %>
                     <div class="rating-indicator text-center mb-2">
                         <i class="fas fa-star text-warning"></i> You rated:
                         <% for (int i = 1; i <= 5; i++) { %>
-                        <i class="fa<%= i <= userRating ? "s" : "r" %> fa-star text-warning"></i>
                         <% } %>
                     </div>
                     <% } %>
                     <% if ("student".equals(role)) { %>
                     <form action="EnrollServlet" method="post">
-                        <input type="hidden" name="courseId" value="<%= course.getCourseId() %>">
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="fas fa-plus-circle me-1"></i> Enroll Now
                         </button>

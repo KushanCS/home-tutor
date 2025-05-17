@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="course.model.Course" %>
-<%@ page import="rating.util.RatingFileUtil" %>
-<%@ page import="rating.model.Rating" %>
+
 <%
     Course course = (Course) request.getAttribute("course");
     Boolean isEnrolled = (Boolean) request.getAttribute("isEnrolled");
@@ -12,13 +11,6 @@
         response.sendRedirect("student-course.jsp");
         return;
     }
-
-    String path = application.getRealPath("/WEB-INF/ratings.txt");
-    double averageRating = RatingFileUtil.getAverageRating(course.getCourseId(), path);
-    int userRating = RatingFileUtil.getUserRating(username, course.getCourseId(), path);
-    long ratingCount = RatingFileUtil.readRatings(path).stream()
-            .filter(r -> r.getCourseId().equals(course.getCourseId()))
-            .count();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -185,69 +177,6 @@
                 </div>
                 <h4 class="text-primary mb-4">$<%= course.getPrice() %></h4>
 
-                <!-- Rating Section -->
-                <div class="mb-4">
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="text-warning me-2">
-                            <% for (int i = 1; i <= 5; i++) { %>
-                            <% if (i <= Math.floor(averageRating)) { %>
-                            <i class="fas fa-star"></i>
-                            <% } else if (i - 0.5 <= averageRating) { %>
-                            <i class="fas fa-star-half-alt"></i>
-                            <% } else { %>
-                            <i class="far fa-star"></i>
-                            <% } %>
-                            <% } %>
-                        </div>
-                        <span class="fw-bold"><%= String.format("%.1f", averageRating) %></span>
-                        <span class="text-muted ms-2">(<%= ratingCount %> ratings)</span>
-                    </div>
-
-                    <% if (isEnrolled) { %>
-                    <% if (userRating > 0) { %>
-                    <div class="mb-2">
-                        <span class="text-muted">Your rating: </span>
-                        <span class="text-warning">
-                    <% for (int i = 1; i <= 5; i++) { %>
-                        <i class="fa<%= i <= userRating ? "s" : "r" %> fa-star"></i>
-                    <% } %>
-                </span>
-                        <button class="btn btn-sm btn-outline-primary ms-2" onclick="showRatingForm()">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <form action="SubmitRatingServlet" method="post" class="d-inline">
-                            <input type="hidden" name="courseId" value="<%= course.getCourseId() %>">
-                            <input type="hidden" name="action" value="delete">
-                            <button type="submit" class="btn btn-sm btn-outline-danger ms-2" onclick="return confirm('Are you sure you want to delete your rating?')">
-                                <i class="fas fa-trash-alt"></i> Delete
-                            </button>
-                        </form>
-                    </div>
-                    <% } %>
-
-                    <form action="SubmitRatingServlet" method="post" class="rating-form"
-                          id="ratingForm" style="<%= userRating == 0 ? "display:block;" : "display:none;" %>">
-                        <input type="hidden" name="courseId" value="<%= course.getCourseId() %>">
-                        <div class="rating-stars mb-2">
-                            <% for (int i = 1; i <= 5; i++) { %>
-                            <button type="button" class="star-btn" data-value="<%= i %>">
-                                <i class="far fa-star"></i>
-                            </button>
-                            <% } %>
-                            <input type="hidden" name="stars" id="stars-input" required
-                                   value="<%= userRating > 0 ? userRating : "" %>">
-                        </div>
-                        <button type="submit" class="btn btn-sm btn-primary">
-                            <%= userRating > 0 ? "Update Rating" : "Submit Rating" %>
-                        </button>
-                        <% if (userRating > 0) { %>
-                        <button type="button" class="btn btn-sm btn-outline-secondary ms-2"
-                                onclick="hideRatingForm()">Cancel</button>
-                        <% } %>
-                    </form>
-                    <% } %>
-                </div>
-
                 <% if (isEnrolled) { %>
                 <% if (isPaid) { %>
                 <a href="#" class="btn btn-success me-2">
@@ -361,10 +290,6 @@
                             <span><i class="fas fa-money-bill-wave text-primary me-2"></i>Price</span>
                             <span>$<%= course.getPrice() %></span>
                         </li>
-                        <li class="list-group-item border-0 ps-0 d-flex justify-content-between">
-                            <span><i class="fas fa-star text-primary me-2"></i>Rating</span>
-                            <span><%= String.format("%.1f", averageRating) %> (<%= ratingCount %>)</span>
-                        </li>
                     </ul>
                 </div>
             </div>
@@ -460,8 +385,6 @@
         const form = document.getElementById('ratingForm');
         if (form) {
             form.style.display = 'block';
-            // Set the current rating stars
-            const currentRating = <%= userRating %>;
             if (currentRating > 0) {
                 const starsInput = document.getElementById('stars-input');
                 if (starsInput) starsInput.value = currentRating;
