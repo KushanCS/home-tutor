@@ -20,29 +20,33 @@ import java.util.List;
         maxRequestSize    = 6 * 1024 * 1024  // 6MB
 )
 public class EditProfileServlet extends HttpServlet {
-    private static final String UPLOAD_DIR = "uploads";
 
+    private static final String UPLOAD_DIR = "image"; // Folder to store uploaded profile pictures
+
+    // Handle GET request – display edit profile page
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Simply forward to JSP; the JSP reads 'student' from session
+        // Forward request to editProfile.jsp; student info is loaded from session
         request.getRequestDispatcher("editProfile.jsp").forward(request, response);
     }
 
+    // Handle POST request – update student profile data
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 1) Verify session
+        // 1) Verify session (must be logged in)
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
             response.sendRedirect("login.jsp");
             return;
         }
+
         String originalUsername = (String) session.getAttribute("username");
         String dataFilePath     = getServletContext().getRealPath("/WEB-INF/students.txt");
 
-        // 2) Load students, find current
+        // 2) Load all students and find the currently logged-in one
         List<Student> students = StudentFileUtil.readStudents(dataFilePath);
         Student current = students.stream()
                 .filter(s -> s.getUserName().equalsIgnoreCase(originalUsername))
@@ -53,7 +57,7 @@ public class EditProfileServlet extends HttpServlet {
             return;
         }
 
-        // 3) If username changed, ensure no clash
+        // 3) Check if username was changed and avoid duplicates
         String newUsername = request.getParameter("username").trim();
         if (!newUsername.equalsIgnoreCase(originalUsername)) {
             Student clash = StudentFileUtil.getStudentByUsername(newUsername, dataFilePath);
@@ -64,23 +68,23 @@ public class EditProfileServlet extends HttpServlet {
             }
         }
 
-        // Add before saving new pic:
+        // 4) If a new profile picture is uploaded, delete the old one
         String oldPicPath = current.getProfilePicPath();
         if (oldPicPath != null && !oldPicPath.startsWith("https://")) {
             File oldFile = new File(getServletContext().getRealPath(oldPicPath));
             if (oldFile.exists()) oldFile.delete();
         }
 
-        // 4) Handle optional profile pic
+        // 5) Handle new profile picture upload (optional)
         Part filePart = request.getPart("profilePic");
         String fileName = filePart.getSubmittedFileName();
         if (fileName != null && !fileName.isEmpty()) {
             String appPath = getServletContext().getRealPath("");
             File   uploadDir = new File(appPath, UPLOAD_DIR);
-            if (!uploadDir.exists()) uploadDir.mkdirs();
+            if (!uploadDir.exists()) uploadDir.mkdirs(); // Create folder if it doesn't exist
 
             String ext = fileName.substring(fileName.lastIndexOf('.'));
-            String unique = System.currentTimeMillis() + "_" + newUsername + ext;
+            String unique = System.currentTimeMillis() + "_" + newUsername + ext; // Unique file name
             File   dest = new File(uploadDir, unique);
 
             try (InputStream in = filePart.getInputStream();
@@ -89,10 +93,12 @@ public class EditProfileServlet extends HttpServlet {
                 int    len;
                 while ((len = in.read(buf)) > 0) out.write(buf, 0, len);
             }
+
+            // Set new image path for student
             current.setProfilePicPath(UPLOAD_DIR + "/" + unique);
         }
 
-        // 5) Update fields
+        // 6) Update student information from the form
         current.setName(request.getParameter("name").trim());
         current.setUserName(newUsername);
         current.setEmail(request.getParameter("email").trim());
@@ -101,20 +107,22 @@ public class EditProfileServlet extends HttpServlet {
         current.setCourse(request.getParameter("course").trim());
         current.setDob(request.getParameter("dob").trim());
 
+        // If password is provided, update it with hashed value
         String pw = request.getParameter("password");
         if (pw != null && !pw.isEmpty()) {
             current.setPassword(hashPassword(pw));
         }
 
-        // 6) Persist back to file
+        // 7) Save the updated student list to the file
         StudentFileUtil.writeStudents(students, dataFilePath);
 
-        // 7) Update session and redirect
+        // 8) Update session data and redirect to profile page
         session.setAttribute("username", newUsername);
         session.setAttribute("student", current);
         response.sendRedirect("profile.jsp");
     }
 
+    // Utility method to hash password using SHA-256
     private String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");

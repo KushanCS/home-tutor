@@ -2,20 +2,28 @@ package student.model;
 
 import java.io.Serializable;
 
+// Student class represents a student entity and holds all their related data.
+// Implements Serializable for easy file-based storage (e.g., writing to or reading from files).
 public class Student implements Serializable {
-    private String stdId;
-    private String name;
-    private String userName;
-    private String email;
-    private String phone;
-    private String address;
-    private String password;
-    private String course;
-    private String dob;
-    private String profilePicPath;
 
+    // ==== Fields ====
+    private String stdId;           // Unique student ID (e.g., STU1234)
+    private String name;            // Full name of the student
+    private String userName;        // Unique username used for login
+    private String email;           // Email address
+    private String phone;           // Contact number
+    private String address;         // Physical address
+    private String password;        // Encrypted password
+    private String course;          // Enrolled course or field of study
+    private String dob;             // Date of birth
+    private String profilePicPath;  // Path to profile picture file
+
+    // ==== Constructors ====
+
+    // Default constructor (needed for frameworks or file reading)
     public Student() {}
 
+    // Parameterized constructor for initializing a student object fully
     public Student(String stdId, String name, String userName, String email,
                    String phone, String address, String password,
                    String course, String dob, String profilePicPath) {
@@ -30,6 +38,8 @@ public class Student implements Serializable {
         this.dob = dob;
         this.profilePicPath = profilePicPath;
     }
+
+    // ==== Getter and Setter Methods ====
 
     public String getStdId() { return stdId; }
     public void setStdId(String stdId) { this.stdId = stdId; }

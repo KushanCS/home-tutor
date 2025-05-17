@@ -2,24 +2,28 @@
 <%@ page import="student.model.Student" %>
 <%@ page session="true" %>
 <%
+    // Check for logged-in student
     Student student = (Student) session.getAttribute("student");
     if (student == null) {
         response.sendRedirect("login.jsp");
         return;
     }
 %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Portal - Home Tutor System</title>
+
+    <!-- Bootstrap & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+    <!-- Custom Styles -->
     <style>
         :root {
-            --primary-color: #6c63ff;
+            --primary-color: #5624d0;
             --secondary-color: #4d44db;
             --accent-color: #ff6584;
             --light-bg: #f8f9fa;
@@ -49,28 +53,6 @@
             color: var(--primary-color) !important;
         }
 
-        .banner {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 2.5rem;
-            border-radius: 12px;
-            margin-top: 2rem;
-            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .banner::after {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 200px;
-            height: 200px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-        }
-
         .welcome-box {
             border-left: 5px solid var(--primary-color);
             background-color: #fff;
@@ -78,38 +60,6 @@
             box-shadow: 0 2px 15px rgba(0,0,0,0.05);
             border-radius: 8px;
             margin-top: 2rem;
-        }
-
-        .course-card {
-            transition: all 0.3s ease;
-            border: none;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            margin-bottom: 1.5rem;
-        }
-
-        .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-        }
-
-        .course-card img {
-            height: 160px;
-            object-fit: cover;
-        }
-
-        .progress {
-            height: 8px;
-            border-radius: 4px;
-        }
-
-        .progress-bar {
-            background-color: var(--primary-color);
-        }
-
-        .badge-primary {
-            background-color: var(--primary-color);
         }
 
         .btn-primary {
@@ -122,64 +72,30 @@
             border-color: var(--secondary-color);
         }
 
-        .btn-outline-primary {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-outline-primary:hover {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .stats-card {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .stats-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .stats-card i {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .stats-card h3 {
-            font-weight: 700;
-            color: var(--dark-text);
-        }
-
-        .stats-card p {
-            color: #6c757d;
-            margin-bottom: 0;
-        }
-
-        .upcoming-session {
-            background: white;
-            border-left: 4px solid var(--accent-color);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
         footer {
             background-color: #2d3748;
             color: white;
             padding: 2rem 0;
             margin-top: 3rem;
         }
+
+        .social-icons a {
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
     <div class="container">
@@ -191,6 +107,8 @@
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        <!-- Navigation Links -->
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
@@ -200,6 +118,8 @@
                     <a class="nav-link" href="MyCoursesServlet"><i class="bi bi-collection-play me-1"></i> My Courses</a>
                 </li>
             </ul>
+
+            <!-- Profile Dropdown -->
             <div class="d-flex align-items-center">
                 <div class="dropdown">
                     <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
@@ -217,58 +137,60 @@
     </div>
 </nav>
 
-<!-- Main Content -->
+<!-- Welcome Box -->
 <div class="container py-4">
-    <!-- Welcome Section -->
     <div class="welcome-box">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h2 class="fw-bold mb-2">
-                    <h2 class="fw-bold mb-2">Welcome back,
-                        <%= student.getUserName() %>
-                    </h2>
-                </h2>
+                <h2 class="fw-bold mb-2">Welcome back, <%= student.getUserName() %></h2>
             </div>
             <a href="course_home.jsp">
-            <button class="btn btn-primary">
-                <i class="bi bi-plus-lg me-1"></i> New Session
-            </button>
+                <button class="btn btn-primary">
+                    <i class="bi bi-plus-lg me-1"></i> New Session
+                </button>
             </a>
         </div>
     </div>
 </div>
 
 <!-- Footer -->
-<footer class="mt-5">
+<footer class="footer">
     <div class="container">
         <div class="row">
+            <!-- About -->
             <div class="col-md-4 mb-4 mb-md-0">
                 <h5 class="fw-bold mb-3">Meta Tutor</h5>
                 <p>Personalized home tutoring for students of all ages and skill levels.</p>
                 <div class="social-icons">
-                    <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
-                    <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
                 </div>
             </div>
+
+            <!-- Quick Links -->
             <div class="col-md-2 mb-4 mb-md-0">
                 <h5 class="fw-bold mb-3">Quick Links</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="home-page.jsp" class="text-white text-decoration-none">Home</a></li>
-                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">Courses</a></li>
-                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">Tutors</a></li>
-                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">Pricing</a></li>
+                    <li><a href="home-page.jsp">Home</a></li>
+                    <li><a href="#">Courses</a></li>
+                    <li><a href="#">Tutors</a></li>
+                    <li><a href="#">Pricing</a></li>
                 </ul>
             </div>
+
+            <!-- Support -->
             <div class="col-md-2 mb-4 mb-md-0">
                 <h5 class="fw-bold mb-3">Support</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">Help Center</a></li>
-                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">Contact Us</a></li>
-                    <li class="mb-2"><a href="#" class="text-white text-decoration-none">FAQs</a></li>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
                 </ul>
             </div>
+
+            <!-- Newsletter -->
             <div class="col-md-4">
                 <h5 class="fw-bold mb-3">Newsletter</h5>
                 <p>Subscribe to get updates on new courses and offers.</p>
@@ -278,10 +200,12 @@
                 </div>
             </div>
         </div>
+
+        <!-- Bottom Footer -->
         <hr class="my-4 bg-light">
         <div class="row">
             <div class="col-md-6 text-center text-md-start">
-                <p class="mb-0">&copy; 2023 EduTutor. All rights reserved.</p>
+                <p class="mb-0">&copy; 2023 Meta Tutor. All rights reserved.</p>
             </div>
             <div class="col-md-6 text-center text-md-end">
                 <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
@@ -291,18 +215,7 @@
     </div>
 </footer>
 
+<!-- Bootstrap Bundle JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    // Simple animation for course cards on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        const cards = document.querySelectorAll('.course-card');
-        cards.forEach((card, index) => {
-            setTimeout(() => {
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, index * 100);
-        });
-    });
-</script>
 </body>
 </html>
