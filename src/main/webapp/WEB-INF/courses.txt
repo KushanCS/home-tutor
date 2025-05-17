@@ -1,1 +1,0 @@
-C123|T456|John Doe|Mathematics|Intro to Algebra|Learn algebra basics|Beginner|algebra.jpg|120.00|4
