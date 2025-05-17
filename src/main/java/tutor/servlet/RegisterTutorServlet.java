@@ -22,6 +22,7 @@ import java.security.MessageDigest;
 )
 public class RegisterTutorServlet extends HttpServlet {
 
+<<<<<<< Updated upstream
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -30,6 +31,10 @@ public class RegisterTutorServlet extends HttpServlet {
         TutorFileUtil.setFilePath(getServletContext().getRealPath("/WEB-INF/tutors.txt"));
 
         // Step 2: Check for existing username
+=======
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        TutorFileUtil.setFilePath(getServletContext().getRealPath("/WEB-INF/tutors.txt"));
+>>>>>>> Stashed changes
         String username = request.getParameter("username");
         if (TutorFileUtil.usernameExists(username)) {
             response.sendRedirect("loginTutor.jsp?error=exists");

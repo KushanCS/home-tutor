@@ -1,3 +1,4 @@
+// Updated RegisterServlet.java
 package student.controller;
 
 import student.utils.StudentFileUtil;
@@ -18,22 +19,36 @@ import java.util.List;
         maxFileSize       = 5 * 1024 * 1024, // 5MB
         maxRequestSize    = 6 * 1024 * 1024  // 6MB
 )
+<<<<<<< Updated upstream
 // This servlet handles student registration including file upload and validation
 public class RegisterServlet extends HttpServlet {
 
     private static final String UPLOAD_DIR = "image"; // Folder to store profile pictures
 
     @Override
+=======
+public class RegisterServlet extends HttpServlet {
+
+    private static final String UPLOAD_DIR = "image";
+
+>>>>>>> Stashed changes
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         // Step 1: Get form input
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
+<<<<<<< Updated upstream
         String filePath = getServletContext().getRealPath("/WEB-INF/students.txt"); // Student data file
         String appPath = request.getServletContext().getRealPath("");               // App root for file upload
         File uploadDir = new File(appPath, UPLOAD_DIR);
         if (!uploadDir.exists()) uploadDir.mkdirs(); // Create directory if not exists
+=======
+        String filePath = getServletContext().getRealPath("/WEB-INF/students.txt");
+        String appPath = request.getServletContext().getRealPath("");
+        File uploadDir = new File(appPath, UPLOAD_DIR);
+        if (!uploadDir.exists()) uploadDir.mkdirs();
+>>>>>>> Stashed changes
 
         // Step 2: Check if passwords match
         if (!password.equals(confirmPassword)) {
@@ -42,7 +57,10 @@ public class RegisterServlet extends HttpServlet {
         }
 
         try {
+<<<<<<< Updated upstream
             // Step 3: Check if username already exists
+=======
+>>>>>>> Stashed changes
             String requestUsername = request.getParameter("username");
             Student existing = StudentFileUtil.getStudentByUsername(requestUsername, filePath);
             if (existing != null) {
@@ -50,14 +68,20 @@ public class RegisterServlet extends HttpServlet {
                 return;
             }
 
+<<<<<<< Updated upstream
             // Step 4: Handle profile picture upload
+=======
+>>>>>>> Stashed changes
             Part filePart = request.getPart("profilePic");
             String submittedName = filePart.getSubmittedFileName();
             String ext = submittedName.substring(submittedName.lastIndexOf('.'));
             String uniqueName = "student_" + System.currentTimeMillis() + "_" + requestUsername + ext;
             File file = new File(uploadDir, uniqueName);
 
+<<<<<<< Updated upstream
             // Save uploaded image to server
+=======
+>>>>>>> Stashed changes
             try (InputStream in = filePart.getInputStream();
                  FileOutputStream out = new FileOutputStream(file)) {
                 byte[] buf = new byte[1024];
@@ -65,10 +89,15 @@ public class RegisterServlet extends HttpServlet {
                 while ((len = in.read(buf)) > 0) out.write(buf, 0, len);
             }
 
+<<<<<<< Updated upstream
             // Relative path to saved profile image
             String relativePath = UPLOAD_DIR + "/" + uniqueName;
 
             // Step 5: Create a new Student object with form input and image path
+=======
+            String relativePath = UPLOAD_DIR + "/" + uniqueName;
+
+>>>>>>> Stashed changes
             Student student = new Student(
                     generateStudentId(),
                     request.getParameter("fullName"),
@@ -87,11 +116,17 @@ public class RegisterServlet extends HttpServlet {
             students.add(student);
             StudentFileUtil.writeStudents(students, filePath);
 
+<<<<<<< Updated upstream
             // Step 7: Redirect with success message
             response.sendRedirect("login.jsp?message=registered");
 
         } catch (Exception e) {
             // If registration fails, redirect with error flag
+=======
+            response.sendRedirect("login.jsp?message=registered");
+
+        } catch (Exception e) {
+>>>>>>> Stashed changes
             response.sendRedirect("login.jsp?error=failed");
         }
     }

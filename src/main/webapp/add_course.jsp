@@ -1,30 +1,44 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="tutor.model.Tutor" %>
 <%
+<<<<<<< Updated upstream
     // ✅ Ensure user is logged in
+=======
+>>>>>>> Stashed changes
     Tutor tutor = (Tutor) session.getAttribute("tutor");
     if (tutor == null) {
         response.sendRedirect("loginTutor.jsp");
         return;
     }
+<<<<<<< Updated upstream
 
     // ✅ Get tutor details from session to embed into form
+=======
+>>>>>>> Stashed changes
     String tutorId = tutor.getTutorId();
     String tutorName = tutor.getName();
     String tutorSubject = tutor.getSubject();
 %>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Add Course - MetaTutor</title>
+<<<<<<< Updated upstream
 
     <!-- ✅ Styling & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- ✅ Custom Styles -->
+=======
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+>>>>>>> Stashed changes
     <style>
         :root {
             --primary-color: #5624d0;
@@ -35,6 +49,10 @@
         body {
             background-color: var(--secondary-color);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+<<<<<<< Updated upstream
+=======
+            padding-top: 0;
+>>>>>>> Stashed changes
         }
 
         .navbar {
@@ -54,6 +72,20 @@
 
         .btn-primary:hover {
             background-color: #4a1fb3;
+<<<<<<< Updated upstream
+=======
+            border-color: #4a1fb3;
+        }
+
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+>>>>>>> Stashed changes
         }
 
         .course-container {
@@ -109,10 +141,16 @@
         }
     </style>
 </head>
+<<<<<<< Updated upstream
 
 <body>
 
 <!-- ✅ Top Navigation Bar -->
+=======
+<body>
+
+<!-- Navigation Bar -->
+>>>>>>> Stashed changes
 <nav class="navbar navbar-expand-lg navbar-light sticky-top">
     <div class="container">
         <a class="navbar-brand" href="home-page.jsp">
@@ -134,12 +172,17 @@
     </div>
 </nav>
 
+<<<<<<< Updated upstream
 <!-- ✅ Add Course Form Section -->
+=======
+<!-- Add Course Form -->
+>>>>>>> Stashed changes
 <div class="course-container">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="page-title"><i class="fas fa-plus-circle me-2"></i>Add New Course</h2>
     </div>
 
+<<<<<<< Updated upstream
     <!-- ✅ Course Form -->
     <form action="AddCourseServlet" method="post" enctype="multipart/form-data">
         <!-- Hidden fields: tutor info -->
@@ -148,6 +191,14 @@
         <input type="hidden" name="tutorSubject" value="<%= tutorSubject %>">
 
         <!-- Course Name & Level -->
+=======
+    <form action="AddCourseServlet" method="post" enctype="multipart/form-data">
+        <!-- Hidden tutor data -->
+        <input type="hidden" name="tutorId" value="<%= tutorId %>" />
+        <input type="hidden" name="tutorName" value="<%= tutorName %>" />
+        <input type="hidden" name="tutorSubject" value="<%= tutorSubject %>" />
+
+>>>>>>> Stashed changes
         <div class="form-row">
             <div class="form-col">
                 <label class="form-label required-field">Course Name</label>
@@ -164,13 +215,19 @@
             </div>
         </div>
 
+<<<<<<< Updated upstream
         <!-- Description -->
+=======
+>>>>>>> Stashed changes
         <div class="mt-3">
             <label class="form-label required-field">Description</label>
             <textarea name="description" class="form-control" rows="4" required></textarea>
         </div>
 
+<<<<<<< Updated upstream
         <!-- Price & Duration -->
+=======
+>>>>>>> Stashed changes
         <div class="form-row mt-3">
             <div class="form-col">
                 <label class="form-label required-field">Price (USD)</label>
@@ -185,7 +242,10 @@
             </div>
         </div>
 
+<<<<<<< Updated upstream
         <!-- Course Image Upload -->
+=======
+>>>>>>> Stashed changes
         <div class="mt-3">
             <label class="form-label">Course Image</label>
             <div class="image-preview" id="imagePreview">
@@ -195,7 +255,10 @@
             <div class="form-text">Recommended size: 800x450 pixels (16:9 aspect ratio)</div>
         </div>
 
+<<<<<<< Updated upstream
         <!-- Action Buttons -->
+=======
+>>>>>>> Stashed changes
         <div class="d-flex justify-content-end mt-4 pt-3 border-top">
             <button type="reset" class="btn btn-outline-secondary me-3">
                 <i class="fas fa-undo me-1"></i> Reset
@@ -207,6 +270,7 @@
     </form>
 </div>
 
+<<<<<<< Updated upstream
 <!-- ✅ Image Preview Script -->
 <script>
     const imageInput = document.getElementById('image');
@@ -217,6 +281,18 @@
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
+=======
+<script>
+    // Image preview
+    const imageInput = document.getElementById('image');
+    const imagePreview = document.getElementById('imagePreview');
+
+    imageInput.addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+>>>>>>> Stashed changes
                 imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
             }
             reader.readAsDataURL(file);
@@ -226,8 +302,14 @@
     });
 </script>
 
+<<<<<<< Updated upstream
 <!-- ✅ Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
+=======
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+>>>>>>> Stashed changes

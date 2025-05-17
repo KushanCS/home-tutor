@@ -4,6 +4,19 @@ import java.io.Serializable;
 
 // This class represents a student and stores all relevant profile data
 public class Student implements Serializable {
+<<<<<<< Updated upstream
+=======
+    private String stdId;
+    private String name;
+    private String userName;
+    private String email;
+    private String phone;
+    private String address;
+    private String password;
+    private String course;
+    private String dob;
+    private String profilePicPath;
+>>>>>>> Stashed changes
 
     // Fields to store student details
     private String stdId;           // Unique student ID
@@ -66,6 +79,7 @@ public class Student implements Serializable {
         return email;
     }
 
+<<<<<<< Updated upstream
     public void setEmail(String email) {
         this.email = email;
     }
@@ -117,4 +131,11 @@ public class Student implements Serializable {
     public void setProfilePicPath(String profilePicPath) {
         this.profilePicPath = profilePicPath;
     }
+=======
+    public String getDob() { return dob; }
+    public void setDob(String dob) { this.dob = dob; }
+
+    public String getProfilePicPath() { return profilePicPath; }
+    public void setProfilePicPath(String profilePicPath) { this.profilePicPath = profilePicPath; }
+>>>>>>> Stashed changes
 }

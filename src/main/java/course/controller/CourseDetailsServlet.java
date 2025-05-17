@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/CourseDetailsServlet")
+<<<<<<< Updated upstream
 // This servlet handles displaying detailed information about a specific course
 public class CourseDetailsServlet extends HttpServlet {
 
@@ -26,11 +27,21 @@ public class CourseDetailsServlet extends HttpServlet {
         String courseId = request.getParameter("courseId");
 
         // If the user is not logged in, redirect to the login page
+=======
+public class CourseDetailsServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String username = (String) request.getSession().getAttribute("username");
+        String courseId = request.getParameter("courseId");
+
+>>>>>>> Stashed changes
         if (username == null) {
             response.sendRedirect("login.jsp");
             return;
         }
 
+<<<<<<< Updated upstream
         // Get the file path where courses are stored
         String coursePath = getServletContext().getRealPath("/WEB-INF/courses.txt");
 
@@ -39,6 +50,13 @@ public class CourseDetailsServlet extends HttpServlet {
         Course course = null;
 
         // Find the course by matching courseId
+=======
+        // Get course details
+        String coursePath = getServletContext().getRealPath("/WEB-INF/courses.txt");
+        List<Course> allCourses = CourseFileUtil.getAllCourses(coursePath);
+        Course course = null;
+
+>>>>>>> Stashed changes
         for (Course c : allCourses) {
             if (c.getCourseId().equals(courseId)) {
                 course = c;
@@ -46,12 +64,16 @@ public class CourseDetailsServlet extends HttpServlet {
             }
         }
 
+<<<<<<< Updated upstream
         // If course is not found, redirect back to course list
+=======
+>>>>>>> Stashed changes
         if (course == null) {
             response.sendRedirect("student-course.jsp");
             return;
         }
 
+<<<<<<< Updated upstream
         // Get the file path where student enrollments are stored
         String enrollPath = getServletContext().getRealPath("/WEB-INF/studentCourses.txt");
 
@@ -62,6 +84,14 @@ public class CourseDetailsServlet extends HttpServlet {
         boolean isPaid = false;
 
         // Check if the current student is enrolled and paid for this course
+=======
+        // Check if student is enrolled and payment status
+        String enrollPath = getServletContext().getRealPath("/WEB-INF/studentCourses.txt");
+        List<Enrollment> enrollments = EnrollmentFileUtil.readEnrollments(enrollPath);
+        boolean isEnrolled = false;
+        boolean isPaid = false;
+
+>>>>>>> Stashed changes
         for (Enrollment e : enrollments) {
             if (e.getStudentUsername().equals(username) && e.getCourseId().equals(courseId)) {
                 isEnrolled = true;
@@ -70,6 +100,7 @@ public class CourseDetailsServlet extends HttpServlet {
             }
         }
 
+<<<<<<< Updated upstream
         // Pass course and enrollment status to the JSP for rendering
         request.setAttribute("course", course);
         request.setAttribute("isEnrolled", isEnrolled);
@@ -79,3 +110,11 @@ public class CourseDetailsServlet extends HttpServlet {
         request.getRequestDispatcher("course-details.jsp").forward(request, response);
     }
 }
+=======
+        request.setAttribute("course", course);
+        request.setAttribute("isEnrolled", isEnrolled);
+        request.setAttribute("isPaid", isPaid);
+        request.getRequestDispatcher("course-details.jsp").forward(request, response);
+    }
+}
+>>>>>>> Stashed changes

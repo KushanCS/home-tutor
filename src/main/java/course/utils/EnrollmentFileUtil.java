@@ -7,6 +7,7 @@ import java.util.*;
 
 public class EnrollmentFileUtil {
 
+<<<<<<< Updated upstream
     /**
      * Reads all enrollment records from the given file.
      *
@@ -21,6 +22,13 @@ public class EnrollmentFileUtil {
         if (!file.exists()) return enrollments;
 
         // Read each line and convert it into an Enrollment object
+=======
+    public static List<Enrollment> readEnrollments(String filePath) {
+        List<Enrollment> enrollments = new ArrayList<>();
+        File file = new File(filePath);
+        if (!file.exists()) return enrollments;
+
+>>>>>>> Stashed changes
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -30,6 +38,7 @@ public class EnrollmentFileUtil {
                 }
             }
         } catch (IOException e) {
+<<<<<<< Updated upstream
             e.printStackTrace(); // Print error if reading fails
         }
 
@@ -66,6 +75,30 @@ public class EnrollmentFileUtil {
             }
         } catch (IOException e) {
             e.printStackTrace(); // Print error if writing fails
+=======
+            e.printStackTrace();
+        }
+        return enrollments;
+    }
+
+    public static void saveEnrollment(Enrollment enrollment, String filePath) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
+            bw.write(enrollment.toString());
+            bw.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeAllEnrollments(List<Enrollment> enrollments, String filePath) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            for (Enrollment e : enrollments) {
+                bw.write(e.toString());
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+>>>>>>> Stashed changes
         }
     }
 }

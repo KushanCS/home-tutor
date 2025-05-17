@@ -2,6 +2,11 @@ package student.services;
 
 import student.model.Student;
 import student.utils.StudentFileUtil;
+<<<<<<< Updated upstream
+=======
+import java.util.List;
+import java.util.stream.Collectors;
+>>>>>>> Stashed changes
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,12 +24,16 @@ public class StudentService {
         this.filePath = filePath;
     }
 
+<<<<<<< Updated upstream
     /**
      * Adds a new student to the file.
      *
      * @param student the student object to add
      * @return true if added successfully, false otherwise
      */
+=======
+    // Add a student
+>>>>>>> Stashed changes
     public boolean addStudent(Student student) {
         try {
             List<Student> students = getAllStudents();
@@ -76,12 +85,16 @@ public class StudentService {
         return false;
     }
 
+<<<<<<< Updated upstream
     /**
      * Deletes a student by their student ID.
      *
      * @param stdId the ID of the student to delete
      * @return true if deletion was successful, false otherwise
      */
+=======
+    // Delete a student by stdId
+>>>>>>> Stashed changes
     public boolean deleteStudent(String stdId) {
         try {
             List<Student> students = getAllStudents();
@@ -95,11 +108,14 @@ public class StudentService {
         }
     }
 
+<<<<<<< Updated upstream
     /**
      * Retrieves all students from the file.
      *
      * @return list of all students
      */
+=======
+>>>>>>> Stashed changes
     public List<Student> getAllStudents() {
         try {
             return StudentFileUtil.readStudents(filePath);
@@ -108,12 +124,15 @@ public class StudentService {
         }
     }
 
+<<<<<<< Updated upstream
     /**
      * Retrieves a student by their student ID.
      *
      * @param id the student ID
      * @return Student object or null if not found
      */
+=======
+>>>>>>> Stashed changes
     public Student getStudentById(String id) {
         if (id == null || id.trim().isEmpty()) {
             return null;
@@ -124,6 +143,7 @@ public class StudentService {
                 .orElse(null);
     }
 
+<<<<<<< Updated upstream
     /**
      * Searches students based on the provided keyword.
      * It checks multiple fields (id, name, username, email, course).
@@ -131,6 +151,8 @@ public class StudentService {
      * @param searchTerm the keyword to search for
      * @return list of matching students
      */
+=======
+>>>>>>> Stashed changes
     public List<Student> searchStudents(String searchTerm) {
         List<Student> students = getAllStudents();
 
@@ -145,8 +167,12 @@ public class StudentService {
                                 (s.getName() != null && s.getName().toLowerCase().contains(lowerSearchTerm)) ||
                                 (s.getUserName() != null && s.getUserName().toLowerCase().contains(lowerSearchTerm)) ||
                                 (s.getEmail() != null && s.getEmail().toLowerCase().contains(lowerSearchTerm)) ||
+<<<<<<< Updated upstream
                                 (s.getCourse() != null && s.getCourse().toLowerCase().contains(lowerSearchTerm))
                 )
+=======
+                                (s.getCourse() != null && s.getCourse().toLowerCase().contains(lowerSearchTerm)))
+>>>>>>> Stashed changes
                 .collect(Collectors.toList());
     }
 }

@@ -1,3 +1,4 @@
+// Updated LoginServlet.java
 package student.controller;
 
 import student.utils.StudentFileUtil;
@@ -11,10 +12,14 @@ import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
 
 @WebServlet("/loginStudent")
+<<<<<<< Updated upstream
 // This servlet handles login requests for both students and the admin
 public class LoginServlet extends HttpServlet {
 
     @Override
+=======
+public class LoginServlet extends HttpServlet {
+>>>>>>> Stashed changes
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -23,7 +28,11 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
 
+<<<<<<< Updated upstream
         // ✅ First, check for admin login
+=======
+// First check for admin login
+>>>>>>> Stashed changes
         if ("dinijaya633".equals(username) && "123456789".equals(password)) {
             session.setAttribute("userType", "admin");
             session.setAttribute("username", username);
@@ -32,15 +41,22 @@ public class LoginServlet extends HttpServlet {
             return;
         }
 
+<<<<<<< Updated upstream
         // ✅ Next, check for valid student credentials
         try {
             String filePath = getServletContext().getRealPath("/WEB-INF/students.txt");
 
             // Look up the student by username
+=======
+// Then check for student login
+        try {
+            String filePath = getServletContext().getRealPath("/WEB-INF/students.txt");
+>>>>>>> Stashed changes
             Student student = StudentFileUtil.getStudentByUsername(username, filePath);
 
             // If the student is found and password matches
             if (student != null && student.getPassword().equals(hashPassword(password))) {
+<<<<<<< Updated upstream
 
                 // Set all relevant session attributes for student
                 session.setAttribute("userType", "student");
@@ -56,6 +72,19 @@ public class LoginServlet extends HttpServlet {
             }
 
             // ❌ If login fails (no matching admin or student)
+=======
+                session.setAttribute("userType", "student");
+                session.setAttribute("username", student.getUserName());
+                session.setAttribute("fullName", student.getName());
+                session.setAttribute("email", student.getEmail()); // ✅ Added
+                session.setAttribute("role", "student");            // ✅ Added
+                session.setAttribute("student", student);
+                response.sendRedirect("home-page.jsp");             // ✅ Changed from /student.jsp
+                return;
+            }
+
+            // If neither admin nor student login succeeded
+>>>>>>> Stashed changes
             request.setAttribute("error", "Invalid username or password");
             request.getRequestDispatcher("/login.jsp").forward(request, response);
 

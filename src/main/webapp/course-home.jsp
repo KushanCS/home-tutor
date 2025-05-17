@@ -197,6 +197,11 @@
     </div>
     <% } else { %>
     <div class="row">
+<<<<<<< Updated upstream
+=======
+        <% for (Course course : courses) {
+        %>
+>>>>>>> Stashed changes
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card course-card h-100">
                 <img src="image/<%= course.getImage() %>" alt="Course Image" class="img-fluid" style="height: 200px; width: 100%; object-fit: cover;">
@@ -214,6 +219,7 @@
                     </ul>
                 </div>
                 <div class="card-footer bg-white border-top-0">
+<<<<<<< Updated upstream
                     <div class="rating-indicator text-center mb-2">
                         <i class="fas fa-star text-warning"></i> You rated:
                         <% for (int i = 1; i <= 5; i++) { %>
@@ -222,6 +228,13 @@
                     <% } %>
                     <% if ("student".equals(role)) { %>
                     <form action="EnrollServlet" method="post">
+=======
+                    <% if (user != null ) { %>
+                    <% } %>
+                    <% if ("student".equals(role)) { %>
+                    <form action="EnrollServlet" method="post">
+                        <input type="hidden" name="courseId" value="<%= course.getCourseId() %>">
+>>>>>>> Stashed changes
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="fas fa-plus-circle me-1"></i> Enroll Now
                         </button>

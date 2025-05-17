@@ -55,6 +55,9 @@ public class Tutor {
         this.about = about;
         this.profileImage = profileImage;
     }
+    public Tutor() {
+
+    }
 
     // Default constructor for flexibility (e.g., when using setters)
     public Tutor() {}

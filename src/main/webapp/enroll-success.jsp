@@ -14,9 +14,12 @@
         }
     }
 
+<<<<<<< Updated upstream
     String user = (String) session.getAttribute("username");
     int userRating = 0;
     double averageRating = 0;
+=======
+>>>>>>> Stashed changes
 %>
 
 <!DOCTYPE html>
@@ -190,6 +193,7 @@
                             <p><strong>Duration:</strong> <%= enrolledCourse.getDuration() %> weeks</p>
                             <p><strong>Level:</strong> <%= enrolledCourse.getLevel() %></p>
 
+<<<<<<< Updated upstream
                             <div class="rating-stars">
                                 <% for (int i = 1; i <= 5; i++) { %>
                                 <i class="fa<%= i <= averageRating ? "s" : i-0.5 <= averageRating ? "s fa-star-half-alt" : "r" %> fa-star text-warning"></i>
@@ -205,6 +209,8 @@
                                 <% } %>
                             </div>
                             <% } %>
+=======
+>>>>>>> Stashed changes
                         </div>
                         <% } %>
 

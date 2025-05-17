@@ -26,6 +26,7 @@ public class StudentFileUtil {
             // Read each line and split by semicolon
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(";");
+<<<<<<< Updated upstream
 
                 // Expecting exactly 10 fields per line
                 if (parts.length == 10) {
@@ -35,6 +36,11 @@ public class StudentFileUtil {
                             parts[8], parts[9]
                     );
                     students.add(student);
+=======
+                if (parts.length == 10) {
+                    students.add(new Student(parts[0], parts[1], parts[2], parts[3], parts[4],
+                            parts[5], parts[6], parts[7], parts[8], parts[9]));
+>>>>>>> Stashed changes
                 } else {
                     // Log improperly formatted line (helpful during development)
                     System.err.println("Invalid data format in line: " + line);
@@ -48,6 +54,7 @@ public class StudentFileUtil {
         return students;
     }
 
+<<<<<<< Updated upstream
     /**
      * Writes a list of students to the given file, overwriting existing content.
      *
@@ -55,12 +62,16 @@ public class StudentFileUtil {
      * @param filePath path to the students.txt file
      * @return true if the write was successful, false otherwise
      */
+=======
+    // Write the updated list of students back to the file
+>>>>>>> Stashed changes
     public static boolean writeStudents(List<Student> students, String filePath) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
 
             for (Student s : students) {
                 // Join all fields using semicolon and write to file
                 writer.write(String.join(";",
+<<<<<<< Updated upstream
                         s.getStdId(),
                         s.getName(),
                         s.getUserName(),
@@ -73,6 +84,12 @@ public class StudentFileUtil {
                         s.getProfilePicPath()
                 ));
                 writer.newLine(); // Add a newline after each student
+=======
+                        s.getStdId(), s.getName(), s.getUserName(), s.getEmail(),
+                        s.getPhone(), s.getAddress(), s.getPassword(),
+                        s.getCourse(), s.getDob(), s.getProfilePicPath()));
+                writer.newLine();
+>>>>>>> Stashed changes
             }
 
             return true; // Writing was successful
@@ -82,6 +99,7 @@ public class StudentFileUtil {
             System.err.println("Error writing students: " + e.getMessage());
             return false; // Writing failed
         }
+        return false;
     }
 
     /**

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/EnrollServlet")
+<<<<<<< Updated upstream
 // This servlet handles course enrollment requests from students
 public class EnrollServlet extends HttpServlet {
 
@@ -36,12 +37,34 @@ public class EnrollServlet extends HttpServlet {
         for (Enrollment e : enrollments) {
             if (e.getStudentUsername().equals(username) && e.getCourseId().equals(courseId)) {
                 // If already enrolled, redirect to success page without duplicating
+=======
+public class EnrollServlet extends HttpServlet {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        String username = (String) request.getSession().getAttribute("username");
+        String courseId = request.getParameter("courseId");
+
+        String enrollPath = getServletContext().getRealPath("/WEB-INF/studentCourses.txt");
+        String coursePath = getServletContext().getRealPath("/WEB-INF/courses.txt");
+
+        // Read existing enrollments
+        List<Enrollment> enrollments = EnrollmentFileUtil.readEnrollments(enrollPath);
+
+        // Check for duplicate
+        for (Enrollment e : enrollments) {
+            if (e.getStudentUsername().equals(username) && e.getCourseId().equals(courseId)) {
+>>>>>>> Stashed changes
                 response.sendRedirect("enroll-success.jsp?courseId=" + courseId);
                 return;
             }
         }
 
+<<<<<<< Updated upstream
         // Read all courses and find the course matching the given courseId
+=======
+        // Get course info from file
+>>>>>>> Stashed changes
         List<Course> allCourses = CourseFileUtil.getAllCourses(coursePath);
         Course selectedCourse = null;
         for (Course c : allCourses) {
@@ -51,7 +74,10 @@ public class EnrollServlet extends HttpServlet {
             }
         }
 
+<<<<<<< Updated upstream
         // If the course is found, create a new Enrollment and save it
+=======
+>>>>>>> Stashed changes
         if (selectedCourse != null) {
             Enrollment newEnrollment = new Enrollment(
                     username,
@@ -60,6 +86,7 @@ public class EnrollServlet extends HttpServlet {
                     selectedCourse.getImage(),
                     selectedCourse.getPrice(),
                     selectedCourse.getDuration(),
+<<<<<<< Updated upstream
                     "No" // Default paid status set to "No"
             );
 
@@ -68,6 +95,13 @@ public class EnrollServlet extends HttpServlet {
         }
 
         // Redirect to the enrollment success page (even if course wasn't found, for safety)
+=======
+                    "No" // Default paid status
+            );
+            EnrollmentFileUtil.saveEnrollment(newEnrollment, enrollPath);
+        }
+
+>>>>>>> Stashed changes
         response.sendRedirect("enroll-success.jsp?courseId=" + courseId);
     }
 }

@@ -22,12 +22,17 @@ public class LoginTutorServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+<<<<<<< Updated upstream
 
         // Set the path to the tutors file (used by TutorFileUtil)
         TutorFileUtil.setFilePath(getServletContext().getRealPath("/WEB-INF/tutors.txt"));
 
         // Step 1: Get login input
         String input = request.getParameter("username");  // Can be username or tutor ID
+=======
+        TutorFileUtil.setFilePath(getServletContext().getRealPath("/WEB-INF/tutors.txt"));
+        String input = request.getParameter("username");
+>>>>>>> Stashed changes
         String password = request.getParameter("password");
         String hashedPassword = hashPassword(password);   // Securely hash the password
 
@@ -39,11 +44,17 @@ public class LoginTutorServlet extends HttpServlet {
         if (found != null && found.getPassword().equals(hashedPassword)) {
             // Step 4: Create a session and store tutor information
             HttpSession session = request.getSession();
+<<<<<<< Updated upstream
             session.setAttribute("tutor", found);              // Full Tutor object
             session.setAttribute("tutorId", found.getTutorId());
             session.setAttribute("role", "tutor");             // For role-based access
 
             // Step 5: Redirect to the tutor dashboard
+=======
+            session.setAttribute("tutor", found);
+            session.setAttribute("tutorId", found.getTutorId());
+            session.setAttribute("role", "tutor");
+>>>>>>> Stashed changes
             response.sendRedirect("tutor_dashboard.jsp");
         } else {
             // Step 6: Redirect back to login with an error message

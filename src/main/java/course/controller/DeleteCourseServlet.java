@@ -1,3 +1,7 @@
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 package course.controller;
 
 import course.utils.CourseFileUtil;
@@ -8,6 +12,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 
 @WebServlet("/DeleteCourseServlet")
+<<<<<<< Updated upstream
 // This servlet handles deleting a course based on its ID
 public class DeleteCourseServlet extends HttpServlet {
 
@@ -29,6 +34,17 @@ public class DeleteCourseServlet extends HttpServlet {
         }
 
         // Redirect the user back to the courses view page after deletion
+=======
+public class DeleteCourseServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String courseId = request.getParameter("id");
+
+        if (courseId != null && !courseId.trim().isEmpty()) {
+            String filePath = getServletContext().getRealPath("/WEB-INF/courses.txt");
+            CourseFileUtil.deleteCourse(courseId, filePath);
+        }
+
+>>>>>>> Stashed changes
         response.sendRedirect("view_courses.jsp");
     }
 }

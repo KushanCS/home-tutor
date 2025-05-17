@@ -12,6 +12,10 @@
         return;
     }
 %>
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -381,6 +385,7 @@
         }, 3000);
     });
 
+<<<<<<< Updated upstream
     function showRatingForm() {
         const form = document.getElementById('ratingForm');
         if (form) {
@@ -408,6 +413,8 @@
         const form = document.getElementById('ratingForm');
         if (form) form.style.display = 'none';
     }
+=======
+>>>>>>> Stashed changes
 </script>
 </body>
 </html>
