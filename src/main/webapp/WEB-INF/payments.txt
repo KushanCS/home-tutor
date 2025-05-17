@@ -1,0 +1,2 @@
+testuser1|C001|Java Basics|card|99.00|2025-05-16|Success
+testuser2|C002|Web Dev Bootcamp|bank|149.99|2025-05-16|Success
