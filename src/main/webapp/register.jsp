@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     :root {
-      --primary-color: #3498db;
-      --secondary-color: #f8f9fa;
+      --primary-color: #5624d0;
+      --secondary-color: #f7f9fa;
     }
 
     body {

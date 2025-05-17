@@ -200,6 +200,19 @@
                     <a class="nav-link" href="MyCoursesServlet"><i class="bi bi-collection-play me-1"></i> My Courses</a>
                 </li>
             </ul>
+            <div class="d-flex align-items-center">
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle"
+                       id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="d-none d-sm-inline"><%= student.getUserName() %></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <li><a class="dropdown-item" href="profile.jsp"><i class="bi bi-person me-2"></i>Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="logout.jsp"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

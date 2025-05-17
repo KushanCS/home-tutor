@@ -1,1 +1,1 @@
-ashan|maths|kushan|1000.0|2|q|false
+ashan|C123|Intro to Algebra|algebra.jpg|120.00|4|Yes

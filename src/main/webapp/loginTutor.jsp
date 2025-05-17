@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Portal - Login</title>
+    <title>Tutor Portal - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -73,7 +73,6 @@
 
         .btn-outline-primary:hover {
             background-color: var(--primary-color);
-            color: white;
         }
 
         .form-control {
@@ -95,13 +94,8 @@
             border-bottom: 1px solid #ddd;
         }
 
-        .divider::before {
-            margin-right: 1rem;
-        }
-
-        .divider::after {
-            margin-left: 1rem;
-        }
+        .divider::before { margin-right: 1rem; }
+        .divider::after { margin-left: 1rem; }
 
         .footer-links {
             text-align: center;
@@ -122,11 +116,12 @@
 <body>
 <div class="container">
     <div class="row justify-content-center align-items-center">
-        <!-- Left Side - Branding -->
+
+        <!-- Left Side -->
         <div class="col-lg-6 d-none d-lg-block">
             <div class="text-center text-lg-start">
                 <a href="home-page.jsp" class="logo">
-                    <i class="fas fa-graduation-cap me-2"></i>Meta Tutor
+                    <i class="fas fa-graduation-cap me-2"></i>MetaTutor
                 </a>
                 <div class="tagline">Your gateway to academic success</div>
                 <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
@@ -134,9 +129,10 @@
             </div>
         </div>
 
-        <!-- Right Side - Login Form -->
+        <!-- Right Side -->
         <div class="col-lg-4 col-md-8">
             <div class="login-card">
+
                 <h3 class="text-center mb-4">Welcome Back!</h3>
 
                 <!-- Query Param Based Alerts -->
@@ -165,16 +161,15 @@
                 <div class="alert alert-success"><%= attrMessage %></div>
                 <% } %>
 
-                <form action="login" method="post">
-                    <input type="hidden" name="action" value="login">
+                <form action="LoginTutorServlet" method="post">
                     <div class="mb-3">
-                        <label for="username" class="form-label">Username or Student ID</label>
-                        <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required>
+                        <label for="username" class="form-label">Username or Tutor ID</label>
+                        <input type="text" id="username" name="username" class="form-control" required placeholder="Enter your username">
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <div class="input-group">
-                            <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                            <input type="password" id="password" name="password" class="form-control" required placeholder="Enter your password">
                             <button class="btn btn-outline-secondary" type="button" id="togglePassword">
                                 <i class="fas fa-eye"></i>
                             </button>
@@ -185,18 +180,16 @@
                             <input class="form-check-input" type="checkbox" id="rememberMe">
                             <label class="form-check-label" for="rememberMe">Remember me</label>
                         </div>
-                        <a href="#" class="text-decoration-none">Forgot password?</a>
+                        <a href="forgot_password.jsp" class="text-decoration-none">Forgot password?</a>
                     </div>
                     <button type="submit" class="btn btn-primary w-100 mb-3">Log In</button>
 
                     <div class="divider">or</div>
 
-                    <a href="register.jsp" class="btn btn-outline-primary w-100">
-                        Create New Account
-                    </a>
+                    <a href="add_tutor.jsp" class="btn btn-outline-primary w-100">Create New Account</a>
                 </form>
 
-                <div class="footer-links">
+                <div class="footer-links mt-3">
                     <a href="#">About</a>
                     <a href="#">Privacy</a>
                     <a href="#">Terms</a>
@@ -207,21 +200,18 @@
     </div>
 </div>
 
-<!-- Bootstrap JS -->
+<!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Toggle password visibility
-    document.getElementById('togglePassword').addEventListener('click', function() {
-        const password = document.getElementById('password');
+    document.getElementById('togglePassword').addEventListener('click', function () {
+        const input = document.getElementById('password');
         const icon = this.querySelector('i');
-        if (password.type === 'password') {
-            password.type = 'text';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.replace('fa-eye', 'fa-eye-slash');
         } else {
-            password.type = 'password';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
+            input.type = 'password';
+            icon.classList.replace('fa-eye-slash', 'fa-eye');
         }
     });
 </script>
