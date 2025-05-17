@@ -1,0 +1,25 @@
+# === IntelliJ IDEA ===
+.idea/
+*.iml
+*.iws
+out/
+*.class
+
+# === Tomcat / Deployment ===
+*.war
+*.ear
+*.jar
+target/
+build/
+
+# === Logs and temporary files ===
+*.log
+*.tmp
+*.bak
+
+# === OS generated files ===
+.DS_Store
+Thumbs.db
+
+# === Other ===
+*.swp
