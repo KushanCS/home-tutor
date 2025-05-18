@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
 // First check for admin login
-        if ("dinijaya633".equals(username) && "1234".equals(password)) {
+        if ("admin".equals(username) && "1234".equals(password)) {
             session.setAttribute("userType", "admin");
             session.setAttribute("username", username);
             session.setAttribute("fullName", "Administrator");
