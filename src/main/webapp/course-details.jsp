@@ -20,6 +20,7 @@
             .filter(r -> r.getCourseId().equals(course.getCourseId()))
             .count();
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
