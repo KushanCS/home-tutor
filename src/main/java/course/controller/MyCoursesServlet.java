@@ -44,15 +44,16 @@ public class MyCoursesServlet extends HttpServlet {
             if (e.getStudentUsername().equals(username)) {
                 for (Course c : allCourses) {
                     if (c.getCourseId().equals(e.getCourseId())) {
-                        // ✅ Create CourseStatus combining course info and enrollment status
+                        // Create a CourseStatus using all fields.
+                        // Here, "N/A" is used as a placeholder for tutor subject.
                         myCourses.add(new CourseStatus(
-                                e.getStudentUsername(),  // Student username
-                                c.getCourseId(),         // Course ID
-                                c.getName(),             // Course name
-                                c.getTutorSubject(),     // Tutor subject
-                                c.getPrice(),            // Course price
-                                c.getDuration(),         // Duration
-                                e.getPaidStatus()        // Paid status ("Yes"/"No")
+                                e.getStudentUsername(),
+                                c.getCourseId(),
+                                c.getName(),
+                                c.getTutorSubject(),
+                                c.getPrice(),
+                                c.getDuration(),
+                                e.getPaidStatus()  // typically "No"
                         ));
                         break;
                     }

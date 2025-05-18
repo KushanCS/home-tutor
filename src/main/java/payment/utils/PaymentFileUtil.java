@@ -29,9 +29,9 @@ public class PaymentFileUtil {
 
             // Read each line and convert it into a Payment object
             while ((line = reader.readLine()) != null) {
-                Payment payment = Payment.fromString(line);  // Deserialize from line
+                Payment payment = Payment.fromString(line);
                 if (payment != null) {
-                    payments.add(payment);  // Add valid payment to list
+                    payments.add(payment);
                 }
             }
         } catch (IOException e) {
@@ -55,6 +55,17 @@ public class PaymentFileUtil {
             writer.newLine();
         } catch (IOException e) {
             // Print stack trace for any file writing errors
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeAllPayments(List<Payment> payments, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Payment p : payments) {
+                writer.write(p.toString());
+                writer.newLine();
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

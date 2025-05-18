@@ -1,14 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="tutor.model.Tutor" %>
 <%
-    // Check if tutor is logged in by verifying session attribute
     Tutor tutor = (Tutor) session.getAttribute("tutor");
     if (tutor == null) {
-        // If not logged in, redirect to login page
         response.sendRedirect("loginTutor.jsp");
         return;
     }
-    // Get tutor details from session
     String tutorId = tutor.getTutorId();
     String tutorName = tutor.getName();
     String tutorSubject = tutor.getSubject();
@@ -18,12 +15,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Course - MetaTutor</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* CSS variables for consistent theming */
         :root {
             --primary-color: #5624d0;
             --secondary-color: #f7f9fa;
@@ -36,7 +30,6 @@
             padding-top: 0;
         }
 
-        /* Navbar styling */
         .navbar {
             background-color: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
@@ -47,7 +40,6 @@
             color: var(--primary-color) !important;
         }
 
-        /* Button styling */
         .btn-primary {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
@@ -58,7 +50,16 @@
             border-color: #4a1fb3;
         }
 
-        /* Course container styling */
+        .btn-outline-primary {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
         .course-container {
             max-width: 900px;
             margin: 30px auto;
@@ -68,7 +69,14 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        /* Form layout styling */
+        .page-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
         .form-row {
             display: flex;
             flex-wrap: wrap;
@@ -80,7 +88,6 @@
             min-width: 250px;
         }
 
-        /* Image preview styling */
         .image-preview {
             width: 100%;
             height: 200px;
@@ -94,7 +101,12 @@
             border: 1px dashed #ddd;
         }
 
-        /* Required field indicator */
+        .image-preview img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
         .required-field::after {
             content: " *";
             color: red;
@@ -109,13 +121,11 @@
         <a class="navbar-brand" href="home-page.jsp">
             <i class="fas fa-graduation-cap me-2"></i>MetaTutor
         </a>
-        <!-- Responsive navbar toggle -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="ms-auto d-flex align-items-center">
-                <!-- Navigation buttons -->
                 <a href="view_courses.jsp" class="btn btn-outline-secondary me-2">
                     <i class="fas fa-arrow-left me-1"></i> Back to Courses
                 </a>
@@ -127,20 +137,18 @@
     </div>
 </nav>
 
-<!-- Main Course Form Container -->
+<!-- Add Course Form -->
 <div class="course-container">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="page-title"><i class="fas fa-plus-circle me-2"></i>Add New Course</h2>
     </div>
 
-    <!-- Form that submits to AddCourseServlet with file upload capability -->
     <form action="AddCourseServlet" method="post" enctype="multipart/form-data">
-        <!-- Hidden fields to pass tutor information -->
+        <!-- Hidden tutor data -->
         <input type="hidden" name="tutorId" value="<%= tutorId %>" />
         <input type="hidden" name="tutorName" value="<%= tutorName %>" />
         <input type="hidden" name="tutorSubject" value="<%= tutorSubject %>" />
 
-        <!-- Course Name and Level -->
         <div class="form-row">
             <div class="form-col">
                 <label class="form-label required-field">Course Name</label>
@@ -157,13 +165,11 @@
             </div>
         </div>
 
-        <!-- Course Description -->
         <div class="mt-3">
             <label class="form-label required-field">Description</label>
             <textarea name="description" class="form-control" rows="4" required></textarea>
         </div>
 
-        <!-- Price and Duration -->
         <div class="form-row mt-3">
             <div class="form-col">
                 <label class="form-label required-field">Price (USD)</label>
@@ -178,7 +184,6 @@
             </div>
         </div>
 
-        <!-- Image Upload Section -->
         <div class="mt-3">
             <label class="form-label">Course Image</label>
             <div class="image-preview" id="imagePreview">
@@ -188,7 +193,6 @@
             <div class="form-text">Recommended size: 800x450 pixels (16:9 aspect ratio)</div>
         </div>
 
-        <!-- Form Action Buttons -->
         <div class="d-flex justify-content-end mt-4 pt-3 border-top">
             <button type="reset" class="btn btn-outline-secondary me-3">
                 <i class="fas fa-undo me-1"></i> Reset
@@ -200,29 +204,25 @@
     </form>
 </div>
 
-<!-- JavaScript for image preview functionality -->
 <script>
+    // Image preview
     const imageInput = document.getElementById('image');
     const imagePreview = document.getElementById('imagePreview');
 
-    // Event listener for when a new image is selected
     imageInput.addEventListener('change', function() {
         const file = this.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                // Display the selected image in the preview area
                 imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
             }
             reader.readAsDataURL(file);
         } else {
-            // Show default icon if no image is selected
             imagePreview.innerHTML = '<i class="fas fa-image fa-3x text-muted"></i>';
         }
     });
 </script>
 
-<!-- Bootstrap JS Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

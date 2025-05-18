@@ -74,9 +74,9 @@ public class CourseFileUtil {
             while ((line = reader.readLine()) != null) {
                 Course course = Course.fromString(line);
                 if (course != null && course.getCourseId().equals(updatedCourse.getCourseId())) {
-                    updatedLines.add(updatedCourse.toString()); // Replace
+                    updatedLines.add(updatedCourse.toString());
                 } else {
-                    updatedLines.add(line); // Keep original
+                    updatedLines.add(line);
                 }
             }
         }
@@ -142,6 +142,21 @@ public class CourseFileUtil {
      * Can be merged or used for semantic clarity.
      */
     public static List<Course> readCoursesFromFile(String filePath) throws IOException {
-        return getAllCourses(filePath); // Delegated to avoid duplication
+        List<Course> courses = new ArrayList<>();
+        File file = new File(filePath);
+        if (!file.exists()) return courses;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Course course = Course.fromString(line);
+                if (course != null) {
+                    courses.add(course);
+                }
+            }
+        }
+        return courses;
     }
+
+
 }

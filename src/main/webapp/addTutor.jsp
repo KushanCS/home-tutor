@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Become a Tutor</title>
+    <title>Add New Tutor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -19,21 +19,15 @@
             font-weight: 600;
             color: #5624d0;
         }
-        .btn-close-purple {
-            filter: brightness(0) saturate(100%) invert(17%) sepia(94%) saturate(3124%) hue-rotate(246deg) brightness(95%) contrast(105%);
-            width: 1.5rem;
-            height: 1.5rem;
-            font-size: 1.25rem;
-        }
         .form-container {
             background: white;
             padding: 2rem 3rem;
             border-radius: 12px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 750px;
+            max-width: 850px;
             margin: 2rem auto;
         }
-        .form-control, select.form-select {
+        .form-control, .form-select {
             border-radius: 10px;
             padding: 0.75rem;
         }
@@ -50,11 +44,11 @@
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="home-page.jsp">
-            <i class="fas fa-graduation-cap me-2"></i>MetaTutor
+        <a class="navbar-brand" href="adminDashboard.jsp">
+            <i class="fas fa-chalkboard-teacher me-2"></i>MetaTutor Admin
         </a>
         <div class="ms-auto">
-            <a href="home-page.jsp" class="btn-close btn-close-purple" aria-label="Close"></a>
+            <a href="TutorManagementServlet?action=viewTutors" class="btn-close btn-close-purple" aria-label="Close"></a>
         </div>
     </div>
 </nav>
@@ -62,15 +56,18 @@
 <!-- Form Container -->
 <div class="container">
     <div class="form-container">
-        <h3 class="text-center mb-4">Become a Tutor</h3>
-        <form action="RegisterTutorServlet" method="post" enctype="multipart/form-data">
+        <h3 class="text-center mb-4">Add New Tutor</h3>
+
+        <form action="TutorManagementServlet" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="addTutor">
+
             <div class="row g-3">
                 <div class="col-md-6"><input type="text" name="username" class="form-control" placeholder="Username" required></div>
                 <div class="col-md-6"><input type="text" name="name" class="form-control" placeholder="Full Name" required></div>
                 <div class="col-md-6"><input type="text" name="subject" class="form-control" placeholder="Subject" required></div>
                 <div class="col-md-6"><input type="email" name="email" class="form-control" placeholder="Email" required></div>
                 <div class="col-md-6"><input type="text" name="contact" class="form-control" placeholder="Contact Number" required></div>
-                <div class="col-md-6"><input type="text" name="campusName" class="form-control" placeholder="University Name" required></div>
+                <div class="col-md-6"><input type="text" name="campusName" class="form-control" placeholder="Campus Name" required></div>
                 <div class="col-md-6"><input type="text" name="degreeCourse" class="form-control" placeholder="Degree Course" required></div>
                 <div class="col-md-6">
                     <select name="degreeLevel" class="form-select" required>
@@ -81,7 +78,8 @@
                         <option value="PhD">PhD</option>
                     </select>
                 </div>
-                <div class="col-12"><input type="text" name="address" class="form-control" placeholder="Address" required>
+                <div class="col-12">
+                    <input type="text" name="address" class="form-control" placeholder="Address" required>
                 </div>
                 <div class="col-12">
                     <label for="profileImage" class="form-label">Upload Profile Image</label>
@@ -95,15 +93,16 @@
                     <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password" required>
                     <span id="match-message" class="form-text"></span>
                 </div>
-                <div class="col-12"><textarea name="about" class="form-control" rows="3" placeholder="Short Bio/About You..."></textarea></div>
-                <div class="col-12 form-check ms-2">
-                    <input type="checkbox" class="form-check-input" id="agree" required>
-                    <label class="form-check-label" for="agree">I agree to the <a href="#">Terms and Conditions</a></label>
+                <div class="col-12">
+                    <textarea name="about" class="form-control" rows="3" placeholder="About the Tutor..."></textarea>
                 </div>
-                <div class="col-12"><button type="submit" class="btn btn-primary w-100">Register as Tutor</button></div>
+                <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-save me-1"></i> Save Tutor
+                    </button>
+                </div>
             </div>
         </form>
-        <div class="text-center mt-3">Already have an account? <a href="loginTutor.jsp">Sign in</a></div>
     </div>
 </div>
 

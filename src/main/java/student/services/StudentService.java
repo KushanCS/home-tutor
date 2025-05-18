@@ -6,29 +6,26 @@ import student.utils.StudentFileUtil;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// StudentService handles all student-related operations like add, update, delete, and search.
-// It acts as a middle layer between controller and file utility.
 public class StudentService {
 
-    private final String filePath; // Path to the students.txt file
+    private final String filePath;
 
-    // Constructor: initialize the service with file path
     public StudentService(String filePath) {
         this.filePath = filePath;
     }
 
-    // Add a new student to the file
+    // Add a student
     public boolean addStudent(Student student) {
         try {
-            List<Student> students = getAllStudents(); // Load current list
-            students.add(student);                     // Add new student
-            return StudentFileUtil.writeStudents(students, filePath); // Save back to file
+            List<Student> students = getAllStudents();
+            students.add(student);
+            return StudentFileUtil.writeStudents(students, filePath);
         } catch (Exception e) {
             throw new RuntimeException("Failed to add student", e);
         }
     }
 
-    // Get a student by their username (used during login and uniqueness check)
+    // Get a student by username
     public Student getStudentByUsername(String username) {
         List<Student> students = StudentFileUtil.readStudents(filePath);
         return students.stream()
@@ -37,12 +34,11 @@ public class StudentService {
                 .orElse(null);
     }
 
-    // Update student details by matching stdId
+    // Update a student's details
     public boolean updateStudent(Student updatedStudent) {
         List<Student> students = StudentFileUtil.readStudents(filePath);
         for (Student student : students) {
             if (student.getStdId().equals(updatedStudent.getStdId())) {
-                // Update all relevant fields
                 student.setName(updatedStudent.getName());
                 student.setUserName(updatedStudent.getUserName());
                 student.setEmail(updatedStudent.getEmail());
@@ -51,29 +47,37 @@ public class StudentService {
                 student.setPassword(updatedStudent.getPassword());
                 student.setCourse(updatedStudent.getCourse());
                 student.setDob(updatedStudent.getDob());
-                // Save updated list to file
                 StudentFileUtil.writeStudents(students, filePath);
                 return true;
             }
         }
-        return false; // Return false if student not found
+        return false;
     }
 
-    // Delete a student by their unique stdId
+    // ✅ Debug-enhanced deletion
     public boolean deleteStudent(String stdId) {
-        try {
-            List<Student> students = getAllStudents(); // Load current list
-            boolean removed = students.removeIf(s -> stdId.equals(s.getStdId())); // Remove matching student
-            if (removed) {
-                return StudentFileUtil.writeStudents(students, filePath); // Save if changes were made
-            }
+        if (stdId == null || stdId.trim().isEmpty()) {
+            System.out.println("ID is null or empty");
             return false;
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to delete student", e);
+        }
+
+        List<Student> students = getAllStudents();
+        System.out.println("Trying to delete student ID: " + stdId);
+        for (Student s : students) {
+            System.out.println("Available student ID: " + s.getStdId());
+        }
+
+        boolean removed = students.removeIf(s -> stdId.trim().equals(s.getStdId().trim()));
+
+        if (removed) {
+            System.out.println("Deleted student with ID: " + stdId);
+            return StudentFileUtil.writeStudents(students, filePath);
+        } else {
+            System.out.println("No match found for student ID: " + stdId);
+            return false;
         }
     }
 
-    // Return all students from the file
     public List<Student> getAllStudents() {
         try {
             return StudentFileUtil.readStudents(filePath);
@@ -82,7 +86,6 @@ public class StudentService {
         }
     }
 
-    // Find student by student ID
     public Student getStudentById(String id) {
         if (id == null || id.trim().isEmpty()) {
             return null;
@@ -93,24 +96,21 @@ public class StudentService {
                 .orElse(null);
     }
 
-    // Search for students by keyword (name, ID, username, email, or course)
     public List<Student> searchStudents(String searchTerm) {
         List<Student> students = getAllStudents();
 
         if (searchTerm == null || searchTerm.trim().isEmpty()) {
-            return students; // Return all if search is empty
+            return students;
         }
 
         String lowerSearchTerm = searchTerm.toLowerCase();
-
         return students.stream()
                 .filter(s ->
                         (s.getStdId() != null && s.getStdId().toLowerCase().contains(lowerSearchTerm)) ||
                                 (s.getName() != null && s.getName().toLowerCase().contains(lowerSearchTerm)) ||
                                 (s.getUserName() != null && s.getUserName().toLowerCase().contains(lowerSearchTerm)) ||
                                 (s.getEmail() != null && s.getEmail().toLowerCase().contains(lowerSearchTerm)) ||
-                                (s.getCourse() != null && s.getCourse().toLowerCase().contains(lowerSearchTerm))
-                )
+                                (s.getCourse() != null && s.getCourse().toLowerCase().contains(lowerSearchTerm)))
                 .collect(Collectors.toList());
     }
 }
