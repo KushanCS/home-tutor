@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page session="false" %>
 
+<%-- Alert if tutor account was deleted and redirected back here --%>
 <%
     String deleted = request.getParameter("deleted");
     if ("true".equals(deleted)) {
@@ -14,8 +15,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tutor Portal - Login</title>
+
+    <!-- Bootstrap & Font Awesome -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <style>
         :root {
             --primary-color: #5624d0;
@@ -73,6 +77,7 @@
 
         .btn-outline-primary:hover {
             background-color: var(--primary-color);
+            color: white;
         }
 
         .form-control {
@@ -117,7 +122,7 @@
 <div class="container">
     <div class="row justify-content-center align-items-center">
 
-        <!-- Left Side -->
+        <!-- Left side visual branding -->
         <div class="col-lg-6 d-none d-lg-block">
             <div class="text-center text-lg-start">
                 <a href="home-page.jsp" class="logo">
@@ -129,13 +134,13 @@
             </div>
         </div>
 
-        <!-- Right Side -->
+        <!-- Login form column -->
         <div class="col-lg-4 col-md-8">
             <div class="login-card">
 
                 <h3 class="text-center mb-4">Welcome Back!</h3>
 
-                <!-- Query Param Based Alerts -->
+                <%-- Show alerts based on query string --%>
                 <%
                     String success = request.getParameter("success");
                     String error = request.getParameter("error");
@@ -150,7 +155,7 @@
                 <div class="alert alert-danger text-center">Invalid username or password.</div>
                 <% } %>
 
-                <!-- Request Scope Alerts (Forwarded) -->
+                <%-- Server-side forwarded error/message --%>
                 <%
                     String attrError = (String) request.getAttribute("error");
                     String attrMessage = (String) request.getAttribute("message");
@@ -161,6 +166,7 @@
                 <div class="alert alert-success"><%= attrMessage %></div>
                 <% } %>
 
+                <!-- Login Form Starts -->
                 <form action="LoginTutorServlet" method="post">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username or Tutor ID</label>
@@ -182,13 +188,18 @@
                         </div>
                         <a href="forgot_password.jsp" class="text-decoration-none">Forgot password?</a>
                     </div>
+
+                    <!-- Submit Login -->
                     <button type="submit" class="btn btn-primary w-100 mb-3">Log In</button>
 
+                    <!-- Divider -->
                     <div class="divider">or</div>
 
+                    <!-- Link to registration -->
                     <a href="add_tutor.jsp" class="btn btn-outline-primary w-100">Create New Account</a>
                 </form>
 
+                <!-- Footer Navigation -->
                 <div class="footer-links mt-3">
                     <a href="#">About</a>
                     <a href="#">Privacy</a>
@@ -200,9 +211,10 @@
     </div>
 </div>
 
-<!-- Scripts -->
+<!-- JS: Bootstrap + Password visibility toggle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    // Toggle password visibility
     document.getElementById('togglePassword').addEventListener('click', function () {
         const input = document.getElementById('password');
         const icon = this.querySelector('i');
