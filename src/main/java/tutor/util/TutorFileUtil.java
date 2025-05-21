@@ -244,6 +244,7 @@ public class TutorFileUtil {
     }
 
     /**
+<<<<<<< Updated upstream
      * ✅ Uses Merge Sort algorithm to sort tutors alphabetically by subject.
      * Called after reading tutor list from file to ensure sorted output.
      */
@@ -275,4 +276,38 @@ public class TutorFileUtil {
         while (i < left.size()) result.set(k++, left.get(i++));
         while (j < right.size()) result.set(k++, right.get(j++));
     }
+=======
+     * ✅ Merge step of Merge Sort
+     * Uses temporary lists L and R with a sentinel tutor (subject = "ZZZZZZZ") to simulate ∞.
+     * Compares tutors by subject to merge sorted halves into the result list.
+     */
+    private static void merge(List<Tutor> result, List<Tutor> left, List<Tutor> right) {
+        int n1 = left.size();
+        int n2 = right.size();
+
+        // Create temporary lists
+        List<Tutor> L = new ArrayList<>(left);
+        List<Tutor> R = new ArrayList<>(right);
+
+        // Sentinel tutor simulates ∞ subject
+        Tutor sentinel = new Tutor();
+        sentinel.setSubject("ZZZZZZZ");
+        L.add(sentinel);
+        R.add(sentinel);
+
+        int i = 0, j = 0;
+
+        // Merge L and R back into result by comparing subject alphabetically
+        for (int k = 0; k < result.size(); k++) {
+            if (L.get(i).getSubject().compareToIgnoreCase(R.get(j).getSubject()) <= 0) {
+                result.set(k, L.get(i));
+                i++;
+            } else {
+                result.set(k, R.get(j));
+                j++;
+            }
+        }
+    }
+
+>>>>>>> Stashed changes
 }
