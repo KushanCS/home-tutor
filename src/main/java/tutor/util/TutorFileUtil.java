@@ -8,56 +8,46 @@ import java.security.MessageDigest;
 import java.util.*;
 
 /**
- * Utility class to manage tutor data using file-based storage and a BST (Binary Search Tree).
- * Responsibilities: reading/writing tutors from/to file, hashing passwords, updating profiles, etc.
+ * ✅ Utility class for managing tutor data stored in a text file.
+ * Provides methods to read, write, update, and search tutor records.
+ * Also manages an in-memory TutorBST for efficient search.
  */
 public class TutorFileUtil {
+    private static String FILE_PATH;        // ✅ Path to tutors.txt (set at runtime by servlet)
+    private static TutorBST tutorBST;       // ✅ In-memory BST for quick lookup
 
-    private static String FILE_PATH;      // Set dynamically (once) from a servlet or JSP
-    private static TutorBST tutorBST;     // In-memory BST for fast search operations
-
-    // Set file path before calling any operations (e.g., from servlet's init or doGet)
+    /**
+     * ✅ Sets the path to the tutor data file.
+     * Must be set before performing any file operations.
+     */
     public static void setFilePath(String path) {
         FILE_PATH = path;
     }
 
-    // Ensure file path is configured before any file operations
+    /**
+     * ✅ Internal check to ensure file path is initialized before use.
+     */
     private static void checkPath() {
         if (FILE_PATH == null) {
             throw new IllegalStateException("Tutor file path not set. Use setFilePath() first.");
         }
     }
 
-    // ========================
-    // SAVE Operations
-    // ========================
-
-    // Append a new tutor to the file and add to BST
+    /**
+     * ✅ Appends a new tutor to the file and updates the BST in memory.
+     */
     public static void saveTutor(Tutor tutor) throws IOException {
         checkPath();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
             writer.write(tutor.toString());
             writer.newLine();
         }
-        getTutorBST().insert(tutor);
+        getTutorBST().insert(tutor); // Keep BST updated
     }
 
-    // Overwrite all tutors in the file with a new list (used after updates/deletes)
-    public static void saveAllTutors(List<Tutor> tutors) throws IOException {
-        checkPath();
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false))) {
-            for (Tutor t : tutors) {
-                writer.write(t.toString());
-                writer.newLine();
-            }
-        }
-    }
-
-    // ========================
-    // LOAD Operations
-    // ========================
-
-    // Read all tutors from file into a List<Tutor>
+    /**
+     * ✅ Loads all tutors from the file and sorts them by subject using Merge Sort.
+     */
     public static List<Tutor> getAllTutors() throws IOException {
         checkPath();
         List<Tutor> tutors = new ArrayList<>();
@@ -71,14 +61,15 @@ public class TutorFileUtil {
                 if (tutor != null) tutors.add(tutor);
             }
         }
+
+        // ✅ Sort tutors by subject expertise using Merge Sort
+        sortTutorsBySubject(tutors);
         return tutors;
     }
 
-    // ========================
-    // BST Management
-    // ========================
-
-    // Lazy-load the BST (initialize only once)
+    /**
+     * ✅ Returns or builds the in-memory BST of all tutors.
+     */
     public static TutorBST getTutorBST() throws IOException {
         checkPath();
         if (tutorBST == null) {
@@ -90,7 +81,9 @@ public class TutorFileUtil {
         return tutorBST;
     }
 
-    // Force reload BST from file (after save/delete/update)
+    /**
+     * ✅ Rebuilds the BST by reading all tutors from file.
+     */
     public static void reloadBST() throws IOException {
         checkPath();
         tutorBST = new TutorBST();
@@ -99,16 +92,16 @@ public class TutorFileUtil {
         }
     }
 
-    // ========================
-    // Validation Checks
-    // ========================
-
-    // Check if a username already exists
+    /**
+     * ✅ Checks whether a username already exists in BST.
+     */
     public static boolean usernameExists(String username) throws IOException {
         return getTutorBST().search(username) != null;
     }
 
-    // Check if an email already exists
+    /**
+     * ✅ Checks whether an email already exists among all tutors.
+     */
     public static boolean emailExists(String email) throws IOException {
         for (Tutor tutor : getAllTutors()) {
             if (tutor.getEmail().equalsIgnoreCase(email)) {
@@ -118,11 +111,9 @@ public class TutorFileUtil {
         return false;
     }
 
-    // ========================
-    // Utility Functions
-    // ========================
-
-    // Generate a random and unique tutor ID (e.g., TUT43210)
+    /**
+     * ✅ Generates a new unique tutor ID in the format TUT#####.
+     */
     public static String generateUniqueTutorId() throws IOException {
         checkPath();
         Set<String> ids = new HashSet<>();
@@ -138,11 +129,22 @@ public class TutorFileUtil {
         return id;
     }
 
-    // ========================
-    // Password Handling
-    // ========================
+    /**
+     * ✅ Saves a new list of tutors to file (used after editing or deleting).
+     */
+    public static void saveAllTutors(List<Tutor> tutors) throws IOException {
+        checkPath();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, false))) {
+            for (Tutor t : tutors) {
+                writer.write(t.toString());
+                writer.newLine();
+            }
+        }
+    }
 
-    // Update password by email (used after OTP verification)
+    /**
+     * ✅ Updates a tutor's password based on their email and saves the change.
+     */
     public static boolean updatePasswordByEmail(String email, String newPassword) throws IOException {
         checkPath();
         List<Tutor> tutors = getAllTutors();
@@ -159,13 +161,15 @@ public class TutorFileUtil {
 
         if (updated) {
             saveAllTutors(tutors);
-            reloadBST();
+            reloadBST(); // Refresh BST from updated list
         }
 
         return updated;
     }
 
-    // SHA-256 hashing function (used for passwords)
+    /**
+     * ✅ Hashes a plain password using SHA-256 for secure storage.
+     */
     public static String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -180,16 +184,16 @@ public class TutorFileUtil {
         }
     }
 
-    // ========================
-    // Search Functions
-    // ========================
-
-    // Search tutor by email (used for OTP recovery)
+    /**
+     * ✅ Finds a tutor by email using the BST.
+     */
     public static Tutor searchTutorByEmail(String email) throws IOException {
         return getTutorBST().searchByEmail(email);
     }
 
-    // Update profile image by tutor ID
+    /**
+     * ✅ Updates the profile image filename for a tutor based on ID.
+     */
     public static boolean updateTutorProfileImage(String tutorId, String fileName) throws IOException {
         checkPath();
         List<Tutor> tutors = getAllTutors();
@@ -209,5 +213,66 @@ public class TutorFileUtil {
         }
 
         return updated;
+    }
+
+    /**
+     * ✅ Reads tutor data from a custom file path and returns sorted list.
+     * This version doesn't rely on the static FILE_PATH.
+     */
+    public static List<Tutor> readTutors(String path) {
+        List<Tutor> tutors = new ArrayList<>();
+        File file = new File(path);
+        if (!file.exists()) return tutors;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Tutor tutor = Tutor.fromString(line);
+                if (tutor != null) {
+                    tutors.add(tutor);
+                } else {
+                    System.out.println("Skipping invalid tutor line: " + line);
+                }
+            }
+            // ✅ Always sort before returning
+            sortTutorsBySubject(tutors);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return tutors;
+    }
+
+    /**
+     * ✅ Uses Merge Sort algorithm to sort tutors alphabetically by subject.
+     * Called after reading tutor list from file to ensure sorted output.
+     */
+    private static void sortTutorsBySubject(List<Tutor> tutors) {
+        if (tutors.size() <= 1) return;
+
+        int mid = tutors.size() / 2;
+        List<Tutor> left = new ArrayList<>(tutors.subList(0, mid));
+        List<Tutor> right = new ArrayList<>(tutors.subList(mid, tutors.size()));
+
+        sortTutorsBySubject(left);   // 🔁 Recursively sort left half
+        sortTutorsBySubject(right);  // 🔁 Recursively sort right half
+        merge(tutors, left, right);  // 🔁 Merge both halves together
+    }
+
+    /**
+     * ✅ Merge step of Merge Sort.
+     * Combines two sorted lists into one based on subject comparison.
+     */
+    private static void merge(List<Tutor> result, List<Tutor> left, List<Tutor> right) {
+        int i = 0, j = 0, k = 0;
+        while (i < left.size() && j < right.size()) {
+            if (left.get(i).getSubject().compareToIgnoreCase(right.get(j).getSubject()) <= 0) {
+                result.set(k++, left.get(i++));
+            } else {
+                result.set(k++, right.get(j++));
+            }
+        }
+        while (i < left.size()) result.set(k++, left.get(i++));
+        while (j < right.size()) result.set(k++, right.get(j++));
     }
 }
