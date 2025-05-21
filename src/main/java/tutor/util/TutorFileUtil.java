@@ -1,11 +1,10 @@
 package tutor.util;
 
-import tutor.bst.TutorBST;
-import tutor.model.Tutor;
-
 import java.io.*;
 import java.security.MessageDigest;
 import java.util.*;
+import tutor.bst.TutorBST;
+import tutor.model.Tutor;
 
 public class TutorFileUtil {
     private static String FILE_PATH; // ✅ Set dynamically from servlet
@@ -44,6 +43,9 @@ public class TutorFileUtil {
                 if (tutor != null) tutors.add(tutor);
             }
         }
+
+        // ✅ Sort tutors alphabetically by subject using Merge Sort
+        sortTutorsBySubject(tutors);
         return tutors;
     }
 
@@ -188,36 +190,54 @@ public class TutorFileUtil {
     }
 
     /**
+     * ✅ Wrapper to sort a full tutor list using Merge Sort.
+     */
+    private static void sortTutorsBySubject(List<Tutor> tutors) {
+        if (tutors == null || tutors.size() <= 1) return;
+        mergeSort(tutors, 0, tutors.size() - 1);
+    }
+
+    /**
+     * ✅ Recursive Merge Sort implementation for Tutor list.
+     */
+    private static void mergeSort(List<Tutor> A, int p, int r) {
+        if (p < r) {
+            int q = (p + r) / 2;
+            mergeSort(A, p, q);
+            mergeSort(A, q + 1, r);
+            merge(A, p, q, r);
+        }
+    }
+
+    /**
      * ✅ Merge step of Merge Sort
      * Uses temporary lists L and R with a sentinel tutor (subject = "ZZZZZZZ") to simulate ∞.
      * Compares tutors by subject to merge sorted halves into the result list.
      */
-    private static void merge(List<Tutor> result, List<Tutor> left, List<Tutor> right) {
-        int n1 = left.size();
-        int n2 = right.size();
+    private static void merge(List<Tutor> A, int p, int q, int r) {
+        int n1 = q - p + 1;
+        int n2 = r - q;
 
-        // Create temporary lists
-        List<Tutor> L = new ArrayList<>(left);
-        List<Tutor> R = new ArrayList<>(right);
+        List<Tutor> L = new ArrayList<>();
+        List<Tutor> R = new ArrayList<>();
 
-        // Sentinel tutor simulates ∞ subject
+        for (int i = 0; i < n1; i++) L.add(A.get(p + i));
+        for (int j = 0; j < n2; j++) R.add(A.get(q + 1 + j));
+
         Tutor sentinel = new Tutor();
-        sentinel.setSubject("ZZZZZZZ");
+        sentinel.setSubject("ZZZZZZZ"); // Sentinel simulates ∞
         L.add(sentinel);
         R.add(sentinel);
 
         int i = 0, j = 0;
-
-        // Merge L and R back into result by comparing subject alphabetically
-        for (int k = 0; k < result.size(); k++) {
+        for (int k = p; k <= r; k++) {
             if (L.get(i).getSubject().compareToIgnoreCase(R.get(j).getSubject()) <= 0) {
-                result.set(k, L.get(i));
+                A.set(k, L.get(i));
                 i++;
             } else {
-                result.set(k, R.get(j));
+                A.set(k, R.get(j));
                 j++;
             }
         }
     }
-
 }
